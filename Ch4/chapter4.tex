@@ -1,0 +1,68 @@
+\graphicspath{ {./Ch4/}  } 
+\DeclareGraphicsExtensions{.png,.pdf,.jpg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Implementation Assessment Methodology}
+
+A priori tests are used here to assess the relative accuracy and computational cost of various implementations of autonomic closure. Although a priori tests alone cannot demonstrate that a subgrid closure will provide stable computations when implemented in an LES code, such tests are the most direct way of assessing the accuracy of any closure approach in representing subgrid stress fields   and subgrid production fields  . The present assessments are thus essential for understanding the accuracy and computational cost of various implementations of autonomic closure, to enable later a posteriori tests of implementations that are found here to be both accurate and efficient. 
+We also develop metrics to assess the accuracy of any implementation of autonomic closure. As noted in Section I.B, in highly intermittent fields such as the subgrid production   it may not be possible to have precise point-by-point agreement between the true field and that resulting from a subgrid stress closure. However a closure should (i) produce   fields that are structurally similar to the corresponding true production fields, with large values of forward and backward scatter concentrated in regions at the same locations and of the same size and shape, (ii) produce similar statistical distributions of positive and negative values as in the true   fields, and (iii) produce  , where   is the true subgrid production rate. Therefore, in addition to comparing average values and statistical distributions of  and P from autonomic closure to corresponding results from the true subgrid stress and production fields, we develop metrics to quantitatively compare the scale-dependent support-density fields on which large positive and negative subgrid production values are concentrated in the true   fields and in   from autonomic closure. These provide sensitive measures of how well any closure for   represents the detailed spatial structure of regions in which large forward and backward scatter occur in the subgrid production field.
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pseudo-LES fields, test fields, and resulting stress fields} 
+
+Direct numerical simulation (DNS) data from a 10243 simulation of homogeneous isotropic turbulence at  = 433 from the Johns Hopkins Turbulence Database [76,77] were used for these a priori assessments. Velocity   and pressure   fields were first projected on a 2563 grid having regular grid spacing  , on which all results are displayed. A spectrally sharp filter with cutoff at   = 40, well within the inertial range, was applied to produce pseudo-LES fields   and   on the 2563 display grid. This grid accommodates wavenumbers up to  = 128, allowing the nonlinear product fields  , which have wavenumbers up to 
+ = 80, to be represented without aliasing. The true subgrid stress fields   were then constructed on the same 2563 display grid. A second spectrally sharp test filter with cutoff at   = 20, providing test-to-LES filter ratio  = 2, produced test fields   and   on the same 2563 display grid. This grid allows the product fields  , which contain wavenumbers up to  = 40, to also be represented without aliasing. The test stress fields   were then constructed on the 2563 display grid. 
+The test stress fields   and the test-filtered velocity   and pressure   fields are the only inputs needed for the autonomic closure methodology in Section II.A. To determine   at any point x on the display grid, since   the local test-scale grid consisted of every sixth point along each direction on the 2563 display grid within the specified bounding box volume centered on x. Due to periodicity of the underlying DNS data, the largest possible bounding box size n3 spans the entire test field domain, thus  . At the other extreme, the smallest bounding box accommodates just one training point centered on the   test-grid stencil  , thus n3 = 33. For each of M equally spaced training points in the bounding box, the values of   and   at each point on the test-grid stencil   centered on that training point provide the inputs for one row of the matrix   in (8), and the test stress value   at that training point is the corresponding component of the   vector. For each ij pair the resulting   system in (8) is then solved via (9) to determine the coefficients   at x, which then provide   via (7) from the values of   and   at each point on the LES-grid stencil   centered on x.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Statistical comparisons of $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ } 
+
+For each implementation in Table 1 the resulting subgrid stress fields   and production fields   from autonomic closure are compared with the corresponding true stress and production fields   and  . These comparisons include probability densities of stresses and production to assess if the implementation produces similar distributions of positive and negative values as in the true   and   fields. We also compare the average subgrid production   from each implementation to the true value  . 
+However, probability densities only give the distributions of magnitudes in these fields, but provide no information about the spatial structure of the true fields and those from autonomic closure. To determine whether large magnitudes of forward and backward scatter in the subgrid production fields   are concentrated in regions at the same spatial locations and of the same size and shape as in the true   fields, support-density fields for the subgrid production are obtained as described in Sections III.C and III.D. These are then used to obtain the scale-dependent metrics   and   described in Section III.E that quantify how closely spatial structures in which large forward and backward scatter are concentrated in   from autonomic closure compare with those in the true subgrid production fields  .
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Support fields for $P(\mathbf{x},t)$} 
+
+Figures 3a,b show a typical comparison of the subgrid production field   from autonomic closure with the corresponding true field  . Probability densities of subgrid stress and production are used in Section IV to compare magnitudes in these fields. However Fig. 3 also shows structural similarities in   and  , even in many of the detailed features of these fields, including regions where large positive and negative values of P are clustered. Of central importance, large magnitudes in   in Fig. 3b are clustered in regions at about the same locations and of about the same size and shape as those in   in Fig. 3a. 
+
+However, despite the clear similarities in Figs. 3a,b in the location, size, and shape of regions where large magnitudes of subgrid production are concentrated, the precise point-by-point rms differences between   and  , scaled by  , are nevertheless of O(1). This is due to the strong intermittency in these fields, which leads to large rms differences even if the two fields appear nearly identical at all but the smallest scales. Metrics other than the simple rms difference are needed that quantify the spatial structure of these fields, focusing on the regions in which large production magnitudes are concentrated. Such structural metrics should not primarily address the production values themselves, since these are already compared in the probability densities of P and  , but should focus on the structure of the spatial support on which large production values are concentrated.  
+
+The support of a field is the subset of the domain on which the field values are non-zero. Here we define the support on which large magnitudes of the subgrid production fields   and   are concentrated, by thresholding the absolute value of each field at a fixed fraction   of  . This defines   as either zero or one, depending on whether the absolute value of the subgrid production is below or above the threshold. Points where   are on the support of large production magnitudes and those where   are off the support. Thresholding   at   provides clear identification of the sensible support on which large magnitudes of the subgrid production fields are concentrated. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Support-density fields $G(\mathbf{x},t)$ }
+
+The support for each of the subgrid production fields can be separated into different scales to allow scale-by-scale comparisons of   and  . From the support   we define the corresponding support-density field   as 
+  ,                                         (10)
+where   is a convolution filter kernel with filter length scale  . We use standard Gaussian filters for   in (10). Whereas the support   is a discontinuous binary-valued field, the support-density   is a continuous real-valued field to which standard error measures can be applied. Figures 3c,d show the support-density fields   and   corresponding to   and   in Figs. 3a,b. It is apparent that these G fields accurately identify the locations, sizes, and shapes of the regions in which large subgrid production values are concentrated. 
+Successive filter length scales   in (10) allow scale-dependent structure in the support-density fields to be determined. Comparisons at the same filter scale between true production support-density fields and those obtained from the closure allow quantitative assessment of scale-by-scale agreement in these fields. Figure 4 shows an example of such scale-dependent comparisons of the support-density fields   and   for the subgrid production fields   and   in Fig. 3 at successive scale ratios  . 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Support-density metrics  $M_1$ and $M_2$ }
+
+From support-density fields   and   for   and   as in Fig. 4, we use two metrics to quantitatively compare their spatial structure. At any scale-ratio   we define
+       and              (11a,b)
+where   is the correlation between the support-density fields   and  , with  , and   is the normalized rms difference between   and  . The volume averages are over the entire domain. Note   as the two support-density fields become perfectly correlated, and   as the two support-density fields become identical. The variations in   and   with scale-ratio   allow quantitative comparisons of the spatial support-densities on which the true production field   and its associated   from the   closure are concentrated. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computational cost}
+
+We also evaluate the computational time for each implementation of autonomic closure. Only the time associated with the subgrid stress evaluation is considered; all other factors are independent of the choice of closure. In autonomic closure there are three contributors to the computational time:  
+%
+%    NUM LIST   % 
+%%%%%%%%%%%%%%%%%
+\begin{enumerate} 
+	%
+	\item{The time to build the   matrix from the N degrees of freedom in   for each of the M training points; since   is an   matrix, the matrix build time should scale as  .}
+	%
+	\item{The time to solve (9) for the coefficients  ; since   is an   matrix, the time required for the damped least-squares solution is expected to scale as  .}
+	%
+	\item{The time to construct   from   and   via (7); since   and   are respectively   and   arrays, this simply involves N multiplications and thus scales as N.}
+	%
+\end{enumerate}
+%%%%%%%%%%%%%%%%%
+%
+%
+The last of these should be negligible. In the second, due to the operations involved the scaling prefactor might be expected to be larger than for the first, which would make this the limiting step. The overall computational time would then scale to leading order as  , and thus be independent of the number M of training points. This might suggest using all training points available in the bounding box, but Section II.B notes that there is diminishing benefit from increasing M once the training point spacing   has become so small that little additional independent training information is being gained.  
+

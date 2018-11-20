@@ -1,0 +1,306 @@
+\graphicspath{ {./Ch9/}  } 
+\DeclareGraphicsExtensions{.png,.pdf,.jpg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Complete Frame-invariant Tensor Formulation}
+
+To date, autonomic closure has been implemented via a local Volterra series representation of the subgrid terms in the values of the primitive variables of a large eddy simulation.  For the subgrid stress  , these are the values of the velocity components and pressure at the 27 points on a   stencil. Translational invariance is enforced by subtracting the stencil center-point velocity from the velocities at all the stencil points, thus retaining only the velocity gradients on the stencil. To keep the number of terms in this series manageable, the series has been truncated after second-order terms. Furthermore, keeping pressure values in this series was shown to provide negligible benefit when second-order terms are retained in the expansion. Thus the current preferred implementation is a second-order velocity-only form involving a 244-term Volterra series, and requires finding the optimal local coefficients for each of these 244 terms. 
+
+Although truncation of the Volterra series after second order provides remarkably accurate results in a priori tests for homogeneous isotropic turbulence, this truncation is undeniably arbitrary. More important, this low-order truncation can be expected to limit the accuracy of this closure methodology under more stressing turbulence conditions. Even under less stressing conditions, this approach requires an over-determined least-squares solution for 244 unknown coefficients, which may be far less computationally efficient than a shorter series based on terms that are more “appropriate” for representing  . 
+
+By “appropriate” series terms we mean terms that preserve the tensor invariance properties of  , specifically the symmetry, translation, and rotation invariance of rank-2 symmetric tensors.  Translational invariance is enforced as noted above, while symmetry requires  .  With regard to frame rotation invariance, for any proper orthogonal tensor Q (i.e.,   with  ) that rotates Cartesian coordinate frame x into a new Cartesian frame   as  , the stress tensors in the two frames must be related as  , so that the scalar invariants  ,  , and   are the same in both coordinate frames.  The stress tensor is then said to be “frame invariant”; specifically, in an n-dimensional Cartesian space it satisfies the rotation properties associated with the special orthogonal group SO(n).  Any valid representation for   must preserve these symmetry, translation, and rotation properties.
+
+Currently, these tensor invariance properties are only indirectly (and weakly) incorporated in autonomic closure, by training the solution for the series coefficients on test-scale stresses that inherently satisfy these same invariance properties. In principle, these invariance properties could be directly enforced by using an alternative series representation of   in which each term of the series satisfies these tensor invariance properties. As shown below, such an approach can lead to a finite series representation of   consisting of a potentially smaller number of terms that does not require any truncation. Moreover, this finite series representation can be “complete” in the sense that it contains all possible tensorally-correct combinations of an assumed set of quantities that   can depend on. Such a complete tensor invariant representation would presumably be the most accurate and efficient formulation of autonomic closure.
+
+Here we develop such a tensor invariant series representation for   as an alternative to the current Volterra series representation. Unlike other invariance-preserving general representations for the subgrid stress, which typically assume that   depends only on the strain rate tensor  , or only on the strain rate and rotation rate tensors   and  , in autonomic closure the relative velocities on a   stencil provide not only the strain and rotation rate tensors S and R but also their gradients   and  . This allows an even far more general tensor invariant formulation for   than has previously been obtained (Lumley 1970, Pope 1974, Lund & Novikov 1992, Gatski & Speziale 1993). Autonomic closure can find the optimal local coefficients for each of the terms in the resulting series representation, and in so doing can provide more accurate   values across a far wider range of turbulence conditions.  Moreover, it can do so at far lower computational cost than would be possible by a comparable brute force increase in the order of truncation of a Volterra series representation for  .
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invariance-preserving tensor representations of  } 
+
+With regard to the required tensor invariance of any   representation, it is appropriate and increasingly common in turbulence modeling to explicitly enforce this invariance for all combinations of the quantities on which the stress tensor   is assumed to depend within a given modeling framework.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Linear representations in S} 
+
+For instance, the most widely used models assume that the turbulent stress depends only linearly on the resolved strain rate tensor   and the identity tensor  . There are only two independent tensors that can be formed from   and   that are linear in   and preserve the rank, symmetry, translation, and rotation properties of  , namely
+  	(1a)
+   . 	(1b)
+The most general representation for the subgrid stress must then be a linear combination of these two invariance-preserving tensors   where  , and thus can be written as 
+   ,                                              (2)
+where the coefficients   and   are scalars and so can be functions only of the four invariance-preserving scalars that can be formed from   and  , namely   where 
+	  	(3a)
+	  	(3b)
+	  	(3c)
+	 .      	(3d)
+Equation (2) can be equivalently written for the “deviatoric stress”   and the deviatoric strain rate  , for which  .  In that case  , so analogous to (2) the most general representation is
+ ,                                                     (4)
+where   (generally called the “subgrid viscosity” and denoted  ) can depend only on the four scalar invariants   in (3). The invariance-preserving form for   in (2), or equivalently in (4), is the basis of so-called linear subgrid-scale models, since they assume the subgrid stress to be linearly related to the strain rate tensor, with various linear models differing only in their choice of how the coefficient   depends on the scalar invariants  .  However, for the purposes of this paper the equivalent form in (2) is more useful, since it shows how this most general linear representation of   can be obtained from tensor invariance, under the assumption that   depends only on   and  , based on the corresponding tensor bases  . 
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Nonlinear representations in S and R} 
+
+Similarly, there are nonlinear models that allow   to depend not only on the strain rate tensor   and the identity tensor  , but also on the rotation rate tensor  . Such models represent   in a complete set of tensor bases   obtained from combinations of  ,  , and   that preserve the rank, symmetry, translation, and rotation properties of  . For instance, Lumley (1970), Pope (1974), Lund & Novikov (1992), and Gatski & Speziale (1993) propose an 11-element set of invariance-preserving tensors   that can be formed from  ,  , and  , namely
+	  	(5a)
+	  	(5b)
+	  	(5c)
+	  	(5d)
+	  	(5e)
+	  	(5f )
+	  	(5g)
+	 	(5h)
+	  	(5i )
+	  	(5j )
+	  	(5k)
+Note that (5a-k) involve no matrix powers higher than two; i.e., S2 and R2 appear, but neither S3 nor R3 nor any higher-order matrix powers appear. This is a result of the Cayley-Hamilton theorem for any square matrix A, which relates its matrix powers of order three (A3) and higher to linear combinations of lower matrix powers. It is this fact that limits the complete set of such invariance-preserving tensors   to the finite number of independent tensors in (5).
+Thus, if it is assumed that   depends only on  ,  , and  , then analogous to (2) the most general representation must be a linear sum of these invariance-preserving tensors, namely
+  ,                                                            (6)
+where the coefficients   can only be functions of the seven unique independent invariance-preserving scalar invariants that can be formed from  ,  , and  .namely
+	  	(7a)
+	  	(7b)
+	  	(7c)
+	  	(7d)
+	  	(7e)
+	  	(7f )
+	  	(7g)
+Equation (6), with (5) and (7), is a complete general tensor polynomial in  ,  , and   that preserves the rank, symmetry, translation, and rotation properties of  .  Under the assumption that   depends only on S, R and I, all valid representations of the stress tensor   must be expressible as in (6).
+Lund & Novikov (1992) further showed that, under the additional assumption that the strain rate S is not in an axisymmetric state (i.e., when S does not have repeated eigenvalues) and when the vorticity vector obtained from R is not aligned with any of the strain rate eigenvectors, then the number of independent   in (6) is reduced from eleven to six, and the number of independent scalar invariants in (7a-g) is reduced from seven to five. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Toward the most-general invariance-preserving formulation of autonomic closure} 
+
+In principle, autonomic closure can be formulated by replacing the Volterra series in terms of the primitive variables   with the invariance-preserving series in (6) in terms of the tensor bases   in (5). The coefficients   would then be determined locally via the autonomic closure methodology, rather than from a prescribed model that relates the coefficients to the seven scalar invariants   in (7). Doing this would formulate autonomic closure in a series representation having far fewer terms than the current Volterra series, and thus might be computationally faster than the current implementation based on the 244-term series in the primitive variables truncated after second-order products (though evaluating the   to build the  matrix could consume much of the reduction in computational time). More important, such a formulation would no longer be based on an arbitrarily truncated Volterra series, but instead would be based on the most general complete series representation (under the assumption that   depends only on  ,  , and  ) that is consistent with the tensor properties of the subgrid stress. 
+Note the series in (6) with   from (5) involves products of velocity components up to 5th order (via  ), which is far higher than the second-order truncation currently being used. Such a series in   would be the most general tensor polynomial that preserves all rank, symmetry, translation, and rotation invariance properties of   under the assumption that   depends only on  ,  , and  .
+The tensor invariant form in (6) could be readily implemented via autonomic closure, and would thereby allow the coefficients   to vary point-to-point in response to changes in the local turbulence state, independent of any assumed model for how the coefficients might depend on the scalar invariants  . However, Lund & Novikov (1992) and Doronina et al (2018) showed that even when these coefficients are allowed to vary freely, there is little improvement obtained over a constant-coefficient implementation of (6). They conclude that the subgid stress tensor must depend on more than just  ,  , and  , and that such additional parametric dependence must be included to substantially improve modeling of the subgrid stress tensor  .
+Indeed, in autonomic closure the velocity component values on the   stencil, relative to the corresponding values at the stencil center point, provide not only the strain and rotation rate tensors   and  , but also their gradients   and  . In fact, that is all the information that is contained in the velocity component values on the   stencil when translation invariance is enforced by subtracting the stencil-center velocity. Thus, it must be possible to formulate autonomic closure even more generally, and more compactly, as the sum over the complete invariance-preserving set of tensor bases, analogous to   in (5), that can be formed from S, R,  ,  , and   while preserving the rank, symmetry, translation and rotation properties of  . It is such a complete tensor invariant formulation of autonomic closure that is pursued here. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Invariance-Preserving Combinations of I, S, R,   and  }
+
+We seek combinations of powers of the following tensors that are available in autonomic closure, which together provide the most general complete invariance-preserving tensor basis in which   can be represented under the assumption that the subgrid stress depends only on S, R,  ,  , and  , where
+	 	(8a)
+	 	(8b)
+	 	(8c)
+	 	(8d)
+	 	(8e)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{General formulation of the complete set of rank-2 tensor polynomial bases}
+
+The subgrid stress  , which is to be expressed as a polynomial function of the tensors in (8), is of rank-2.  While S and R are rank-2 tensors,   and   are rank-3 tensors and there does not yet appear to be a general frame-invariant formulation of a tensor polynomial for a rank-2 tensor in terms of a combination of rank-2 and rank-3 tensors, due to the lack of an equivalent of the Cayley-Hamilton theorem for rank-3 tensors.  However Smith (1971), Pennisi and Trovato (1987), Zheng (1994), and Itskov (2007) provide a general formulation for expressing any rank-2 tensor B in the complete and minimal rotation-invariant tensor polynomial basis that can be formed from any finite set of rank-2 tensors  , where  .  
+Each of the N tensors   is first separated into its symmetric and anti-symmetric parts as
+	symmetric parts:	  	  	(9a)
+	anti-symmetric parts:	 	  	(9b)
+Similarly,   is separated into symmetric and anti-symmetric parts as
+	symmetric part:	  	(10a)
+	anti-symmetric part:	  	(10b)
+from which B can then be reconstructed as  . Following Smith (1971), Pennisi and Trovato (1987), and Itskov (2007), the symmetric part   can be a function only of the following invariant symmetric rank-2 tensor polynomial bases
+	 	(11a)
+	 	(11b)
+	 	(11c)
+	 	(11d)
+	 	(11e)
+	 	(11f)
+	 	(11g)
+	 	(11h)
+	 	(11i)
+	 	(11j)
+	 	(11k)
+	 	(11l)
+	 	(11m)
+	 	(11n)
+for all   and all  .  Similarly, the anti-symmetric part   can be a function only of the following invariant rank-2 anti-symmetric tensor polynomial bases
+	 	(12a)
+	 	(12b)
+	 	(12c)
+	 	(12d)
+	 	(12e)
+	 	(12f)
+	 	(12g)
+	 	(12h)
+	 	(12i)
+	 	(12j)
+for all   and all  .  
+Smith (1971) asserts the symmetric and anti-symmetric tensor polynomial bases in (11a-n) and (12a-j) to be complete, meaning that any   and   can be written as a linear sum of the corresponding polynomial terms   and  , each weighted by a corresponding coefficient. However, a complete tensor polynomial basis is not minimal if it is reducible to an even smaller basis set that suffices to represent any rank-2 polynomial B. This arises from the fact that there may be tensor polynomial relations among various terms in the basis set that allow the number of tensor products in the basis set to be further reduced. Such relations are generally called Rivlin identities, and they result from the generalized Cayley-Hamilton theorem 
+  ,                            (13)
+where the   are scalar invariants of A defined as  ,  , … ,  . By differentiating (13) repeatedly with respect to A, numerous Rivlin identities can be generated in the form of relations among tensor products of various orders. The set of possible Rivlin identities is very large, making it difficult to prove that a given tensor polynomial basis set is minimal. 
+Pennisi & Trovato (1987) first proved the irreducibility of Smith’s (1971) tensor bases in (11a-n) and (12a-j), thereby establishing it as a complete and minimal basis. Prior to that, a number of rank-2 tensor polynomial bases had been proposed that were complete but were not minimal. Zemach (1998) discusses completeness and minimality of tensor polynomial bases, and Itskov (2007) uses modern tensor notation and algebra to more clearly derive the complete and minimal bases in (11) and (12).  Even complete and minimal bases may not appear unique, since Rivlin identities may allow terms in one basis to be expressed equivalently but differently in another basis. The minimality of a basis simply indicates that there is no other basis that can be complete and have a smaller number of basis tensors  . 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Unlike the basis in (11) and (12), the tensor basis in (5a-k) is not minimal.}
+
+We now show that the tensor polynomial basis in (5a-k), which has been widely used for representing the turbulent stress tensor  , is not minimal. To do this, we apply the complete and minimal tensor bases in (11) and (12) to the special case considered in Section I.A.2, for which   is taken to depend only on S and R.  In that case, in (9a,b)   and  , and from (11a-n) we then obtain the symmetric tensor basis for   as
+	 	 
+	 	 
+	 	 
+	 	 
+with all other  . These should be equivalent to (5a-k) if both tensor bases are complete and minimal.  However, even then they need not appear identical, since there may be Rivlin identities that allow them to be rearranged into identical forms.  
+The above terms for k = 0, 1, 2, 6, 10, 12, and 13 are indeed identical to (5a), (5b), (5c), (5d), (5e), (5f), and (5j). However, in (5a-k) there is no obvious equivalent to the   term above, nor are there terms above that appear obviously equivalent to (5g), (5i), or (5k). There may be Rivlin identities that allow (5g), (5i), or (5k) to be constructed from the eight symmetric basis tensors   above. However, since the above basis set   involves just eight tensors, while the basis set   in (5a-k) involves ten tensors, the basis set in (5a-k) cannot be minimal.
+In fluid dynamics, the basis in (5a-k) was first introduced by Lumley (1970) and then adopted, with minor corrections, by Pope (1975).  Lund & Novikov (1992) and Gatski & Speziale (1993) adopted Pope’s (1975) basis.  However Pope appears not to have been aware that his basis is not minimal, and to have been unaware of the more general complete basis formulation by Smith (1971) in (11a-n) and (12a-j).  Later, Pennisi & Torvato (1987) proved that Smith’s bases are minimal. Even today, it is not widely known in the fluid dynamics community that (5) is not a minimal basis, and that by contrast the eight symmetric basis tensors   listed above are a complete and minimal basis for representing   solely in terms of S and R. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Tensor elements   representing the subgrid stress   in terms of S, R,   and  .}
+
+Taking   as the subgrid stress  , which is symmetric, then only the symmetric tensor polynomial basis set in (11a-n) is needed in a tensor polynomial representation of  .  S and R are respectively symmetric and anti-symmetric rank-2 tensors, and thus can be included directly in the set of tensors   in Section II.A.  Therefore
+	 	(14a)
+	  	(14b)
+However,   and   are rank-3 tensors and, since there does not appear to be a general formulation of a rank-2 tensor polynomial in terms of rank-2 and rank-3 tensors, we choose to form rank-2 tensors from   and  , and include these in the set of tensors   in Section II.A.  To do this we will consider tensor contractions of the form of  ,  , and  .
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Rank-2 contractions involving only  }
+
+Since   is a rank-3 tensor, we need powers   that contract   to a rank-2 tensor. For any  ,   involves 3  indices, so two of these must be the free indices i and j, and the remaining indices must be repeated in integer m pairs. Thus allowable values of   > 1 must satisfy   for integer m ≥ 1, which is the case only for   .  For   there are eight possible tensor products of the form  , namely
+ ,   ,   ,   ,   ,   ,  ,     (15) 
+For each of   there are far larger numbers of tensor products of the form   that can form rank-2 symmetric tensors.  Many of these may be reducible via the equivalent of Rivlin identities among them, though for rank-3 tensors there appears to be no equivalent of the Cayley-Hamilton theorem from which to obtain such identities.  Such an approach could potentially lead to a minimal tensor polynomial basis set.  However, while there are efficiencies gained from a tensor representation in a minimal basis, there is no loss of generality if a non-minimal basis is used. Moreover, lacking the equivalent of a Cayley-Hamilton theorem for rank-3 tensors leaves open the question of whether it is even possible for there to be a finite set of tensor products   that can form rank-2 symmetric tensors. 
+Thus, while including these higher-power tensor products   for   may be necessary to obtain a complete tensor polynomial basis set, even if only the   products in (15) are included in the representation of   they will allow effects of   to be reflected in the subgrid stress – though in less than a fully complete way.  For these reasons, we retain only the complete set of unique second-order rank-2 contractions  , giving
+	 	(16a)
+	 	(16b) 
+	 	(16c) 
+	 	(16d) 
+	 	(16e) 
+	 	(16f) 
+	 	(16g)
+	 	(16h)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Rank-2 contractions involving only  }
+
+Because in Section II.A the tensors   are identified without regard to their symmetry, since   is a rank-3 tensor (like  ) we can by direct analogy with the rank-2 contractions   in (16a-h) write corresponding rank-2 contractions  .  However, due to the anti-symmetry of R it is always the case that  , even when  , and this eliminates three of the eight corresponding contractions  , leaving only
+	 	(17a)
+	 	(17b) 
+	 	(17c) 
+	 	(17d) 
+	 	(17e) 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Rank-2 contractions involving   }
+
+Since the tensors   are identified without regard to their symmetry, because   and   are both rank-3 tensors we can again by direct analogy with the rank-2 contractions in (16a-h) write corresponding second-order rank-2 mixed contractions  . As above, contractions involving   are eliminated since in all cases  , but in this case this eliminates only two of the eight contractions.  Additionally, from the symmetry of S and the anti-symmetry of R we have  , but due to resulting chain rule terms this does not eliminate any of the remaining six contractions.  Thus, retain only second-order rank-2 mixed contractions   we have
+	 	(18a)
+	 	(18b) 
+	 	(18c) 
+	 	(18d) 
+	 	(18e) 
+	 	(18f)  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Symmetric and anti-symmetric tensor elements   and   }
+
+Next, the symmetric and anti-symmetric parts of each of the tensor elements   in (16)-(18) are formed via (9a,b).  Some of the resulting symmetric parts   are duplicates upon addition in (9a), and thus are listed only once, and some of the resulting anti-symmetric parts   are zero upon subtraction in (9b).  The resulting unique symmetric parts are
+	  	(19a) 
+	  	(19b) 
+	  	(19c) 
+	  	(19d) 
+	  	(19e) 
+	  	(19f) 
+	  	(19g) 
+	  	(19h) 
+	  	(19i) 
+	  	(19j) 
+	  	(19k) 
+	  	(19l) 
+	  	(19m) 
+	  	(19n)  
+	  	(19o) 
+	  	(19p) 
+	  	(19q)
+	  	(19r) 
+Thus there are m = 18 symmetric parts that can be formed from the tensor elements   in (16)-(18).  The resulting unique non-zero anti-symmetric parts are 
+	  	(20a) 
+	  	(20b) 
+	  	(20c) 
+	  	(20d) 
+	  	(20e) 
+	  	(20f) 
+	  	(20g) 
+	  	(20h) 
+	  	(20i) 
+	  	(20j) 
+	  	(20k) 
+	  	(20l)
+Thus there are w = 12 anti-symmetric parts that can be formed from the tensor elements   in (16)-(18).  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Invariant symmetric rank-2 tensor polynomial basis  }
+
+Following Section II.A, any symmetric rank-2 tensor can be expressed as a polynomial in the invariant symmetric rank-2 tensor polynomial basis   given in (11a-n).  These are based on the second-order symmetric tensors   for   in (19), and on the second-order anti-symmetric tensors   for   in (20).  The resulting number of  is large.  For instance, the first few   for k = 0, 1, 2, 3 are given by 
+	k = 0	 	(21a)
+	k = 1	 	(21b) 
+	 	(21c) 
+	 
+	 	(21d) 
+	k = 2	 	(21e) 
+	 	(21f) 
+	 
+	 	(21g) 
+	k = 3	 	(21h) 
+	 	(21i) 
+	 	(21j) 
+	 
+	 	(21k) 
+	 	(21l) 
+	 	(21m) 
+	 	(21n) 
+	 
+	 	(21o)
+	 	
+	 	(21p) 
+We can easily determine how many   there are, given that  and  .  Specifically  
+		 	(22a)
+		 	(22b)
+		 	(22c)
+		 	(22d)
+		 	(22e)
+		 	(22f)
+		 	(22g)
+		 	(22h)
+		 	(22i)
+		 	(22j)
+		 	(22k)
+		 	(22l)
+		 	(22m)
+		 	(22n)
+Thus the total number of invariant symmetric rank-2 tensor polynomial bases   in (11a-n) is 1570, and a complete frame-invariant formulation of autonomic closure would therefore need to determine a total of 1570 coefficients. 
+In an “on-the-fly” implementation of autonomic closure these coefficients would need to be determined at each point and time, which is likely to be unacceptably burdensome from a computational perspective. Alternatively, in a “static” implementation of autonomic closure these 1570 coefficients need to be determined just once, in advance of the simulation itself, which may not be not overly burdensome.  In both cases, however, the larger computational burden may come from the large number of tensor component multiplications required to calculate the   in (11a-n) via the   in (19a-r) and the   (20a-l).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Incompressible flow: Deviatoric forms of  }
+
+For incompressible flow, which can be formulated in the deviatoric stress and deviatoric strain rate, many of the   in (11) and (22) are zero, allowing considerable reduction in the total number of coefficients.  In that case  , so we can work in the deviatoric strain rate  , for which  , and in the deviatoric stress  , for which   and thus   in (11a) and (22a) does not appear, as was seen in going from (2) to (4).  We can then formulate the deviatoric stress   in terms of  , R,  , and  , which is equivalent to using the results above but enforcing   and dropping  .  As a result, several of the   and   in (19) and (20) are zero, which reduces the number of polynomial bases  .  
+Specifically,   in (19b),   in (19f), and   in (19q) are all zero, as are   in (20b),   in (20d), and   in (20k).  This leaves a total of 15 non-zero   and 9 non-zero  .  Then, with   and  , following the same procedure as in (22a-n) the total number of invariant symmetric rank-2 tensor polynomial bases   in (11a-n) for the incompressible case is 1002.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Second-Order Truncation of the Complete Tensor Polynomial}
+
+The invariant symmetric rank-2 tensor polynomial basis   for   in 
+(11a-n) is complete under the assumption that   depends on I, S, R,  ,  , and  .  Thus all representations of   that satisfy the invariance properties of a symmetric rank-2 tensor can be written as a tensor polynomial
+ .                                                       (23)
+In (23), from (11) with (19) and (20) note that
+•	  contains terms up to first order in  , and thus up to second order in the velocity components  
+•	 ,  ,  ,  , and   contain second-order tensor products of   and  , and thus have terms up to fourth order in the velocity components  
+•	 ,  ,  ,  ,  , and   contain third-order tensor products of   and  , and thus have terms up to sixth order in the velocity components  
+•	  contains fourth-order tensor products of   and  , and thus has terms up to eighth order in the velocity components  
+•	There are no terms in this complete and minimal tensor representation of   involving terms above eighth order in the velocity components  
+Prior work has shown that truncating a Volterra series representation to only retain velocity products up to second order is sufficient to obtain excellent representation of the subgrid stress and the associated subgrid production, regardless whether the second-order products include non-colocated or only colocated stencil points.  Anticipating that at least comparable accuracy must be obtained if (23) is similarly truncated to retain at most second-order products of velocities, we now consider the order of the velocity products in each of the tensor bases  .
+The strain rate S in (8b) and rotation rate R in (8c) are each linear in the velocity components  , and therefore   in (19a) and   in (20a) are each linear in the velocities.  The remaining   in (19b-r) and   in (20b-l) all involve rank-2 contractions of the forms  ,  , and  , and therefore are second-order in the velocity components  .  From these, the order of the velocity products in each of the tensor bases   in (11a-n) can be readily determined.  
+(a)	Zeroth-order velocity products appear only in  .  
+(b)	First-order velocity products appear only in  , since only   and   are linear in the velocities, and   appears linearly in   while   enters only via tensor products of second order or higher in (11g-n).  
+(c)	Second-order velocity products are present only in   for i > 1, in   for i =1, in   for p =1, and in   for i = p = 1.
+(d)	All other terms in (23) are of order three or higher in the velocity components.
+Using (a)-(d) above, the tensor representation in (23) can be truncated to retain all terms that are up to second-order in the velocities, while the preserving frame invariance, as
+                   (24)
+The four non-gradient terms in (24) can be expressed directly in S and R as indicated above, and from (11b)   in the gradient terms is simply equal to   in (19b-r), allowing (24) to be written as
+    (25)
+Equation (25) with   in (19b-r) is the most general frame-invariant tensor representation for   (under the assumption that the stress depends only on I, S, R,  ,  , and  ) that is complete up to second order in the velocity components  .  It involves 22 coefficients, though it can be additionally argued – separate from any considerations of frame invariance – that  , in which case there are only 21 coefficients. 
+These 21 terms include all multi-point second-order velocity products, which in a velocity-only Volterra series representation (King, Dahm & Hamlington 2015) required 3403 terms. This complete frame-invariant tensor formulation of autonomic closure uses all of the information available in the velocities on a   stencil, and does so with the smallest possible number of terms, while ensuring frame invariance. The reduction in the number of terms substantially reduces the computational burden of solving the over-determined linear system for the unknown coefficients, however this comes at the expense of having to compute a substantial number of matrix products   via (19b-r).
+The principal advantage of (25) may not be the reduction in the number of coefficients that must be obtained via the autonomic closure framework (either in an “on-the-fly” implementation or in a “static” implementation), but the fact that this general representation is the only possible “tensorally correct and complete” form up to second order in the velocities. As a result, unlike the Volterra series formulation, the tensorally correct and complete forms in (23) and (25) should have universal coefficients   if   can be represented by S, R,  ,  , and  . This could allow a 1570-term static implementation, or even a 21-term static implementation, to be far more accurate than a static implementation of a Volterra formulation, and may even allow a static implementation to be as accurate as a far more computationally burdensome “on-the-fly” implementation.   
+Truncations of (23) analogous to (25) but that retain terms of higher order in a similarly “tensorally correct and complete” form can be readily obtained via the same procedure used in this section. 
+
+
+
+

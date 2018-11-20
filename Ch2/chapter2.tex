@@ -1,0 +1,130 @@
+\graphicspath{ {./Ch2/}  } 
+\DeclareGraphicsExtensions{.png,.pdf,.jpg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Volterra Series Representations}
+
+Large eddy simulation (LES) is being increasingly applied to complex flows \cite{\complexflow}, as the increasing availability of computing power and its decreasing cost make the computational burden of LES more acceptable. At the same time, there have been technical advances in the underlying methodology, such as modern wall treatments [12-15], that are further reducing the computational cost of LES to acceptable levels. These developments are making multiphysics large eddy simulations of complex flows increasingly practical, in which the simulations address not only the underlying turbulent flow but also include numerous other coupled physical processes, such as transport of conserved scalars [16-19], droplet and particle dynamics [20-23], phase changes [22,23], reacting species [24-26], heat transfer [24-26], and other phenomena.  
+
+Each physical process introduces governing equations, such as equations for conservation of mass, momentum, energy, and scalars, expressed as a combination of linear and nonlinear terms in the velocity field   $\mathbf{u}(\mathbf{x},t)$   and various scalar fields $\varphi(\mathbf{x},t)$. Due to the spatial filtering inherent in LES, each nonlinear term in these equations creates an associated subgrid term when the equations are written in the corresponding resolved fields   $\widetilde{\mathbf{u}}(\mathbf{x},t)$   and   $\widetilde{\varphi}(\mathbf{x},t)$. Each of these subgrid terms must be related to the resolved fields to obtain a closed set of equations.  Closure of subgrid terms has traditionally been done by means of prescribed subgrid models \cite{\subgridstress} that typically involve substantial ad hoc treatments. Errors introduced by these models can be important contributors to the overall error in results from large eddy simulations \cite{\LargeEddy}. For this reason, developing a general method that provides accurate subgrid closures for large eddy simulations has been a central focus area of turbulence research over the past several decades. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subgrid terms and their closure in LES}
+
+In general, any governing equation can be written as a sum of linear terms  $L(\mathbf{u},\varphi)$  and nonlinear terms  $N(\mathbf{u},\varphi)$ as
+%
+%    EQUATION   %  
+%%%%%%%%%%%%%%%%%
+\begin{equation}
+	L(\textbf{u},\varphi) + N(\textbf{u},\varphi) = 0
+\end{equation}
+%%%%%%%%%%%%%%%%%
+%
+%
+Applying a suitable spatial filter  $\widetilde{(\,)}$  \cite{\spatialfilter} having characteristic length scale   $\widetilde{\Delta}$  then gives the corresponding governing equation in the resolved fields   $\widetilde{\mathbf{u}}(\mathbf{x},t)$   and   $\widetilde{\varphi}(\mathbf{x},t)$ as
+%
+%    EQUATION   % 
+%%%%%%%%%%%%%%%%%
+\begin{equation}
+	L(\widetilde{\textbf{u}},\widetilde{\varphi}) + N(\widetilde{\textbf{u}},\widetilde{\varphi})
+	= - \big[ \widetilde{N(\textbf{u},\varphi)} - N(\widetilde{\textbf{u}},\widetilde{\varphi}) \big],
+\end{equation}
+%%%%%%%%%%%%%%%%%
+%
+%
+where the right side in (2) are subgrid terms that appear because the linearity of  $L(\mathbf{u},\varphi)$  allows  $\widetilde{L(\textbf{u},\varphi)} = L(\widetilde{\textbf{u}},\widetilde{\varphi})$  while the nonlinearity of  $N(\mathbf{u},\varphi)$  leads to  $\widetilde{N(\textbf{u},\varphi)} \neq N(\widetilde{\textbf{u}},\widetilde{\varphi})$. All such subgrid terms must be dealt with in a way that provides a closed set of governing equations in the resolved variables  $\widetilde{\mathbf{u}}$  and  $\widetilde{\varphi}$. To date, such closure has been achieved by introducing prescribed subgrid models based on various approximations that relate subgrid terms to parameters that are obtainable from the resolved variables. Many such prescribed subgrid models have been proposed for subgrid terms in LES \cite{\subgridterms}. Errors from these prescribed models, as revealed for instance in $a priori$ tests, can be substantial even for subgrid terms that are fundamental to LES, such as the subgrid stress %\cite{subgridstress2}.  
+
+Taking the subgrid stress as an example, in the original momentum equation the nonlinear product  $\mathbf{u}_i\mathbf{u}_j$  in the advection term $\partial (u_i u_j)/\partial x_j$   leads via (2) to a subgrid stress of the form 
+%
+%   EQUATION    % 
+%%%%%%%%%%%%%%%%%
+\begin{equation}
+	\big[ \widetilde{N(\textbf{u})} - N(\widetilde{\textbf{u}}) \big] =
+	 \widetilde{u_i u_j} - \widetilde{u_i}\widetilde{u_j} 
+	 \equiv \tau_{ij}
+\end{equation}
+%%%%%%%%%%%%%%%%%
+%
+%
+in the resolved momentum equation. Widely used models for the subgrid stress  $\tau_{ij}$  include the basic Smagorinsky model \cite{smag1963}, the dynamic Smagorinsky model \cite{\DSmag}, the scale-similarity model [27,43-45], and mixed models that combine a scale similarity model with a dissipative model [50-57]. All of these produce substantial errors in their representation of  $\tau_{ij}(\mathbf{x},t)$,  as has been shown in  $a priori$  tests [10,27-30,34]. The accuracy with which any such subgrid model represents  $\tau_{ij}(\mathbf{x},t)$  from the resolved variables  $\widetilde{\mathbf{u}}(\mathbf{x},t)$  and  $\widetilde{p}(\mathbf{x},t)$  determines how accurately it accounts for the detailed space- and time-varying momentum exchange and associated kinetic energy exchange between the resolved and subgrid scales in a simulation. 
+
+If simulating the flow field were the only objective, then continued reliance on such traditional prescribed subgrid stress models might be acceptable, since the filter scale  $\widetilde{\Delta}$  could simply be made sufficiently small (albeit at greater computational cost) so that errors introduced by inaccuracies from the  $\tau_{ij}(\mathbf{x},t)$  model would not substantially affect much larger scales of the flow. However, LES is increasingly being used to simulate not only the flow field  $\widetilde{\mathbf{u}}(\mathbf{x},t)$,  but also other physical processes occurring in the flow, many of which depend strongly on the smallest scales in the resolved flow field, such as diffusion-limited chemical reactions [2-5,24-26] and droplet/particle transport and agglomeration [6,7,20-23]. In such cases, errors introduced at the smallest resolved scales from a substantially inaccurate  $\tau_{ij}$ model can create large errors throughout the resolved fields of primary interest. Achieving high fidelity in such multiphysics simulations may therefore require new approaches for representing subgrid terms, including the subgrid stress, that are substantially more accurate than current prescribed subgrid modeling approaches. 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{\textwidth}]{antidorcas}
+	\caption{Typical   $a priori$   test of autonomic closure, showing (a) true subgrid stress field $\tau_{ij}(\mathbf{x},t)$   and (c) true subgrid production field  $P(\mathbf{x},t)$ compared to corresponding results from implementation of autonomic closure [59] for (b) subgrid stress field  $\tau_{ij}^{\mathcal{F}}(\mathbf{x},t)$  and (d) subgrid production field  $P^{\mathcal{F}}(\mathbf{x},t)$.}
+	\label{default}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+It will be shown here that a recently proposed alternative approach [58,59] to subgrid closure, referred to as “autonomic closure”, can be implemented in computationally efficient ways to enable representation of subgrid fields with significantly greater accuracy across all resolved scales than is possible with traditional prescribed subgrid closure models. Figure 1 shows typical results from  $a priori$  tests of an implementation [59] of autonomic closure, comparing true subgrid stress fields  $\tau_{ij}(\mathbf{x},t)$  and associated subgrid kinetic energy production fields  $P(\mathbf{x},t)$  to the corresponding results from autonomic closure. The implementation of autonomic closure in Fig. 1, while undeniably accurate, is however far too computationally costly for practical use. Here we describe autonomic closure in detail and identify specific implementations that retain comparable accuracy in  $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$  as seen in Fig. 1, even near the smallest resolved scales, but unlike the implementation in Ref. [59] are computationally efficient enough for practical use in large eddy simulations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Subgrid stress closures and LES energetics} 
+
+With regard to resolved-scale energetics and computational stability, even more important than the subgrid stress itself is the corresponding subgrid kinetic energy production field 
+%
+%   EQUATION    % 
+%%%%%%%%%%%%%%%%%
+\begin{equation}
+	P(\mathbf{x},t) = -\tau_{ij}\widetilde{S}_{ij},
+\end{equation}
+%%%%%%%%%%%%%%%%%
+%
+%
+where  $\widetilde{S}_{ij}$  is the resolved strain rate tensor, since this determines both the accuracy of energy exchange between the resolved and subgrid scales and the computational stability of the simulation itself. It is known from  $a priori$  tests [10,27-30,52-54,60] that true  $P(\mathbf{x},t)$  fields in turbulent flows are highly intermittent, consisting of widely varying values that can be locally positive or negative, with magnitudes of $P$ in highly concentrated regions far exceeding the true average subgrid dissipation rate  $\langle P(\mathbf{x},t)\rangle \equiv \epsilon$. Large positive $P$ values concentrated in these regions correspond to local instantaneous kinetic energy transfer from the resolved scales into the subgrid scales (“forward scatter”), while negative values give the local rate of energy transfer from subgrid scales into the resolved scales (“backscatter”). 
+
+Such large magnitudes of forward and backward scatter in  $P(\mathbf{x},t)$  can be seen for example in Fig. 1c, which shows the strong spatial intermittency that is characteristic of subgrid production fields. Large positive (red) and large negative (blue) $P$ values are clustered in relatively compact regions that occupy a small fraction of the domain in which the most intense forward and backward scatter are concentrated. For a  $\tau_{ij}(\mathbf{x},t)$  closure to accurately represent the precise space- and time-varying exchange of momentum and energy between resolved and subgrid scales, including near the smallest scales, it must allow forward and backward scatter in  $P(\mathbf{x},t)$  while providing the correct statistical distribution of $P$ values and accurately representing the highly intermittent regions in which large positive and negative  $P(\mathbf{x},t)$  values are concentrated.
+
+Some  $\tau_{ij}$  models that allow for backscatter can induce instability in a simulation if their resulting  $P(\mathbf{x},t)$  fields are insufficiently accurate [27,29,40,50-57]. This can occur if the average subgrid dissipation rate  $\langle P(\mathbf{x},t)\rangle$  is too low relative to the true average rate  $\epsilon$  of energy transfer into the subgrid scales. For this reason, scale-similarity models and other models are often combined with a purely dissipative model to give a sufficiently large average subgrid dissipation rate to maintain computational stability. However, even when the average subgrid dissipation rate is sufficiently large, a subgrid model could still induce instability if it produces incorrectly large local values of backscatter, or if the regions in which large values of backscatter are concentrated occur in the wrong locations or at the wrong times, or persist for too long. At the same time, the  $\tau_{ij}(\mathbf{x},t)$  closure must also produce the correct values of forward scatter in the correct locations at the correct times and for the correct durations. 
+
+Subgrid models that are purely dissipative, such as the basic Smagorinsky model [42], ensure stability but are unable to accurately represent the detailed momentum and energy exchange between resolved and subgrid scales in a simulation [27-30,42]. The dynamic Smagorinsky model [27,46-49] and various scale similarity models [27,43-57] include backscatter to increase simulation fidelity, especially near the smallest resolved scales. However, some of these models produce insufficiently large  $\langle P(\mathbf{x},t)\rangle$   to maintain computational stability, and others may lead to instability if the modeled backscatter is too strong or appears at the wrong locations or the wrong times [35-37,48]. For this reason, some of these models introduce backscatter limiters and other ad hoc adjustments to increase subgrid dissipation in order to ensure stable simulations.
+
+Yet it is tautological that if a $\tau_{ij}$ closure exactly produces the complete details of the true  $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$  fields in  $a priori$  tests, then in the absence of numerical errors from the LES code [35-38] the closure will be stable despite the required large backscatter. Presumably a  $\tau_{ij}$   closure can be less than perfect in this respect and still maintain stability. However, beyond the requirement that  , relatively little is known about how accurately the subgrid stress   must be represented to avoid backscatter instability while providing high fidelity in the detailed momentum and energy transfer even near the smallest scales of a simulation.
+
+Although backscatter may be needed to achieve simulation accuracy in all resolved scales, the presence of backscatter alone is meaningless unless the backscattered energy is introduced in about the right places and the right times, and at the right magnitudes and for the right durations. Due to the highly intermittent nature of  $P(\mathbf{x},t)$  fields, as seen in Fig. 1c, it may not be possible in an $a priori$ sense to have exact point-by-point agreement between the true subgrid production field and that resulting from a closure for the subgrid stress. However, the subgrid production field from a subgrid stress closure should nevertheless be structurally similar to the true subgrid production field, having large values of forward and backward scatter concentrated in regions at the same locations and of the same size and shape as in the true  $P(\mathbf{x},t)$  field. With the ergodic hypothesis this also ensures that the closure will produce concentrations of forward and backward scatter at the correct times and for the correct durations.
+
+Based on these considerations, it is expected that accuracy across all resolved scales can be achieved while maintaining computational stability if the following three conditions are met:
+%
+%    NUM LIST   % 
+%%%%%%%%%%%%%%%%%
+\begin{enumerate} 
+	%
+	\item {The  $\tau_{ij}$  closure should produce  $P(\mathbf{x},t)$  fields that, in $a priori$ tests, provide a sufficiently large average subgrid dissipation rate, namely $\langle P(\mathbf{x},t)\rangle \geq \epsilon$, and should ideally give  $\langle P(\mathbf{x},t)\rangle = \epsilon$.}
+	%
+	\item {Resulting  $P(\mathbf{x},t)$  fields from the   $\tau_{ij}$   closure should produce similar statistical distributions of positive and negative values (forward and backward scatter) as do the true $P(\mathbf{x},t)$  fields.}
+	%
+	\item {$P(\mathbf{x},t)$  fields from the  $\tau_{ij}$  closure should be structurally similar to the true  $P(\mathbf{x},t)$  fields in   $a priori$   tests, with large magnitudes of forward and backward scatter concentrated in regions at the right spatial locations and of the right size and shape, despite the highly intermittent nature of  $P(\mathbf{x},t)$  preventing the two fields from being exactly identical on a point-by-point basis.}
+	%
+\end{enumerate}
+%%%%%%%%%%%%%%%%%
+%
+%
+Although   $a priori$   tests of  $P(\mathbf{x},t)$  alone cannot determine if a closure will provide stable simulations, such tests are the most direct way to assess the accuracy at all resolved scales in the subgrid stress fields  $\tau_{ij}$   and the associated subgrid production fields   from a given closure. Implementing a closure in an LES code for a posteriori tests introduces additional effects from the code that can obscure insights into the underlying accuracy of the subgrid closure [27]. For these reasons,   $a priori$   tests are used here to assess the accuracy of various implementations of autonomic closure in representing   $\tau_{ij}$   and   $P(\mathbf{x},t)$  fields. For implementations that are found to be accurate in these tests, subsequent   $a posteriori$   tests can be conducted to determine their stability when implemented in an LES code.
+
+Particular attention is paid here not only to the resulting statistical distributions of forward and backward scatter in   $P(\mathbf{x},t)$,   but also to the detailed spatial structure of regions in which large magnitudes of forward and backward scatter are concentrated. Results in the following sections show that efficient implementations of autonomic closure can represent momentum and energy exchange between resolved and subgrid scales, across essentially all resolved scales, far more accurately than do traditional prescribed subgrid closure models. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A new approach: Autonomic closure} 
+
+An entirely different approach to subgrid closures, termed “autonomic closure”, was recently proposed [58,59] to circumvent the need to specify a particular fixed parametric closure relation, and instead allow a nonparametric fully-adaptive self-optimizing closure methodology. The closure is autonomic in the sense that the simulation itself determines the optimal relation at each point and time between the subgrid term and the primitive variables through solution of a local, nonparametric system identification problem. The closure is nonparametric in the sense that the subgrid term is formulated in the resolved primitive variables of the simulation, rather than in parameters formed from them that are presumed to be appropriate. The resulting large number of degrees of freedom allows autonomic closure to freely adapt to varying nonlinearity, nonlocality, nonequilibrium, and other characteristics [61,62] of the turbulence state at each point in the flow. 
+
+Autonomic closure can be regarded as a high-dimensional nonparametric generalization of the dynamic approach used with various traditional prescribed closure models [27,46,47]. Viewed another way it can be regarded as a type of “data-driven” turbulence closure [63-71], in which machine-learning methods are used with available prior data to discover a closure model rather than prescribe one. However, unlike other data-driven approaches, the training data in autonomic closure is obtained internally at a test-filter scale at each point and time in the simulation itself, rather than being provided separately from prior simulations or experiments. Importantly, autonomic closure is not a closure model; instead it is a closure methodology that enables essentially model-free “on the fly” closure of any subgrid term.
+
+The need in autonomic closure to solve a local system identification problem at each point and time in a simulation can make its computational cost far higher than that of traditional prescribed closure models. That is certainly the case when the number of degrees of freedom in the nonparametric relation is large; e.g., the implementation in Ref. [59] involved nearly 6000 degrees of freedom. Some additional computational cost is acceptable in order to gain the increased accuracy in   $\tau_{ij}$   and   $P(\mathbf{x},t)$   that autonomic closure provides, as seen in Fig. 1, since subgrid stress evaluation is typically only a small fraction of the total computational cost of a simulation. However, for the implementation in Ref. [59] the subgrid stress evaluation was  $O(10^4)$  more costly than for traditional prescribed closure models. This cost must be reduced by several orders of magnitude, as is done here, to make autonomic closure practical for LES.  
+
+The cost of autonomic closure can be controlled by varying the number of degrees of freedom in the underlying nonparametric relation and by other choices in its implementation, though these choices can affect the accuracy of the resulting   $\tau_{ij}$   and   $P(\mathbf{x},t)$  fields. Therefore the main issue addressed here is whether there are implementations of autonomic closure that are efficient enough to be practical for LES while retaining the accuracy in   $\tau_{ij}$   and   $P(\mathbf{x},t)$   seen in Fig. 1 from the computationally costly implementation in Ref. [59]. To address this we present results from   $a priori$   tests that quantify the effects of various implementation choices in autonomic closure. In particular, we compare autonomically determined    $\tau_{ij}$   and   $P(\mathbf{x},t)$    fields with corresponding true subgrid stress and subgrid production fields to find implementations that are both efficient and accurate.  
+
+Of key interest is whether large forward and backward scatter in the production fields from such efficient implementations of autonomic closure remain at the right magnitudes in regions at the right locations and having the right sizes and shapes. To evaluate this we develop and apply metrics that quantify how the resulting spatial support on which large production values are concentrated compares with corresponding true  $P(\mathbf{x},t)$  fields. From this we identify highly efficient implementations of autonomic closure that remain nearly as accurate as that in Ref. [59] but at computational costs that are $O(10^3)$ smaller. These implementations are accurate and efficient enough for practical use in large eddy simulations, allowing future $a posteriori$ testing of this new closure methodology. 
+
+Section II provides a detailed description of autonomic closure and various implementation choices within it. Section III presents the metrics used here for assessing the accuracy of any implementation of autonomic closure or of any traditional prescribed closure model. These include metrics for quantifying the scale-dependent support-density fields on which large magnitudes in   $P(\mathbf{x},t)$  are concentrated. Section IV then applies these metrics to quantify the accuracy and efficiency of various implementations of autonomic closure, and identifies the implementation that provides the best performance. Section V compares results from this recommended implementation of autonomic closure and traditional prescribed closure models. In Section VI we present major conclusions and discuss implications of these results for achieving accuracy across essentially all resolved scales in multiphysics large eddy simulations. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
