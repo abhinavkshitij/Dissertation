@@ -156,7 +156,7 @@ For cases in Table 1 that produce $\langle P^F \rangle/\varepsilon \geq 1$, the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recommended implementation}
 
-Based on the results in Sections IV.A-F, the most accurate and efficient implementation of autonomic closure among the cases in Table 1 is Case 3a. This is a relatively local, second-order, velocity-only, colocated implementation that has been found here to be nearly as accurate as that in Ref. [59] (Case 5b), but at a computational cost that is $O(10^3)$ smaller.  
+Based on the results in Sections IV.A-F, the most accurate and efficient implementation of autonomic closure among the cases in Table 1 is Case 3a. This is a relatively local, second-order, velocity-only, colocated implementation that has been found here to be nearly as accurate as that in Ref.  \cite{king2016autonomic} (Case 5b), but at a computational cost that is $O(10^3)$ smaller.  
 
 Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid production fields $P^{F}(\mathbf{x},t)$  from Case 3a are compared in Fig. 10 to corresponding true fields $\tau_{ij}(\mathbf{x},t)$  and $P(\mathbf{x},t)$. Of particular importance from the perspective of resolved-scale energetics and computational stability, it is apparent by comparing Figs. 10c and 10d that this implementation preserves the structural similarities in  $P(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  nearly as well as did the far more computationally costly implementation in Fig. 1 (Case 5b). Large positive and negative values in $P^{F}(\mathbf{x},t)$  in Fig. 10d are clustered in regions at essentially the same locations and of the same size and shape as in $P(\mathbf{x},t)$  in Fig. 10c. 
 

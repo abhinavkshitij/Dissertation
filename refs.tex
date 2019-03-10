@@ -8,7 +8,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Complex flows [1-11]
-\newcommand{\complexflow}{tyacke2016large, schmitt2007large, neophytou2015large, loginov2006large, baurle2016hybrid, poubeau2014large, xiao2013large, bini2008large, aubard2013large, loginov2006large, piomelli1999large, mahesh2006large}
+\newcommand{\complexflow}{tyacke2016large, schmitt2007large, neophytou2015large, baurle2016hybrid, poubeau2014large, xiao2013large, bini2008large, aubard2013large, loginov2006large, piomelli1999large, mahesh2006large}
+
 
 % Near wall treatment [12-15]
 \newcommand{\nearwall}{bose2014dynamic, piomelli2008wall, piomelli2010wall,kawai2012wall}
@@ -50,32 +51,116 @@
 % Subgrid Terms [27-34, 42-57]
 \newcommand{\subgridterms}{meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect, shi2008constrained, tejada2004dynamic, yu2017scale, da2004effect, smag1963, bardina1980improved, bardina1983improved, horiuti1989role, germano1991dynamic, lilly1992proposed, moin1991dynamic, piomelli1993high, zang1993dynamic, akhavan2000subgrid, liu1995experimental, liu1999evolution, sarghini1999scale, lund1993numerical, ghosal1995dynamic, gravemeier2006consistent}
 
-% % Subgrid Stress [27-30,52-54]
-% \newcommand{\subgridstress2}{meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect, liu1995experimental, liu1999evolution, sarghini1999scale}
+%  Subgrid Stress [27-30,52-54]
+\newcommand{\sgstwo}{meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect, liu1995experimental, liu1999evolution, sarghini1999scale}
 
 % DS [27,46-49]
 \newcommand{\DSmag}{meneveau2000scale, germano1991dynamic, lilly1992proposed, moin1991dynamic, piomelli1993high}
+
+% Scale-similarity [27, 43-45]
+\newcommand{\ScaleSim}{bardina1980improved, bardina1983improved, horiuti1989role, meneveau2000scale}
+
+% Mixed models [50-57]
+\newcommand{\mixed}{zang1993dynamic, akhavan2000subgrid, liu1995experimental, liu1999evolution, sarghini1999scale, lund1993numerical, ghosal1995dynamic, gravemeier2006consistent}
+
+% Model errors [10,27-30,34]
+\newcommand{\modelerrors}{piomelli1999large,meneveau2000scale,liu1994properties,sagaut2006large,menon1996effect,da2004effect}
+
+% Diffusion-limited chemical reactions [2-5,24-26]
+\newcommand{\chemical}{schmitt2007large, neophytou2015large,baurle2016hybrid,poubeau2014large, pitsch2006large, franchetti2013large, tafti2014large}
+
+% Particle/droplet agglomeration [6,7, 20-23]
+\newcommand{\particledropagg}{xiao2013large, bini2008large, elghobashi1994predicting, xiao2016large, irannejad2014large, de2013large}
+
+% Autonomic closure [58,59]
+\newcommand{\autonomic}{king2015autonomic, king2016autonomic}
+
+% Intermittent [10,27-30,52-54,60]
+\newcommand{\intermittent}{piomelli1999large, meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect,liu1995experimental, liu1999evolution, sarghini1999scale, piomelli1991subgrid}
+
+% Backscatter [27,29,40], Mixed-models [50-57]
+\newcommand{\backscatter}{meneveau2000scale, sagaut2006large, pope2000, \mixed}
+
+% Accurate exchange [27-30, 42]
+\newcommand{\accuratexchange}{meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect, smag1963}
+
+% Unstable backscatter [35-37,48]
+\newcommand{\unstablebackscatter}{ghosal1996analysis, meyers2003database, kravchenko1997effect, moin1991dynamic}
+
+% Hamlington-Dahm [61,62]
+\newcommand{\hamlingtondahm}{hamlington2008reynolds, hamlington2009nonlocal}
+
+% Prescribed model [27,46,47]
+\newcommand{\prescribed}{meneveau2000scale, germano1991dynamic, lilly1992proposed}
+
+% Data-driven [63-71]
+\newcommand{\datadriven}{zhang2015machine, duraisamy2016informing, singh2017augmentation, ling2015evaluation, ling2016reynolds, ling2016machine, wang2016data, wang2017physics, wu2017priori}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Tensor Integrity [67,68,72-74]
+% Test stress [27-29,39,40,46-54]
+\newcommand{\teststress}{meneveau2000scale, liu1994properties, sagaut2006large, germano1992turbulence, pope2000, germano1991dynamic, lilly1992proposed, moin1991dynamic, piomelli1993high, zang1993dynamic, akhavan2000subgrid, liu1995experimental,liu1999evolution,sarghini1999scale}
 
+
+% Strain-rotation basis [67,68,72-74]
+\newcommand{\strainrotation}{ling2016reynolds, ling2016machine, pope1975more, oberlack1997invariant, razafindralandy2007analysis}
+
+% Machine learning [67,68]
+\newcommand{\machinelearning}{ling2016reynolds, ling2016machine}
+
+% Volterra [75]
+\newcommand{\volterra}{schetzen1980volterra}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 
-
+% JHU database [76,77]
+% \newcommand{\jhuDNS}{jhudnsdata, li2008public}
+\newcommand{\jhuDNS}{jhudnsdata, li2008public}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter 5
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 6
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% DSmag2 [27,46-59]
+\newcommand{\DSmagtwo}{meneveau2000scale, germano1991dynamic, lilly1992proposed, moin1991dynamic, piomelli1993high, zang1993dynamic, akhavan2000subgrid, liu1995experimental, liu1999evolution, sarghini1999scale, lund1993numerical, ghosal1995dynamic, gravemeier2006consistent, king2015autonomic, king2016autonomic}
+
+% Bardina [43-45]
+\newcommand{\Bardina}{bardina1980improved, bardina1983improved, horiuti1989role}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 7
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Traditional [27-29,46-57]
+\newcommand{\traditional}{meneveau2000scale,liu1994properties,sagaut2006large,germano1991dynamic,lilly1992proposed,moin1991dynamic,piomelli1993high,zang1993dynamic,akhavan2000subgrid,liu1995experimental,liu1999evolution,sarghini1999scale,lund1993numerical,ghosal1995dynamic,gravemeier2006consistent}
+
+% REPEATED REF [But do not delete]
+% % Data-driven [63-71]
+% \newcommand{\datadriven}{zhang2015machine, duraisamy2016informing, singh2017augmentation, ling2015evaluation, ling2016reynolds, ling2016machine, wang2016data, wang2017physics, wu2017priori}
+
+\newcommand{\invariance}{oberlack1997invariant,razafindralandy2007analysis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter 9
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Complete list in order of appearance
@@ -115,7 +200,7 @@
 % \cite{yu2017scale}
 % \cite{da2004effect}
 
-\newcommand{\allrefs}{akhavan2000subgrid,aubard2013large,bardina1980improved,bardina1983improved,baurle2016hybrid,bini2008large,bose2014dynamic,burton2008nonlinear,burton2011study,chow2003further,da2004effect,de2013large,dianat2006large,doronina2018autonomic,duraisamy2016informing,elghobashi1994predicting,frameinv,frameinvflux18,franchetti2013large,gatski1993explicit,germano1991dynamic,germano1992turbulence,ghosal1995dynamic,ghosal1996analysis,gravemeier2006consistent,hamlington2008reynolds,hamlington2009nonlocal,horiuti1989role,irannejad2014large,itskov2007tensor,jhu256,kawai2012wall,king2015autonomic,king2016autonomic,kravchenko1997effect,li2008public,lilly1992proposed,ling2015evaluation,ling2016machine,ling2016reynolds,liu1994properties,liu1995experimental,liu1999evolution,loginov2006large,lumley1970toward,lund1993numerical,lund1992parameterization,lund1995experiments,mahesh2006large,mejia2015large,meneveau2000scale,menon1996effect,meyers2003database,moin1991dynamic,neophytou2015large,oberlack1997invariant,pennisi1987irreducibility,piomelli1991subgrid,piomelli1993high,piomelli1999large,piomelli2008wall,piomelli2010wall,pitsch2006large,pope1975more,pope2000,poubeau2014large,razafindralandy2007analysis,sagaut2006large,sarghini1999scale,schetzen1980volterra,schmitt2007large,shi2008constrained,singh2017augmentation,smag1963,smith1971isotropic,spencer1958theory,spencer1959further,tafti2014large,tejada2004dynamic,tyacke2016large,wang2016data,wang2017physics,wu2017priori,xiao2013large,xiao2016large,yu2017scale,zang1993dynamic,zemach2000mathematics,zhang2015machine,zheng1994theory}
+\newcommand{\allrefs}{akhavan2000subgrid,aubard2013large,bardina1980improved,bardina1983improved,baurle2016hybrid,bini2008large,bose2014dynamic,burton2008nonlinear,burton2011study,chow2003further,da2004effect,de2013large,dianat2006large,doronina2018autonomic,duraisamy2016informing,elghobashi1994predicting,frameinv,frameinvflux18,franchetti2013large,gatski1993explicit,germano1991dynamic,germano1992turbulence,ghosal1995dynamic,ghosal1996analysis,gravemeier2006consistent,hamlington2008reynolds,hamlington2009nonlocal,horiuti1989role,irannejad2014large,itskov2007tensor,jhudnsdata,kawai2012wall,king2015autonomic,king2016autonomic,kravchenko1997effect,li2008public,lilly1992proposed,ling2015evaluation,ling2016machine,ling2016reynolds,liu1994properties,liu1995experimental,liu1999evolution,loginov2006large,lumley1970toward,lund1993numerical,lund1992parameterization,lund1995experiments,mahesh2006large,mejia2015large,meneveau2000scale,menon1996effect,meyers2003database,moin1991dynamic,neophytou2015large,oberlack1997invariant,pennisi1987irreducibility,piomelli1991subgrid,piomelli1993high,piomelli1999large,piomelli2008wall,piomelli2010wall,pitsch2006large,pope1975more,pope2000,poubeau2014large,razafindralandy2007analysis,sagaut2006large,sarghini1999scale,schetzen1980volterra,schmitt2007large,shi2008constrained,singh2017augmentation,smag1963,smith1971isotropic,spencer1958theory,spencer1959further,tafti2014large,tejada2004dynamic,tyacke2016large,wang2016data,wang2017physics,wu2017priori,xiao2013large,xiao2016large,yu2017scale,zang1993dynamic,zemach2000mathematics,zhang2015machine,zheng1994theory}
 
 
 
