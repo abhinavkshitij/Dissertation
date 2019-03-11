@@ -1,12 +1,21 @@
 \graphicspath{ {./Ch4/}  } 
 \DeclareGraphicsExtensions{.png,.pdf,.jpg}
 
-% JHU database [76,77]
-%\newcommand{\jhuDNS}{jhu256,li2008public}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CITE GROUPS  %
+%%%%%%%%%%%%%%%%%
+
+% % JHU database [76,77]
+% \newcommand{\jhuDNS}{jhudnsdata, li2008public}
+
+%%%%%%%%%%%%%%%%%
+%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Implementation Assessment Methodology}
+\label{ch:4}
 
 $A priori$ tests are used here to assess the relative accuracy and computational cost of various implementations of autonomic closure. Although $a priori$ tests alone cannot demonstrate that a subgrid closure will provide stable computations when implemented in an LES code, such tests are the most direct way of assessing the accuracy of any closure approach in representing subgrid stress fields $\tau_{ij}(\mathbf{x},t)$  and subgrid production fields $P(\mathbf{x},t)$. The present assessments are thus essential for understanding the accuracy and computational cost of various implementations of autonomic closure, to enable later $a posteriori$ tests of implementations that are found here to be both accurate and efficient. 
 

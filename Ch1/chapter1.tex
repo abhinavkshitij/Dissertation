@@ -1,12 +1,14 @@
 \graphicspath{ {./Ch1/}  } 
 \DeclareGraphicsExtensions{.png,.pdf,.jpg}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %
-% %  CITE GROUPS  %
-% %%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CITE GROUPS  %
+%%%%%%%%%%%%%%%%%
 
 % % Complex flows [1-11]
 % \newcommand{\complexflow}{tyacke2016large, schmitt2007large, neophytou2015large, baurle2016hybrid, poubeau2014large, xiao2013large, bini2008large, aubard2013large, loginov2006large, piomelli1999large, mahesh2006large}
+
 
 % % Near wall treatment [12-15]
 % \newcommand{\nearwall}{bose2014dynamic, piomelli2008wall, piomelli2010wall,kawai2012wall}
@@ -29,21 +31,30 @@
 % % Prescribed subgrid models[27-33]
 % \newcommand{\prescribedsubgrid}{meneveau2000scale, liu1994properties, sagaut2006large, menon1996effect, shi2008constrained, tejada2004dynamic, yu2017scale}
 
-% % Large eddy simluations
+% % Large eddy simluations [10, 34-38]
 % \newcommand{\LES}{piomelli1999large, da2004effect, ghosal1996analysis, meyers2003database, kravchenko1997effect, chow2003further}
 
+%%%%%%%%%%%%%%%%
+%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% %%%%%%%%%%%%%%%%%
-% %
-
+% \section{Conventional Turbulence Modeling Approaches} 
+% \subsection{The Reynolds-Averaged Navier-Stokes (RANS) Equations} 
+% \subsection{Large Eddy Simulation}
+% \subsubsection{Scale-Similarity Models}
+% \section{Non-Parametric Closure Approaches}
+% \section{Autonomic Closure: A Novel Non-Parametric Mechanism}
+% \subsection{Organization of this Dissertation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Introduction}
 
-Large eddy simulation (LES) is being increasingly applied to 
+
+\chapter{Introduction}
+\label{ch:1}
+
 %\cite{\allrefs} 
-complex flows \cite{\complexflow}
-as the increasing availability of computing power and its decreasing cost make the computational burden of LES more acceptable. At the same time, there have been technical advances in the underlying methodology, such as modern wall treatments \cite{\nearwall}, that are further reducing the computational cost of LES to acceptable levels. These developments are making multiphysics large eddy simulations of complex flows increasingly practical (\citeauthor*{tyacke2016large},\citeyear{tyacke2016large}), in which the simulations address not only the underlying turbulent flow but also include numerous other coupled physical processes, such as transport of conserved scalars \cite{\conservedscalars}, droplet and particle dynamics \cite{\particledrop}, phase changes \cite{\phasechange}, reacting species \cite{\reactingspecies}, heat transfer \cite{\heattransfer}, and other phenomena.  
+
+Large eddy simulation (LES) is being increasingly applied to complex flows \cite{\complexflow}as the increasing availability of computing power and its decreasing cost make the computational burden of LES more acceptable. At the same time, there have been technical advances in the underlying methodology, such as modern wall treatments \cite{\nearwall}, that are further reducing the computational cost of LES to acceptable levels. These developments are making multiphysics large eddy simulations of complex flows increasingly practical (\citeauthor*{tyacke2016large},\citeyear{tyacke2016large}), in which the simulations address not only the underlying turbulent flow but also include numerous other coupled physical processes, such as transport of conserved scalars \cite{\conservedscalars}, droplet and particle dynamics \cite{\particledrop}, phase changes \cite{\phasechange}, reacting species \cite{\reactingspecies}, heat transfer \cite{\heattransfer}, and other phenomena.  
 
 Each physical process introduces governing equations, such as equations for conservation of mass, momentum, energy, and scalars, expressed as a combination of linear and nonlinear terms in the velocity field  $\mathbf{u}(\mathbf{x},t)$ and various scalar fields $\varphi(\mathbf{x},t)$. Due to the spatial filtering inherent in LES, each nonlinear term in these equations creates an associated subgrid term when the equations are written in the corresponding resolved fields $\widetilde{\mathbf{u}}(\mathbf{x},t)$ and $\widetilde{\varphi}(\mathbf{x},t)$. Each of these subgrid terms must be related to the resolved fields to obtain a closed set of equations.  Closure of subgrid terms has traditionally been done by means of prescribed subgrid models \cite{\prescribedsubgrid} that typically involve substantial ad hoc treatments. Errors introduced by these models can be important contributors to the overall error in results from large eddy simulations \cite{\LES}. For this reason, developing a general method that provides accurate subgrid closures for large eddy simulations has been a central focus area of turbulence research over the past several decades. 
 
@@ -60,38 +71,3 @@ In fact, as we will see, this $\tau_{ij}$ representation in terms of tensor base
 We may anticipate that the resulting new polynomial in the basis tensors formed from the   will have more terms than does our recent 1570-term polynomial in the basis tensors formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Yet this new polynomial may nevertheless be more computationally efficient, since each component of its basis tensors involve only a simple second-order velocity component product, and we are guaranteed that there are no repeated products in this representation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Conventional Turbulence Modeling Approaches} 
-% \lipsum[1] 
-
-% \subsection{The Reynolds-Averaged Navier-Stokes (RANS) Equations} 
-% \lipsum[1] 
-
-% \subsection{Large Eddy Simulation}
-% \lipsum[2]
-
-% \subsubsection{Scale-Similarity Models}
-% \lipsum[1]
-
-% \section{Non-Parametric Closure Approaches}
-% \lipsum[1] 
-
-% \section{Autonomic Closure: A Novel Non-Parametric Mechanism}
-% \lipsum[1] \cite{krishnappa_adult_2012}
-
-% \section{Present Study}
-% \lipsum[1]
-
-% \begin{figure}[htbp]
-% \begin{center}
-% \includegraphics[width=4in]{antidorcas}
-% \caption{default}
-% \label{default}
-% \end{center}
-% \end{figure}
-
-
-% \subsection{Organization of this Dissertation}
-% \lipsum[1]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-

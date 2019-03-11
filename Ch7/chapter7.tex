@@ -2,7 +2,25 @@
 \DeclareGraphicsExtensions{.png,.pdf,.jpg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CITE GROUPS  %
+%%%%%%%%%%%%%%%%%
+
+% % Traditional [27-29,46-57]
+% \newcommand{\traditional}{meneveau2000scale,liu1994properties,sagaut2006large,germano1991dynamic,lilly1992proposed,moin1991dynamic,piomelli1993high,zang1993dynamic,akhavan2000subgrid,liu1995experimental,liu1999evolution,sarghini1999scale,lund1993numerical,ghosal1995dynamic,gravemeier2006consistent}
+
+% % REPEATED REF [But do not delete]
+% % % Data-driven [63-71]
+% % \newcommand{\datadriven}{zhang2015machine, duraisamy2016informing, singh2017augmentation, ling2015evaluation, ling2016reynolds, ling2016machine, wang2016data, wang2017physics, wu2017priori}
+
+% \newcommand{\invariance}{oberlack1997invariant,razafindralandy2007analysis}
+
+%%%%%%%%%%%%%%%%%
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions and Implications for LES}
+\label{ch:7}
 
 Autonomic closure is a new general methodology for subgrid closures that is based on highly general nonparametric representations of subgrid terms in the primitive variables of a simulation, and solution of a local system identification problem to find the representation that best connects the local subgrid term to the local primitive variables. These generalized nonparametric representations typically have $O(10^2-10^4)$ degrees of freedom that are determined dynamically at each point $\mathbf{x}$ and time $t$ in the simulation. Such highly generalized representations in the primitive variables at a local set of stencil points $\mathbf{S}$ around each space-time point $(\mathbf{x},t)$  eliminate the need for a predefined parametric closure model, and allow far greater adaptability of the subgrid closure representation to the local turbulence state than is possible even with dynamical forms of traditional prescribed closure models. 
 Autonomic closure can be regarded as a high-dimensional nonparametric generalization of the dynamic approach used with various traditional prescribed closure models \cite{\traditional}. It can alternatively be regarded as a type of “data-driven” turbulence closure \cite{\datadriven}, in which machine-learning methods are used with available prior data to discover a closure model rather than prescribe one. However unlike other data-driven models, which use external training data obtained from prior simulations or experiments, autonomic closure is based on internal training data obtained at each point and time at a test-filter scale in the simulation. It then generalizes the resulting local nonparametric representation, in a machine learning sense, from the test-filter scale to the LES scale. Galilean invariance is explicitly enforced, and tensor invariance and realizability are implicitly imposed by training on test stresses $T_{ij}$  that intrinsically satisfy these properties. Additionally, autonomic closure involves no explicit external length scale, such as the LES or test filter length scales that appear in the dynamic Smagorinsky model and many other models, and thereby also inherently satisfies form invariance \cite{\invariance}.

@@ -2,7 +2,23 @@
 \DeclareGraphicsExtensions{.png,.pdf,.jpg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  CITE GROUPS  %
+%%%%%%%%%%%%%%%%%
+
+% % DSmag2 [27,46-59]
+% \newcommand{\DSmagtwo}{meneveau2000scale, germano1991dynamic, lilly1992proposed, moin1991dynamic, piomelli1993high, zang1993dynamic, akhavan2000subgrid, liu1995experimental, liu1999evolution, sarghini1999scale, lund1993numerical, ghosal1995dynamic, gravemeier2006consistent, king2015autonomic, king2016autonomic}
+
+% % Bardina [43-45]
+% \newcommand{\Bardina}{bardina1980improved, bardina1983improved, horiuti1989role}
+
+
+%%%%%%%%%%%%%%%%%
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Comparisons with Traditional Closure Models}
+\label{ch:6}
 
 From the preceding sections, the most accurate and efficient implementations of autonomic closure are those based on relatively local, second-order, velocity-only, colocated formulations. Among these, Case 3a was seen in Figs. 6-12 and Table 1 to give the best results for subgrid stress fields $\tau_{ij}(\mathbf{x},t)$  and subgrid production fields $P(\mathbf{x},t) \equiv -\tau_{ij}\widetilde{S}_{ij}$  across essentially all resolved scales. We now compare its performance with that of the dynamic Smagorinsky model \cite{\DSmagtwo} and the Bardina scale similarity model \cite{\Bardina}. The former is the most widely used subgrid model for $\tau_{ij}(\mathbf{x},t)$  in LES, and the latter is the basis for various mixed models \cite{\mixed} in which it is typically combined with the Smagorinsky model. 
 
