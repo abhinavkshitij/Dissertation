@@ -735,13 +735,13 @@
 \setlength{\belowcaptionskip}{0pt}      % Bring caption down closer to figure/table
 
 
-% \makeatletter                           % Consecutive numbering throughout 
-%   \counterwithout{figure}{chapter}      %   (including back matter)
-%   \counterwithout{table}{chapter} 
-%   \renewcommand\@memfront@floats{} 
-%   \renewcommand\@memmain@floats{} 
-%   \renewcommand\@memback@floats{} 
-% \makeatletter
+\makeatletter                           % Consecutive numbering throughout 
+  \counterwithout{figure}{chapter}      %   (including back matter)
+  \counterwithout{table}{chapter} 
+  \renewcommand\@memfront@floats{} 
+  \renewcommand\@memmain@floats{} 
+  \renewcommand\@memback@floats{} 
+\makeatletter
 
 %%% Tables %%%
 %
