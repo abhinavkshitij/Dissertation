@@ -14,7 +14,7 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation Assessment Methodology}
+\chapter{Methodology for Assessing Accuracy of Autonomic Closure Implementations}
 \label{ch:4}
 
 $A priori$ tests are used here to assess the relative accuracy and computational cost of various implementations of autonomic closure. Although $a priori$ tests alone cannot demonstrate that a subgrid closure will provide stable computations when implemented in an LES code, such tests are the most direct way of assessing the accuracy of any closure approach in representing subgrid stress fields $\tau_{ij}(\mathbf{x},t)$  and subgrid production fields $P(\mathbf{x},t)$. The present assessments are thus essential for understanding the accuracy and computational cost of various implementations of autonomic closure, to enable later $a posteriori$ tests of implementations that are found here to be both accurate and efficient. 
@@ -28,6 +28,52 @@ We also develop metrics to assess the accuracy of any implementation of autonomi
 Direct numerical simulation (DNS) data from a $1024^3$ simulation of homogeneous isotropic turbulence at $ Re_{\lambda} = 433$ from the Johns Hopkins Turbulence Database \cite{\jhuDNS} were used for these $a priori$ assessments. Velocity $u_i(\mathbf{x},t)$  and pressure  $p(\mathbf{x},t)$ fields were first projected on a $256^3$ grid having regular grid spacing $\Delta$, on which all results are displayed. A spectrally sharp filter with cutoff at $k_{\widetilde{\Delta}} = 40$, well within the inertial range, was applied to produce pseudo-LES fields $\widetilde{u_i}(\mathbf{x},t)$ and $\widetilde{p_i}(\mathbf{x},t)$   on the $256^3$ display grid. This grid accommodates wavenumbers up to  $k_{\Delta} = 128$, allowing the nonlinear product fields $\widetilde{u}_i \widetilde{u}_j (\mathbf{x},t)$, which have wavenumbers up to $2k_{\widetilde{\Delta}}= 80$, to be represented without aliasing. The true subgrid stress fields $\tau_{ij}(\mathbf{x},t) = \widetilde{u_iu_j} - \widetilde{u}_i \widetilde{u}_j$  were then constructed on the same $256^3$ display grid. A second spectrally sharp test filter with cutoff at  $k_{\widetilde{\Delta}}= 20$, providing test-to-LES filter ratio  $\alpha \equiv \widehat{\Delta}/\widetilde{\Delta}= 2$, produced test fields $\widehat{\widetilde{u_i}}(\mathbf{x},t)$   and  $\widehat{\widetilde{p}}(\mathbf{x},t)$ on the same $256^3$ display grid. This grid allows the product fields $\widehat{\widetilde{u_i}}\widehat{\widetilde{u_j}}(\mathbf{x},t)$, which contain wavenumbers up to $2k_{\widetilde{\Delta}}= 40$, to also be represented without aliasing. The test stress fields  $T_{ij}(\mathbf{x},t) = \widehat{\widetilde{u_iu_j}} - \widehat{\widetilde{u}}_i \widehat{\widetilde{u}}_j$  were then constructed on the $256^3$ display grid.
 
 The test stress fields $T_{ij}(\mathbf{x},t)$  and the test-filtered velocity  $\widehat{\widetilde{u_i}}(\mathbf{x},t)$  and pressure  $\widehat{\widetilde{p}}(\mathbf{x},t)$  fields are the only inputs needed for the autonomic closure methodology in \Cref{sec:IIA}. To determine  $\tau_{ij}$ at any point $\mathbf{x}$ on the display grid, since  $\widehat{\Delta}/\Delta = k_{\Delta}/k_{\widehat{\Delta}} = 128/20 = 6$   the local test-scale grid consisted of every sixth point along each direction on the $256^3$ display grid within the specified bounding box volume centered on $\mathbf{x}$. Due to periodicity of the underlying DNS data, the largest possible bounding box size $n^3$ spans the entire test field domain, thus  $n^3 = 256^3/6^3 = 44^3$. At the other extreme, the smallest bounding box accommodates just one training point centered on the  $3 \times 3 \times 3$ test-grid stencil $\widehat{\mathbf{S}}$, thus $n^3 = 3^3$. For each of $M$ equally spaced training points in the bounding box, the values of $\widehat{\widetilde{u_i}}$  and  $\widehat{\widetilde{p}}$ at each point on the test-grid stencil $\widehat{\mathbf{S}}$  centered on that training point provide the inputs for one row of the matrix $\widehat{\mathbf{V}}$  in (\ref{E:8}), and the test stress value  $T_{ij}$ at that training point is the corresponding component of the  $\mathbf{T}_{ij}$ vector. For each $ij$ pair the resulting $M \times N$  system in (\ref{E:8}) is then solved via (\ref{E:9}) to determine the coefficients $\mathbf{h}_{ij}$  at $\mathbf{x}$, which then provide $\tau_{ij}^{F}$   via (\ref{E:7}) from the values of $\widetilde{\mathbf{u}}$  and $\widetilde{p}$   at each point on the LES-grid stencil $\widetilde{\mathbf{S}}$  centered on $\mathbf{x}$.  
+%
+%
+%     TABLE     %  
+%%%%%%%%%%%%%%%%%
+
+\begin{table}[tb]
+	\label{tab:1}
+	\centering
+
+	\caption{Implementations of autonomic closure considered in \Cref{ch:5}, showing case number and code, number $N$ of degrees-of-freedom in $F_{ij}$, relative bounding box size $n^3$ , number $M$ of training points in bounding box, number of training points per degree-of-freedom $M/N$, relative training point spacing, computational time, and ratio of autonomic and true average subgrid dissipation. Case codes: First character N: non-colocated, C: collocated; Second character L: local, G: nonlocal; Third character 1: first-order, 2: second-order; Primes: velocity-pressure cases; DS = dynamic Smagorinsky model, BD = Bardina scale similarity model; + from (\ref{E:12}), actual times 10-20X longer due to memory management for large matrix operations. \vspace{0.5cm}}
+
+	\begin{tabular}{clrcrrcrr}
+	\hline \\
+
+	\textbf{Case} & \textbf{Code} & $N$ & $n^3 = \frac{V_B}{\widehat{\Delta}^3}$ & $M$ & $M/N$ & $\frac{(V_B/M)^{1/3}}{\widehat{\Delta}}$ & t(s) & $\frac{\langle P^F \rangle}{\langle P \rangle}$ \\ \\
+
+	\hline \\
+		1a 	&	CL14	&	82	&	$7^3$	&	328		&	4.0	&	1.0	&	45		&	1.18 \\
+		1b	&	CL14'	&	109	&	$8^3$	&	436		&	4.0	&	1.1	&	95		&	0.99 \\
+		2a 	&	CL18	&	82	&	$9^3$	&	656		&	8.0	&	1.0	&	85		&	1.15 \\
+		2b	&	CL18'	&	109	&	$10^3$	&	872		&	8.0	&	1.0	&	152		&	1.13 \\
+		3a	&	CL24	&	244	&	$10^3$	&	976		&	4.0	&	1.0	&	624		&	1.08 \\
+		3b	&	CL24'	&	379	&	$12^3$	&	1516 	&	4.0	&	1.0	&	2530	&	1.00 \\
+		4a	&	CL28	&	244	&	$13^3$	&	1952	&	8.0	&	1.0	&	1186	&	1.06 \\ \\
+	\hline \\
+		5a	&	NG2 	&  3403	&	$44^3$	&	17576	&	5.2	&	1.7	& $130,821^+$ &	1.19 \\
+		5b	&	NG2'	&  5995	&	$44^3$	&	17576	&	2.9	&	1.7	& $261,543^+$ &	1.23 \\
+		6a	&	CG24	&	244	&	$44^3$	&	976		&	4.0	&	4.4	&	624		&	1.04 \\
+		6b	&	CG28	&	244	&	$44^3$	&	1952	&	8.0	&	3.5	&	1186	&	0.99 \\ \\
+	\hline \\
+		7a 	&	CL1(3)	&	82	&	$3^3$	&	27		&	0.2	&	1.1	&	15		&	0.68 \\
+		7b	&	CL2(3)	&	244	&	$3^3$	&	27		&  0.07	&	1.1	&	114		&	0.68 \\
+		8a	&	CL1(5)	&	82	&	$5^3$	&	64		&	0.9	&	1.2	&	18		&	0.54 \\
+		8b	&	CL2(5)	&	244	&	$5^3$	&	64		&	0.3	&	1.2	&	130		&	0.88 \\ \\
+	\hline \\
+		DS 	&	--		&	--	&	--		&	--		&	--	&	--	&	70		&	1.05 \\
+		BD 	&	--		&	--	&	--		&	--		&	--	&	--	&	33		&  -1.19 \\ \\
+	\hline	\\
+	\end{tabular}
+
+	
+\end{table}
+
+%%%%%%%%%%%%%%%%%
+%
+%         
 
 %
 %    FIGURE     % 
@@ -47,7 +93,7 @@ The test stress fields $T_{ij}(\mathbf{x},t)$  and the test-filtered velocity  $
 \section{Statistical comparisons of $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ } 
 \label{sec:IIIB}
 
-For each implementation in Table 1 the resulting subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$   and production fields $P^{F}(\mathbf{x},t) \equiv -\tau_{ij}^{F} \widetilde{S}_{ij}$ from autonomic closure are compared with the corresponding true stress and production fields  $\tau_{ij}^{F}(\mathbf{x},t)$  and $P(\mathbf{x},t) \equiv -\tau_{ij} \widetilde{S}_{ij}$  . These comparisons include probability densities of stresses and production to assess if the implementation produces similar distributions of positive and negative values as in the true $\tau_{ij}^{F}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ fields. We also compare the average subgrid production $\langle P^F \rangle$  from each implementation to the true value $\varepsilon$.
+For each implementation in \Cref{tab:1} the resulting subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$   and production fields $P^{F}(\mathbf{x},t) \equiv -\tau_{ij}^{F} \widetilde{S}_{ij}$ from autonomic closure are compared with the corresponding true stress and production fields  $\tau_{ij}^{F}(\mathbf{x},t)$  and $P(\mathbf{x},t) \equiv -\tau_{ij} \widetilde{S}_{ij}$  . These comparisons include probability densities of stresses and production to assess if the implementation produces similar distributions of positive and negative values as in the true $\tau_{ij}^{F}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ fields. We also compare the average subgrid production $\langle P^F \rangle$  from each implementation to the true value $\varepsilon$.
 
 %
 %    FIGURE     % 

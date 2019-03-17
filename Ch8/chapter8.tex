@@ -20,13 +20,13 @@
 \chapter{Frame-invariant Volterra Series Representation}
 \label{ch:8}
 
-We recently used the results of \citeauthor*{\Smith}(\citeyear{\Smith}) to obtain the most general representation of the symmetric subgrid stress tensor  $\tau_{ij}$ in terms of the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ and rank-two products up to second order of their gradients  $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$. In particular, Smith’s framework guarantees that the resulting tensor polynomial representation satisfies the rank, symmetry, rotation, and reflection properties of the stress tensor $\tau_{ij}$ -- essential for any such representation to be strictly valid.  Moreover, Smith’s formulation was shown by \citeauthor*{\Pennisi}(\citeyear{\Pennisi}) to be minimal, thus there is no smaller number of symmetric basis tensors that can form a complete polynomial representation of $\tau_{ij}$.  
+We recently used the results of \citeauthor*{\Smith} (\citeyear{\Smith}) to obtain the most general representation of the symmetric subgrid stress tensor  $\tau_{ij}$ in terms of the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ and rank-two products up to second order of their gradients  $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$. In particular, Smith’s framework guarantees that the resulting tensor polynomial representation satisfies the rank, symmetry, rotation, and reflection properties of the stress tensor $\tau_{ij}$ -- essential for any such representation to be strictly valid.  Moreover, Smith’s formulation was shown by \citeauthor*{\Pennisi} (\citeyear{\Pennisi}) to be minimal, thus there is no smaller number of symmetric basis tensors that can form a complete polynomial representation of $\tau_{ij}$.  
 
 The resulting representation, while complete and minimal, is computationally expensive to evaluate.  It consists of 1570 tensor terms that each involve products up to $fourth$ order in the underlying rank-two tensors $\mathbf{M}_i$ and $\mathbf{W}_p$, each of which in turn involve products up to second order in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$.  Since the strain and rotation rate tensors  $\mathbf{S}$ and  $\mathbf{R}$, and gradients $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$, are linear in the components of the velocities  $\mathbf{u}_{m}$ at the $m = 1, 2,\ldots, P =$ 27 points on the local $3 \times 3 \times 3$  stencil, each term in this frame-invariant representation ultimately involves products up to $eighth$ order in these velocity components.  
 
 One might suspect that some of the many resulting velocity component products appearing in each of the 1570 tensor bases may be the same. Leaving them grouped as they appear in this 1570-term tensor polynomial form involves the smallest number of coefficients of any complete frame-invariant symmetric tensor representation. However, that may be less computationally efficient than if these repeated velocity component products were instead grouped together in an equivalent series having more coefficients but involving far fewer arithmetic operations to evaluate all components of all the basis tensors. However, due to the enormous number of such repeated velocity component products in this tensor polynomial, identifying such alternate groupings “by hand” is completely impractical, and even our efforts to use symbolic mathematics software to identify repeated velocity component products have not led to success.
 
-Alternatively, it may be possible to use the results of \citeauthor*{\Smith}(\citeyear{\Smith}) to obtain a different, and potentially more computationally efficient, complete and minimal tensor polynomial in terms of the $P$ = 27 velocity vectors  $\mathbf{u}_{m}$ on our $3 \times 3 \times 3$   stencil, rather than via the 1570-term tensor polynomial in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Smith’s formulation in fact provides the complete and minimal tensor bases for representing any symmetric rank-two tensor in terms of any number of vectors and rank-two tensors.  Rather than forming the tensor polynomial representation in terms of rank-two tensors from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$, we will here use Smith’s formulation to obtain the tensor polynomial representation directly in terms of the  $m = 1, 2,\ldots , P =$ 27 velocity vectors $\mathbf{u}_{m}$ on the stencil.  Such a series will naturally have each possible velocity component product appear only once, and thus should provide the potentially efficient alternative representation noted above.
+Alternatively, it may be possible to use the results of \citeauthor*{\Smith} (\citeyear{\Smith}) to obtain a different, and potentially more computationally efficient, complete and minimal tensor polynomial in terms of the $P$ = 27 velocity vectors  $\mathbf{u}_{m}$ on our $3 \times 3 \times 3$   stencil, rather than via the 1570-term tensor polynomial in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Smith’s formulation in fact provides the complete and minimal tensor bases for representing any symmetric rank-two tensor in terms of any number of vectors and rank-two tensors.  Rather than forming the tensor polynomial representation in terms of rank-two tensors from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$, we will here use Smith’s formulation to obtain the tensor polynomial representation directly in terms of the  $m = 1, 2,\ldots , P =$ 27 velocity vectors $\mathbf{u}_{m}$ on the stencil.  Such a series will naturally have each possible velocity component product appear only once, and thus should provide the potentially efficient alternative representation noted above.
 
 In fact, as we will see, this $\tau_{ij}$ representation in terms of tensor bases formed directly from the $\mathbf{u}_{m}$ will be very similar to the original \textit{ad hoc} Volterra series we began with.  However, while the original Volterra series representation was not frame invariant, this new representation will be. Moreover, our original Volterra series was arbitrarily truncated after second-order products in the velocity components, but in this new representation we will see that in any valid representation of $\tau_{ij}$  in terms of $\mathbf{u}_{m}$  there \textit{cannot} be any velocity component products of order higher than two. Thus in this new representation \textit{no} truncation is needed, even while preserving the completeness of the tensor representation. 
 
@@ -35,7 +35,7 @@ We may anticipate that the resulting new polynomial in the basis tensors formed 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Complete and Minimal Tensor Representation of $\tau_{ij}$  in $\mathbf{u}_{m}$ } 
 
-Here, we seek a tensorally correct representation for the symmetric rank-two stress tensor  $\mathbf{\tau}$ in terms of the $m = 1, \ldots, P = $ 27 velocity vectors $\mathbf{u}_{m}$ of the form  $\mathbf{\tau} = F (\mathbf{u}_{m}; m = 1, \ldots, P)$, meaning a representation that preserves the rank, symmetry, rotation and reflection properties of $\mathbf{\tau}$.  Following \citeauthor*{\Smith} (\citeyear{\Smith}; Eq. 4.5), any such rank-two symmetric tensor $\mathbf{\tau}$  can be represented in a complete and minimal tensor polynomial in terms of any number $P$ of vectors  $\mathbf{u}_{m}$  as
+Here, we seek a tensorally correct representation for the symmetric rank-two stress tensor  $\mathbf{\tau}$ in terms of the $m = 1,\ldots, P = $ 27 velocity vectors $\mathbf{u}_{m}$ of the form  $\mathbf{\tau} = F (\mathbf{u}_{m}; m = 1, \ldots, P)$, meaning a representation that preserves the rank, symmetry, rotation and reflection properties of $\mathbf{\tau}$.  Following \citeauthor*{\Smith} (\citeyear{\Smith}; Eq. 4.5), any such rank-two symmetric tensor $\mathbf{\tau}$  can be represented in a complete and minimal tensor polynomial in terms of any number $P$ of vectors  $\mathbf{u}_{m}$  as
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
@@ -91,16 +91,46 @@ Returning to (\ref{E:15}), it might be tempting to discard the term  $c_0\mathbf
 
 requires $\mathbf{\tau} = 0$  when $\mathbf{u} \equiv 0$. One might thus consider forcing $c_0 \equiv 0$  to ensure (\ref{E:15}) satisfies this requirement.  However, recall from above that $c_0$  is in principle a scalar-valued function $f$  of the scalar invariants  $\mathbf{u}_{\alpha} \cdot \mathbf{u}_{\alpha}$ and $\mathbf{u}_{\alpha} \cdot \mathbf{u}_{\beta}$, so when all the  $\mathbf{u}_{\alpha, \beta} \equiv 0$ then these scalar invariants are all zero, in which case it is possible (even likely) that $c_0 = f(0,\ldots0) = 0$.  This then allows $c_0 = 0$   when  $\mathbf{u} \equiv 0$ and thereby satisfies $\mathbf{\tau} = 0$  when  $\mathbf{u} \equiv 0$ even when the $c_0 \mathbf{I}$  term in (\ref{E:15}) is retained.  Furthermore, when $\mathbf{u} \neq 0$  we may expect $c_0 \neq 0$, in which case again the $c_0 \mathbf{I}$ term in (\ref{E:15}) must be retained.  Thus in all cases, the  $c_0 \mathbf{I}$ term in (\ref{E:15}) must be retained.  Only when  $\mathbf{\tau}$ in (\ref{E:15}) is the deviatoric stress can we set $c_0 \equiv 0$.
 
-There is, however, a problem with (\ref{E:15}) that can be easily recognized and that originates from a subtle assumption in Smith’s representation.  It is well known that to leading order the stress  $\mathbf{\tau}$ depends linearly on the strain rate $\mathbf{S} = (\nabla \mathbf{u} + \nabla \mathbf{u}^T)/2$; numerous such linear stress-strain models, including the basic and dynamic Smagorinsky models, are fairly successful by assuming a linear relation between $\mathbf{\tau}$  and $\mathbf{S}$, namely $\mathbf{\tau} = c_0\mathbf{I} + c_S \mathbf{S}$  or equivalently $\tau_{ij} = c_0\delta_{ij} + c_S S_{ij}$, where $c_0 = \tau_{kk}/3$  and $c_S$  is a Smagorinsky coefficient or, more generally, an eddy viscosity.  However, (\ref{E:15}) does not allow any such linear stress-strain form, because it has no terms that are linear in the velocities   and thereby does not allow any linear variations of   with S.
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{5in}]{Smith_UC_UN_y_43_12-03.eps}
+	\caption{Comparison of (a) true stress fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+	\label{F:Smith_UC}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+There is, however, a problem with (\ref{E:15}) that can be easily recognized and that originates from a subtle assumption in Smith’s representation.  It is well known that to leading order the stress  $\mathbf{\tau}$ depends linearly on the strain rate $\mathbf{S} = (\nabla \mathbf{u} + \nabla \mathbf{u}^T)/2$; numerous such linear stress-strain models, including the basic and dynamic Smagorinsky models, are fairly successful by assuming a linear relation between $\mathbf{\tau}$  and $\mathbf{S}$, namely $\mathbf{\tau} = c_0\mathbf{I} + c_S \mathbf{S}$  or equivalently $\tau_{ij} = c_0\delta_{ij} + c_S S_{ij}$, where $c_0 = \tau_{kk}/3$  and $c_S$  is a Smagorinsky coefficient or, more generally, an eddy viscosity.  However, (\ref{E:15}) does not allow any such linear stress-strain form, because it has no terms that are linear in the velocities $\mathbf{u}_{m}$  and thereby does not allow any linear variations of $\tau$ with S.
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{5in}]{Smith_UC_P_y_43_12-03.eps}
+	\caption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+	\label{F:Smith_UC_P}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
 
 The reason (\ref{E:15}) has no linear terms in the velocities $\mathbf{u}_{m}$ is because all the vectors $\mathbf{u}_{m}$ in Smith’s representation are implicitly assumed to be located at the same point at which $\mathbf{\tau}$  is being represented. When the vectors $\mathbf{u}_{m}$  are at the same point then all \textit{linear} combinations of them, namely sums and differences of the vectors $\mathbf{u}_{m}$, are also vectors (rank-one tensors) – there are no possible linear combinations of the $\mathbf{u}_{m}$ that form rank-two tensors.
 
 By contrast, in autonomic closure the $\mathbf{u}_{m}$  are not strictly located at a single point, but instead on a discrete spatial stencil centered on the point at which $\mathbf{\tau}$  is being represented.  As a result, it is possible for linear combinations of the $\mathbf{u}_{m}$  together with their spatial locations to form a rank-two symmetric tensor. In fact, there is just one rank-two symmetric tensor that can be formed in this way, namely $\mathbf{S} = (\nabla \mathbf{u} + \nabla \mathbf{u}^T)/2$.
 
+
 Accordingly, to account for the fact that the $\mathbf{u}_{m}$ are not all at the same spatial point at which $\mathbf{\tau}$ is being represented, but rather on a spatial stencil centered on the point, we must add to (\ref{E:15}) the only allowable rank-two symmetric tensor that is linear in the $\mathbf{u}_{m}$, namely $(\nabla \mathbf{u} + \nabla \mathbf{u}^T)/2$. Since this is linear, symmetric, and preserves the rotation and reflection properties of $\mathbf{\tau}$, it must be included in any complete representation of  $\mathbf{\tau}$ in terms of the velocities $\mathbf{u}_{m}$ on a spatial stencil around the point at which $\mathbf{\tau}$ is being represented.
 
 Thus, from \citeauthor*{\Smith} (\citeyear{\Smith}) and the additional reasoning above regarding linear terms, the most general and complete representation for $\mathbf{\tau}$  in the stencil velocities $\mathbf{u}_{m}$ that preserves the rank, symmetry, rotation, and reflection properties of $\mathbf{\tau}$ is 
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%

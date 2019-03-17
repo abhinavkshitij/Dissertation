@@ -53,6 +53,20 @@ Here we apply autonomic closure to the subgrid stress  $\tau_{ij}(\mathbf{x},t)$
 %                             
 where ${\widetilde{\mathbf{S}}}$  is a set of points $\mathbf{x'}$  that define a stencil (here $3\times3\times3$ ) with separation $\widetilde{\Delta}$   on the LES grid, as shown in \Cref{F:2}. \Cref{E:5} is a general nonparametric relation between the local subgrid stresses $\tau_{ij} \equiv \widetilde{u_iu_j} - \widetilde{u_i} \widetilde{u_j}$  and the resolved-scale variables $\widetilde{\mathbf{u}}$  and ${\widetilde{p}}$  on the LES grid.  $F_{ij}$ in (\ref{E:5}) should ideally reflect the local turbulence state at $\mathbf{x}$, including nonlinear, nonlocal, nonequilibrium and other effects that determine how the local $\tau_{ij}(\mathbf{x})$  can be best obtained from the resolved-scale values   $\widetilde{\mathbf{u}}$  and  ${\widetilde{p}}$   at the stencil points ${\widetilde{\mathbf{S}}}$   centered on $\mathbf{x}$.
 
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{\textwidth}]{Fig2.png}
+	\caption{ Stencils $\mathbf{\widehat{S}}$ and $\mathbf{\widetilde{S}}$ each centered on point-of-interest $\mathbf{x}$ (red dot); (a) test-grid stencil $\mathbf{\widehat{S}}$ on which $\mathbf{h}_{ij}$ is determined, (b) LES-grid stencil $\mathbf{\widetilde{S}}$ on which resulting  $\mathbf{h}_{ij}$ is used to evaluate  $\tau_{ij}^{\mathcal{F}}(\mathbf{x})$  }
+	\label{F:2}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
 Analogous to the subgrid stresses  $\tau_{ij}$, we consider local test stresses  $T_{ij} \equiv \widehat{\widetilde{u_i} \widetilde{u_j}} - \widehat{\widetilde{u_i}}\widehat{\widetilde{u_j}}$ \cite{\teststress}, which can be obtained from the resolved velocities  $\widetilde{\mathbf{u}} $ by applying a test filter $\widehat{(\  )}$  having a larger length scale  $\widehat{\Delta} = \alpha \widetilde{\Delta}$. If $F_{ij}$  reflects the local turbulence state at $\mathbf{x}$ then, in the same way that  $\tau_{ij}$ is related to the resolved-scale variables   $\widetilde{\mathbf{u}}$  and  ${\widetilde{p}}$  on the set  ${\widetilde{\mathbf{S}}}$, so also should $T_{ij}$  be related to the test-scale variables   $\widehat{\widetilde{\mathbf{u}}}$  and  $\widehat{{\widetilde{p}}}$   on the corresponding set ${\widehat{\mathbf{S}}}$,  of test-scale stencil points centered on $\mathbf{x}$  with separation $\widehat{\Delta}$. In other words, analogous to (\ref{E:5}), we have
 %
 %    EQUATION   %  

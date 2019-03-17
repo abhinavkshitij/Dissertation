@@ -67,7 +67,7 @@
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Volterra Series Representations}
+\chapter{Closure of Subgrid terms in Large Eddy Simulations}
 \label{ch:2}
 
 Large eddy simulation (LES) is being increasingly applied to complex flows \cite{\complexflow}, as the increasing availability of computing power and its decreasing cost make the computational burden of LES more acceptable. At the same time, there have been technical advances in the underlying methodology, such as modern wall treatments \cite{\nearwall}, that are further reducing the computational cost of LES to acceptable levels. These developments are making multiphysics large eddy simulations of complex flows increasingly practical, in which the simulations address not only the underlying turbulent flow but also include numerous other coupled physical processes, such as transport of conserved scalars \cite{\conservedscalars}, droplet and particle dynamics \cite{\particledrop}, phase changes \cite{\phasechange}, reacting species \cite{\reactingspecies}, heat transfer \cite{\heattransfer}, and other phenomena.  
@@ -197,20 +197,6 @@ The need in autonomic closure to solve a local system identification problem at 
 The cost of autonomic closure can be controlled by varying the number of degrees of freedom in the underlying nonparametric relation and by other choices in its implementation, though these choices can affect the accuracy of the resulting   $\tau_{ij}$   and   $P(\mathbf{x},t)$  fields. Therefore the main issue addressed here is whether there are implementations of autonomic closure that are efficient enough to be practical for LES while retaining the accuracy in   $\tau_{ij}$   and   $P(\mathbf{x},t)$   seen in \Cref{F:1} from the computationally costly implementation in Ref. \cite{king2016autonomic}. To address this we present results from   $a priori$   tests that quantify the effects of various implementation choices in autonomic closure. In particular, we compare autonomically determined    $\tau_{ij}$   and   $P(\mathbf{x},t)$    fields with corresponding true subgrid stress and subgrid production fields to find implementations that are both efficient and accurate.  
 
 Of key interest is whether large forward and backward scatter in the production fields from such efficient implementations of autonomic closure remain at the right magnitudes in regions at the right locations and having the right sizes and shapes. To evaluate this we develop and apply metrics that quantify how the resulting spatial support on which large production values are concentrated compares with corresponding true  $P(\mathbf{x},t)$  fields. From this we identify highly efficient implementations of autonomic closure that remain nearly as accurate as that in Ref. \cite{king2016autonomic} but at computational costs that are $O(10^3)$ smaller. These implementations are accurate and efficient enough for practical use in large eddy simulations, allowing future $a posteriori$ testing of this new closure methodology. 
-
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\begin{center}
-	\includegraphics[width=\maxwidth{\textwidth}]{Fig2.png}
-	\caption{ Stencils $\mathbf{\widehat{S}}$ and $\mathbf{\widetilde{S}}$ each centered on point-of-interest $\mathbf{x}$ (red dot); (a) test-grid stencil $\mathbf{\widehat{S}}$ on which $\mathbf{h}_{ij}$ is determined, (b) LES-grid stencil $\mathbf{\widetilde{S}}$ on which resulting  $\mathbf{h}_{ij}$ is used to evaluate  $\tau_{ij}^{\mathcal{F}}(\mathbf{x})$  }
-	\label{F:2}
-	\end{center}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
 
 \Cref{ch:3} provides a detailed description of autonomic closure and various implementation choices within it. \Cref{ch:4} presents the metrics used here for assessing the accuracy of any implementation of autonomic closure or of any traditional prescribed closure model. These include metrics for quantifying the scale-dependent support-density fields on which large magnitudes in   $P(\mathbf{x},t)$  are concentrated. \Cref{ch:5} then applies these metrics to quantify the accuracy and efficiency of various implementations of autonomic closure, and identifies the implementation that provides the best performance. \Cref{ch:6} compares results from this recommended implementation of autonomic closure and traditional prescribed closure models. In \Cref{ch:7} we present major conclusions and discuss implications of these results for achieving accuracy across essentially all resolved scales in multiphysics large eddy simulations. 
 

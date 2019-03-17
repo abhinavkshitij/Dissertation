@@ -13,16 +13,16 @@
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Implementation Performance}
+\chapter{Performance of Volterra Series-Based Implementations of Autonomic Closure}
 \label{ch:5}
 
-Table 1 shows parameters from \Cref{sec:IIB} for each implementation of autonomic closure considered here. Together these allow a systematic assessment of the effects of various implementation choices on the performance of autonomic closure. Cases are grouped into three categories. The first category (Cases 1a-4b) primarily examines effects of series truncation order, inclusion of pressure, and the relative training ratio $M/N$, while the bounding box size $n^3$ and the number $M$ of training points vary as needed to obtain these  $M/N$ values. The second (Cases 5a-6b) primarily examines effects of colocated and non-colocated implementations, with and without pressure, keeping the bounding box at its largest possible size and the relative training ratio  $M/N$ roughly comparable to the first category. The third category (Cases 7a-8b) primarily examines highly local implementations and series truncation order, with relative training ratios $M/N$  necessarily low due to the small bounding box sizes. 
+\Cref{tab:1} shows parameters from \Cref{sec:IIB} for each implementation of autonomic closure considered here. Together these allow a systematic assessment of the effects of various implementation choices on the performance of autonomic closure. Cases are grouped into three categories. The first category (Cases 1a-4b) primarily examines effects of series truncation order, inclusion of pressure, and the relative training ratio $M/N$, while the bounding box size $n^3$ and the number $M$ of training points vary as needed to obtain these  $M/N$ values. The second (Cases 5a-6b) primarily examines effects of colocated and non-colocated implementations, with and without pressure, keeping the bounding box at its largest possible size and the relative training ratio  $M/N$ roughly comparable to the first category. The third category (Cases 7a-8b) primarily examines highly local implementations and series truncation order, with relative training ratios $M/N$  necessarily low due to the small bounding box sizes. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Computational times} 
 \label{sec:IVA}
 
-The resulting single-core computational time for each implementation of autonomic closure is given in Table 1. We used standard LAPACK routines that take advantage of symmetry to speed the inversion in (\ref{E:9}). As noted in \Cref{sec:IIIF}, the computational cost for autonomic closure is determined primarily by the time needed to build the $\widehat{\mathbf{V}}$  matrix, which is expected to scale as $M \cdot N$, and the time needed for the damped least-squares solution in (\ref{E:9}) for the coefficients $\mathbf{h}_{ij}$, which is expected to scale as $N^2$. In comparison, the time to construct  $\tau_{ij}$ from  $\mathbf{h}_{ij}$  and  $\widetilde{\mathbf{V}}$  via (\ref{E:7}) is presumed to be negligible. If these assumptions are correct then the combined computational times $T$ in Table 1 would be expected to scale as
+The resulting single-core computational time for each implementation of autonomic closure is given in \Cref{tab:1}. We used standard LAPACK routines that take advantage of symmetry to speed the inversion in (\ref{E:9}). As noted in \Cref{sec:IIIF}, the computational cost for autonomic closure is determined primarily by the time needed to build the $\widehat{\mathbf{V}}$  matrix, which is expected to scale as $M \cdot N$, and the time needed for the damped least-squares solution in (\ref{E:9}) for the coefficients $\mathbf{h}_{ij}$, which is expected to scale as $N^2$. In comparison, the time to construct  $\tau_{ij}$ from  $\mathbf{h}_{ij}$  and  $\widetilde{\mathbf{V}}$  via (\ref{E:7}) is presumed to be negligible. If these assumptions are correct then the combined computational times $T$ in \Cref{tab:1} would be expected to scale as
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
@@ -33,7 +33,7 @@ The resulting single-core computational time for each implementation of autonomi
 %%%%%%%%%%%%%%%%%
 %
 %         
-For the cases in Table 1 the best fit to this scaling is with $c_1 \approx 1.8 \times 10^{-3}$  and  $c_2 \approx 2.0 \times 10^{-3}$. Comparison of the resulting scaling in (\ref{E:12}) and the actual computational times is shown in \Cref{F:5}. Note Cases 5a,b have been excluded since their large matrix sizes introduce additional time for memory management that are not representative of practical implementations. The fact that the scaling prefactors $c_1$  and  $c_2$ are nearly equal was unexpected in \Cref{sec:IIIF} and likely reflects the substantial speedup available in LAPACK for the symmetric matrix inversion compared to a brute force inversion.
+For the cases in \Cref{tab:1} the best fit to this scaling is with $c_1 \approx 1.8 \times 10^{-3}$  and  $c_2 \approx 2.0 \times 10^{-3}$. Comparison of the resulting scaling in (\ref{E:12}) and the actual computational times is shown in \Cref{F:5}. Note Cases 5a,b have been excluded since their large matrix sizes introduce additional time for memory management that are not representative of practical implementations. The fact that the scaling prefactors $c_1$  and  $c_2$ are nearly equal was unexpected in \Cref{sec:IIIF} and likely reflects the substantial speedup available in LAPACK for the symmetric matrix inversion compared to a brute force inversion.
 It is apparent in \Cref{F:5} that (\ref{E:12}) provides reasonable scaling of $T$ over nearly three orders of magnitude, and can therefore be used to understand how the implementation parameters $N$ and $M$ affect the computational time. For this purpose it is useful to rearrange (\ref{E:12}) as
 %
 %    EQUATION   %  
@@ -52,7 +52,7 @@ where  $M/N$ is the number of training points per degree of freedom in $F_{ij}$.
 %%%%%%%%%%%%%%%%%
 \begin{figure}
 	\begin{center}
-	\includegraphics[width=\maxwidth{3in}]{Fig5.png}
+	\includegraphics[width=\maxwidth{3.5in}]{Fig5}
 	\caption{ Scaling of computational time $T$ for autonomic closure with number $N$ of degrees of freedom in $F_{ij}$ and number $M$ of training points in $\widehat{\mathbf{V}}$ in (\ref{E:8}) and (\ref{E:9}), showing theoretical scaling vs. actual computational time for cases in Table.1}
 	\label{F:5}
 	\end{center}
@@ -69,7 +69,7 @@ As noted in \Cref{sec:IIB}, large bounding boxes allow for larger numbers $M$ of
 
 To understand the performance of local (small $n^3$) and nonlocal (large $n^3$) implementations of autonomic closure, \Cref{F:6} shows probability densities of a typical subgrid stress component  $\tau_{ij}$ and the subgrid production $P$, and the scale-dependent support-density metrics $M_1$ and $M_2$  comparing the accuracy in the support-densities of the subgrid production fields. The red curves show the performance of local implementations (Cases 3a vs 4a) and the blue curves are from nonlocal implementations (Cases 6a vs 6b). Cases 3a and 6a have the same number $M/N$  of training points per degree of freedom, as do Cases 4a and 6b, and all these cases are second-order velocity-only implementations, so these comparisons are indicative of the effects of local versus nonlocal implementations. 
 
-In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementations give more accurate results for the support on which large magnitudes of subgrid production are concentrated than do the nonlocal implementations. Support-density correlations $M_1$ for the local implementations are as high as $98\%$ and rms errors $M_2$  decrease to less than $2.3\%$  at the largest scale-ratio, while for the nonlocal implementations the correlations $M_1$  only reach $94\%$ and rms errors $M_2$  decrease only to $4\%$. The pdfs in  \Cref{F:6} show that, for the same $M/N$  value, the local implementations give better representation of  $\tau_{ij}$ and $P$, especially in the tails that correspond to large magnitudes, than do the corresponding nonlocal implementations. Moreover, note in Table 1 that the computational cost is the same for Cases 3a and 6a, and for Cases 4a and 6b, since  $M/N$ is the same for each pair, as discussed in \Cref{sec:IVA}. We conclude that, all other factors being the same, local implementations are more accurate than nonlocal ones. 
+In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementations give more accurate results for the support on which large magnitudes of subgrid production are concentrated than do the nonlocal implementations. Support-density correlations $M_1$ for the local implementations are as high as $98\%$ and rms errors $M_2$  decrease to less than $2.3\%$  at the largest scale-ratio, while for the nonlocal implementations the correlations $M_1$  only reach $94\%$ and rms errors $M_2$  decrease only to $4\%$. The pdfs in  \Cref{F:6} show that, for the same $M/N$  value, the local implementations give better representation of  $\tau_{ij}$ and $P$, especially in the tails that correspond to large magnitudes, than do the corresponding nonlocal implementations. Moreover, note in \Cref{tab:1} that the computational cost is the same for Cases 3a and 6a, and for Cases 4a and 6b, since  $M/N$ is the same for each pair, as discussed in \Cref{sec:IVA}. We conclude that, all other factors being the same, local implementations are more accurate than nonlocal ones. 
 
 \Cref{F:6} shows relatively little difference in accuracy between the two local implementations (Cases 3a and 4a) or between the two nonlocal implementations (Cases 6a and 6b). Since each pair differs primarily in its  $M/N$ value, there apparently is little benefit in autonomic closure from increasing the number of training points per degree of freedom from  $M/N = 4$ to  $M/N = 8$. Additionally, the greater separation  $(V_B/M)^{1/3}$ between training points in the nonlocal implementations (Cases 6a and 6b) compared to that in the local implementations also appears to provide little benefit. These effects will be examined in greater detail in \Cref{sec:IVE}.
 
@@ -109,7 +109,7 @@ The Volterra series used here for $F_{ij}$  in (5) and (6) consists of all possi
 
 \Cref{F:7}  compares several velocity-pressure implementations with corresponding velocity-only implementations (Cases 1a vs 1b, 2a vs 2b, 3a vs 3b, 4a vs 4b, and 5a vs 5b). Each pair has the same number $M/N$  of training points per degree of freedom, and in each pair the case number ending in “b” includes pressure. In the $M_1$  and $M_2$  results, it can be seen that for first-order implementations ($N$ = 82 or 109) there is some improvement when pressure is included, but for second-order implementations ($N$ = 244 or 379) there is essentially negligible benefit from including pressure. This indicates that the improvement seen in first-order implementations when including pressure is not so much due to the addition of nonlocal effects from the pressure itself, but instead largely due to the greater number $N$ of degrees of freedom in $F_{ij}$  when an additional stencil variable is included. 
 
-A velocity-pressure implementation does however lead to greater computational cost over the corresponding velocity-only implementation. As seen in Table 1, including pressure typically raises the computational cost by a factor of 2-4. Including pressure may thus be justified for first-order implementations, where the additional degrees of freedom provide some benefit, but not for second-order implementations, where $N$ is already large enough that a further increase in the number of degrees of freedom provides negligible benefits.
+A velocity-pressure implementation does however lead to greater computational cost over the corresponding velocity-only implementation. As seen in \Cref{tab:1}, including pressure typically raises the computational cost by a factor of 2-4. Including pressure may thus be justified for first-order implementations, where the additional degrees of freedom provide some benefit, but not for second-order implementations, where $N$ is already large enough that a further increase in the number of degrees of freedom provides negligible benefits.
 
 %
 %    FIGURE     % 
@@ -124,13 +124,13 @@ A velocity-pressure implementation does however lead to greater computational co
 %%%%%%%%%%%%%%%%%
 %
 
-Additionally, note in Table 1 that noncolocated implementations (Cases 5a and 5b) lead to a large increase in $N$, and thereby to a large increase in computational time $T$, but \Cref{F:7} shows that they produce only very little improvement in  $M_1$ and $M_2$  or in the pdfs of  $\tau_{ij}$ or $P$. The best colocated implementations perform nearly as well, and do so at far lower computational cost.
+Additionally, note in \Cref{tab:1} that noncolocated implementations (Cases 5a and 5b) lead to a large increase in $N$, and thereby to a large increase in computational time $T$, but \Cref{F:7} shows that they produce only very little improvement in  $M_1$ and $M_2$  or in the pdfs of  $\tau_{ij}$ or $P$. The best colocated implementations perform nearly as well, and do so at far lower computational cost.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{First-order vs second-order implementations}
 \label{sec:IVD}
 
-Table 1 and (\ref{E:13}) show there is a substantial increase in computational cost from the increase in $N$ when second-order terms are included in the Volterra series for  $F_{ij}$ in (\ref{E:5}) and (\ref{E:6}). This can be seen by comparing the computational times for Cases 1a vs 3a, 1b vs 3b, 2a vs 4a, and 2b vs 4b. Each pair has the same number  $M/N$ of training points per degree-of-freedom. Including second-order terms is seen to increase computational cost by a factor of 14-30 over the cost for a corresponding first-order implementation, consistent with the scaling in (\ref{E:13}).  
+\Cref{tab:1} and (\ref{E:13}) show there is a substantial increase in computational cost from the increase in $N$ when second-order terms are included in the Volterra series for  $F_{ij}$ in (\ref{E:5}) and (\ref{E:6}). This can be seen by comparing the computational times for Cases 1a vs 3a, 1b vs 3b, 2a vs 4a, and 2b vs 4b. Each pair has the same number  $M/N$ of training points per degree-of-freedom. Including second-order terms is seen to increase computational cost by a factor of 14-30 over the cost for a corresponding first-order implementation, consistent with the scaling in (\ref{E:13}).  
 
 \Cref{F:8} compares the performance of first-order and second-order implementations via pdfs of the subgrid stress and production, and the support-density metrics  $M_1$ and $M_2$ for the subgrid production fields. It is evident in the pdfs of  $\tau_{ij}$ and $P$ and in $M_1$   and $M_2$  that the second-order (blue) implementations give more accurate results for  $\tau_{ij}$ and $P$ than do first-order (red) implementations. Part of the benefit from second-order implementations is simply due to the greater number $N$ of degrees of freedom in  $F_{ij}$ when second-order terms are retained, consistent with results found in \Cref{sec:IVC}. However, having seen in  \Cref{sec:IVC} that including pressure in a second-order implementation provides negligible benefit, it is apparent that the advantage of these second-order implementations over the corresponding first-order implementations can be understood solely in terms of the velocities on the stencil. 
 
@@ -161,13 +161,13 @@ As noted in \Cref{sec:IIB}, both the number of training points and their relativ
 We first examine the effect of the number  $M/N$ of training points per degree of freedom 
 in $F_{ij}$. \Cref{F:9}  compares the performance of implementations with $M/N \leq 1$  to those having $M/N \gg 1$. In general, cases having  $M/N \gg 1$ (red) outperform those with  $M/N \leq 1$ (blue). However, it can be seen that there is no apparent benefit from increasing $M/N$ above about 4. For instance, Cases 3a and 4a have nearly identical performance, as do Cases 1a and 2a, even though  $M/N$ in each pair are 4.0 and 8.0, respectively. The same can be seen in comparing Cases 6a and 7a in \Cref{F:7}. Cases 7a and 8a in \Cref{F:9} also have nearly identical performance, even though their $M/N$ values differ by a factor of four. These results indicate that, as long as $M/N$  is sufficiently larger than one (e.g., $M/N \geq 4$), other aspects of autonomic closure including the locality gained by making the bounding box volume  $n^3$ smaller and allowing for second-order terms in $F_{ij}$  have more effect on the resulting accuracy than does the number of training points per degree of freedom.
 
-Since the number $M$ of training points does not have a primary effect on the resulting accuracy, it may be expected that the spacing between training points, which characterizes their relative independence, also will not have a primary effect. This is supported by comparing the relative training point spacing values $(V_B/M)^{1/3}$ in Table 1. For most of these cases, the training point spacing relative to the test-scale grid spacing $\widehat{\Delta}$  does not vary widely, ranging from 1.0-1.2, yet the performance of these implementations varies widely. Cases 6a and 6b, which have spacings roughly 3-4 times larger, show performance no better than many other cases having far smaller training point separation. We conclude that training point separation by itself does not have a controlling effect on the performance of autonomic closure, as long as the bounding box volume  $V_B$ is small enough to provide a local implementation, as noted in \Cref{sec:IVB}.
+Since the number $M$ of training points does not have a primary effect on the resulting accuracy, it may be expected that the spacing between training points, which characterizes their relative independence, also will not have a primary effect. This is supported by comparing the relative training point spacing values $(V_B/M)^{1/3}$ in \Cref{tab:1}. For most of these cases, the training point spacing relative to the test-scale grid spacing $\widehat{\Delta}$  does not vary widely, ranging from 1.0-1.2, yet the performance of these implementations varies widely. Cases 6a and 6b, which have spacings roughly 3-4 times larger, show performance no better than many other cases having far smaller training point separation. We conclude that training point separation by itself does not have a controlling effect on the performance of autonomic closure, as long as the bounding box volume  $V_B$ is small enough to provide a local implementation, as noted in \Cref{sec:IVB}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Average subgrid dissipation rates}
 \label{sec:IVF}
 
-The pdfs of subgrid production in Figs. 6b, 7b, 8b, and 9b show that the $P^F(\mathbf{x},t)$  fields contain large positive and negative values, which combine to produce the average subgrid production rate $\langle P^F \rangle$. For each implementation of autonomic closure in Table 1, the resulting  subgrid production fields $P^F(\mathbf{x},t)$  were averaged to obtain $\langle P^F \rangle$, and the corresponding true subgrid production fields $P(\mathbf{x},t)$   were averaged to obtain $\langle P \rangle \equiv \varepsilon$. The resulting ratio of autonomic-to-true average subgrid production $\langle P^F \rangle\ /varepsilon$  for each implementation is shown in Table 1. Since $\varepsilon > 0$ , when  $\langle P^F\rangle/ \varepsilon > 0$  then $\langle P^F \rangle > 0$, which corresponds to a net average rate of energy transfer from the resolved scales into the subgrid scales.  This can be seen in Table 1 to be the case for all these implementations of autonomic closure. 
+The pdfs of subgrid production in Figs. 6b, 7b, 8b, and 9b show that the $P^F(\mathbf{x},t)$  fields contain large positive and negative values, which combine to produce the average subgrid production rate $\langle P^F \rangle$. For each implementation of autonomic closure in \Cref{tab:1}, the resulting  subgrid production fields $P^F(\mathbf{x},t)$  were averaged to obtain $\langle P^F \rangle$, and the corresponding true subgrid production fields $P(\mathbf{x},t)$   were averaged to obtain $\langle P \rangle \equiv \varepsilon$. The resulting ratio of autonomic-to-true average subgrid production $\langle P^F \rangle\ \varepsilon$  for each implementation is shown in \Cref{tab:1}. Since $\varepsilon > 0$ , when  $\langle P^F\rangle/ \varepsilon > 0$  then $\langle P^F \rangle > 0$, which corresponds to a net average rate of energy transfer from the resolved scales into the subgrid scales.  This can be seen in \Cref{tab:1} to be the case for all these implementations of autonomic closure. 
 
 %
 %    FIGURE     % 
@@ -183,15 +183,97 @@ The pdfs of subgrid production in Figs. 6b, 7b, 8b, and 9b show that the $P^F(\m
 %
 %
 
-For cases in Table 1 that produce $\langle P^F \rangle/\varepsilon \geq 1$, the closure implementation on average transfers energy out of the resolved scales at a rate equal to or higher than the true subgrid dissipation rate $\varepsilon$. As noted in \Cref{sec:IB} this is necessary (but not sufficient) for any closure to maintain computational stability.  Most implementations of autonomic closure can be seen in Table 1 to meet this requirement, with the most obvious exceptions being Cases 7a,b and 8a,b, which all have very small bounding boxes that cause $M/N \leq 1$. Those cases still produce net transfer of energy out of the resolved scales, but at a rate that is far lower than the true subgrid dissipation rate $\varepsilon$. Implementations that produce  $\langle P^F \rangle/\varepsilon$  slightly larger than one are desired since they produce net average transfer of energy out of the resolved scales at a rate just slightly higher than the true subgrid dissipation rate $\varepsilon$. As a result such implementations meet the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could lead to reduced fidelity in a simulation. 
+For cases in \Cref{tab:1} that produce $\langle P^F \rangle/\varepsilon \geq 1$, the closure implementation on average transfers energy out of the resolved scales at a rate equal to or higher than the true subgrid dissipation rate $\varepsilon$. As noted in \Cref{sec:IB} this is necessary (but not sufficient) for any closure to maintain computational stability.  Most implementations of autonomic closure can be seen in \Cref{tab:1} to meet this requirement, with the most obvious exceptions being Cases 7a,b and 8a,b, which all have very small bounding boxes that cause $M/N \leq 1$. Those cases still produce net transfer of energy out of the resolved scales, but at a rate that is far lower than the true subgrid dissipation rate $\varepsilon$. Implementations that produce  $\langle P^F \rangle/\varepsilon$  slightly larger than one are desired since they produce net average transfer of energy out of the resolved scales at a rate just slightly higher than the true subgrid dissipation rate $\varepsilon$. As a result such implementations meet the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could lead to reduced fidelity in a simulation. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recommended implementation}
+\section{Homogeneous shear turbulence (HST) apriori test results}
+\label{sec:IVHST}
+
+Test results for the homogeneous isotropic turbulence (HIT) indicate that the autonomic closure is performs better than traditional, prescribed models.  Since prescribed models are built upon physics-based modeling approaches, they are restricted to a limited set of turbulence. The governing equations for homogeneous shear turbulence (HST) and wall-bounded flows are modified using additional sets of equations and parameters. Similarly, the LES models are tuned for shear and wall-bounded flows. 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{3.5in}]{Lumley_HST_43_max.png}
+	\caption{Maximum anisotropy in the HST case $S^* = 8.8$ (black asterisk), shown by the invariants, (IIIa = 0.2686 and -IIa = 0.7876) on the Lumley’s triangle, lies on the axisymmetric bounding curve (red).}
+	\label{F:Lumley}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+Turbulent flows within the log-layer ($y^+\sim100$) in wall-bounded flows exhibit shear-driven turbulence. And local turbulent flow conditions characteristically lie in the regions of large anisotropy (\Cref{F:Lumley}). We selected the Johns Hopkins Database for HST flows to test out high-shear turbulent flows ($S^*\sim8.8$). Local turbulent conditions within the HST dataset \cite{jhu256} are representative of the bottom of the log-layer. While HST dataset maintains periodicity in the streamwise and transverse directions, slip boundary conditions are imposed in the third direction.
+
+As noted in previous sections, the autonomic closure depends on factors that remain unaffected by the state of local turbulent conditions. The recommended implementation (Case 3a), when applied to the HST dataset, shows similar performance to those seen in the previous sections for the HIT dataset. This further supports the fact that autonomic closure implementations work remarkably well regardless of the local turbulent flow conditions, thus making it consistent and universally applicable across all turbulent flows.
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{5in}]{hst_y43_DNS_Auto-03.eps}
+	\caption{Typical comparison of subgrid production field $P(\mathbf{x},t)$ at the test and the LES scale for the HST flows }
+	\label{F:P_SS}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+ \Cref{F:P_SS} compares the production fields $P^F(\mathbf{x},t)$ determined from Case 3a  with the corresponding results for the true fields $P(\mathbf{x},t)$. It is apparent that this implementation accurately represents local energy exchanges between the resolved and the subgrid-scale for high shear turbulence. Large positive and negative values in $P^F(\mathbf{x},t)$ are clustered in the regions at essentially the same location and of the same size and shape as in $P(\mathbf{x},t)$. This is similar to what is observed in \Cref{F:10}. 
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{5in}]{P_DS_PDF.png}
+	\caption{Comparison of PDFs for the true production fields (black) and those computed by the autonomic closure (red) and by the Dynamic Smagorinsky method (blue) for the HST case.}
+	\label{F:PDF_HST}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+
+\Cref{F:PDF_HST} compares probability densities of the subgrid production fields $P^F(\mathbf{x},t)$ from Case 3a with corresponding results for the true production fields $P(\mathbf{x},t)$  and from the Dynamic Smagorinsky (DS) model $P^{DS}(\mathbf{x},t)$. It is apparent that every feature is well represented by Case 3a, including the tail ends of the pdfs. The pdfs from the DS model diverge significantly at the extremities, indicating that the DS models suffers from accurately representing large magnitudes of energy (and momentum) exchanges. and being consistent with what is observed in \Cref{F:12}. 
+
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{2.3in}]{M1_HIT_HST_P.png}
+	\includegraphics[width=\maxwidth{2.3in}]{M2_HIT_HST_P.png}
+	\caption{M1 (left) and M2 (right) errors for the production fields from the HIT and the HST cases do not differ much. NOTE: Data is sampled from 6 planes - 3 xy planes and 3 yz planes, and no y-planes were involved in the M1-M2 computation.}
+	\label{F:M1M2_HST}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Recommended Volterra series-based implementation}
 \label{sec:IVG}
 
-Based on the results in \Crefrange{sec:IVA}{sec:IVF}, the most accurate and efficient implementation of autonomic closure among the cases in Table 1 is Case 3a. This is a relatively local, second-order, velocity-only, colocated implementation that has been found here to be nearly as accurate as that in Ref.  \cite{king2016autonomic} (Case 5b), but at a computational cost that is $O(10^3)$ smaller.  
+Based on the results in \Crefrange{sec:IVA}{sec:IVF}, the most accurate and efficient implementation of autonomic closure among the cases in \Cref{tab:1} is Case 3a. This is a relatively local, second-order, velocity-only, colocated implementation that has been found here to be nearly as accurate as that in Ref.  \cite{king2016autonomic} (Case 5b), but at a computational cost that is $O(10^3)$ smaller.  
 
 Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid production fields $P^{F}(\mathbf{x},t)$  from Case 3a are compared in \Cref{F:10} to corresponding true fields $\tau_{ij}(\mathbf{x},t)$  and $P(\mathbf{x},t)$. Of particular importance from the perspective of resolved-scale energetics and computational stability, it is apparent by comparing \Cref{F:10}c and \Cref{F:10}d that this implementation preserves the structural similarities in  $P(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  nearly as well as did the far more computationally costly implementation in \Cref{F:1} (Case 5b). Large positive and negative values in $P^{F}(\mathbf{x},t)$ in \Cref{F:10}d are clustered in regions at essentially the same locations and of the same size and shape as in $P(\mathbf{x},t)$  in \Cref{F:10}c. 
+
+\Cref{F:11} compares probability densities of the subgrid stress fields $\tau_{ij}^{F}(\mathbf{x},t)$  from Case 3a with corresponding results for the true fields $\tau_{ij}(\mathbf{x},t)$. It is apparent that this implementation of autonomic closure accurately produces nearly all aspects of these probability distributions, including the tails of these distributions. \Cref{F:12} similarly compares the probability density for the subgrid production fields $P^{F}(\mathbf{x},t)$  from Case 3a with the corresponding distribution for the true fields $P(\mathbf{x},t)$. It is again apparent that this implementation of autonomic closure accurately produces the probability distribution of subgrid production values, including the tails of the distribution that correspond to large positive values (forward scatter) and negative values (backscatter) in the subgrid production fields. Also, \Crefrange{F:6}{F:9} showed that Case 3a provides the most accurate representation of spatial structure in the subgrid production fields, as quantified by  $M_1$ and $M_2$, among computationally efficient implementations in \Cref{tab:1}. 
 
 %
 %    FIGURE     % 
@@ -220,12 +302,15 @@ Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid product
 %
 %
 
-\Cref{F:11} compares probability densities of the subgrid stress fields $\tau_{ij}^{F}(\mathbf{x},t)$  from Case 3a with corresponding results for the true fields $\tau_{ij}(\mathbf{x},t)$. It is apparent that this implementation of autonomic closure accurately produces nearly all aspects of these probability distributions, including the tails of these distributions. \Cref{F:12} similarly compares the probability density for the subgrid production fields $P^{F}(\mathbf{x},t)$  from Case 3a with the corresponding distribution for the true fields $P(\mathbf{x},t)$. It is again apparent that this implementation of autonomic closure accurately produces the probability distribution of subgrid production values, including the tails of the distribution that correspond to large positive values (forward scatter) and negative values (backscatter) in the subgrid production fields. Also, \Crefrange{F:6}{F:9} showed that Case 3a provides the most accurate representation of spatial structure in the subgrid production fields, as quantified by  $M_1$ and $M_2$, among computationally efficient implementations in Table 1. 
+Moreover, \Cref{tab:1} shows the average subgrid production from Case 3a to be $\langle P^F \rangle \approx 1.08 \varepsilon$, indicating that this implementation transfers energy out of the resolved scales at a net average rate just slightly higher than the true average subgrid dissipation rate $\varepsilon$. As a result, this implementation satisfies the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could negatively impact fidelity when implemented in a large eddy simulation.
 
-Moreover, Table 1 shows the average subgrid production from Case 3a to be $\langle P^F \rangle \approx 1.08 \varepsilon$, indicating that this implementation transfers energy out of the resolved scales at a net average rate just slightly higher than the true average subgrid dissipation rate $\varepsilon$. As a result, this implementation satisfies the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could negatively impact fidelity when implemented in a large eddy simulation.
-
-Based on the average subgrid production rate in Table 1 and on the statistical and structural comparisons of  $\tau_{ij}^{F}(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  with  $\tau_{ij}(\mathbf{x},t)$ and  $P(\mathbf{x},t)$ in \Crefrange{F:6}{F:12}, the recommended implementation of autonomic closure (Case 3a) satisfies the criteria noted in \Cref{sec:IB} for any subgrid closure to be accurate across essentially all resolved scales and to potentially provide computational stability in a simulation. This implementation of autonomic closure is accurate and efficient enough for practical use in large eddy simulations, allowing future $a posteriori$ tests to assess its stability when used in an LES code.
+Based on the average subgrid production rate in \Cref{tab:1} and on the statistical and structural comparisons of  $\tau_{ij}^{F}(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  with  $\tau_{ij}(\mathbf{x},t)$ and  $P(\mathbf{x},t)$ in \Crefrange{F:6}{F:12}, the recommended implementation of autonomic closure (Case 3a) satisfies the criteria noted in \Cref{sec:IB} for any subgrid closure to be accurate across essentially all resolved scales and to potentially provide computational stability in a simulation. This implementation of autonomic closure is accurate and efficient enough for practical use in large eddy simulations, allowing future $a posteriori$ tests to assess its stability when used in an LES code.
 
 
 
+
+
+% 
+% CONCLUSION
+% Test results for the autonomic closure on the HST dataset reveal that a non-parametric approach does not suffer from the local physical variations in   Since the autonomic closure is data-driven,  not physics-based, it doesn’t matter what the local physical state is. Therefore CL24 works equally well in HST dataset as it does in the HIT case. 
 
