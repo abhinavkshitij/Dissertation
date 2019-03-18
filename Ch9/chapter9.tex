@@ -26,7 +26,6 @@
 \nocite{frameinvflux18}
 \nocite{\tensorintegrity} 
 
-
 To date, autonomic closure has been implemented via a local Volterra series representation of the subgrid terms in the values of the primitive variables of a large eddy simulation.  For the subgrid stress $\mathbf{\tau}_{ij} \equiv \widetilde{u_i u_j} - \widetilde{u}_i \widetilde{u}_j$, these are the values of the velocity components and pressure at the 27 points on a $3 \times 3 \times 3$  stencil. Translational invariance is enforced by subtracting the stencil center-point velocity from the velocities at all the stencil points, thus retaining only the velocity gradients on the stencil. To keep the number of terms in this series manageable, the series has been truncated after second-order terms. Furthermore, keeping pressure values in this series was shown to provide negligible benefit when second-order terms are retained in the expansion. Thus the current preferred implementation is a second-order velocity-only form involving a 244-term Volterra series, and requires finding the optimal local coefficients for each of these 244 terms. 
 
 Although truncation of the Volterra series after second order provides remarkably accurate results in \textit{a priori} tests for homogeneous isotropic turbulence, this truncation is undeniably arbitrary. More important, this low-order truncation can be expected to limit the accuracy of this closure methodology under more stressing turbulence conditions. Even under less stressing conditions, this approach requires an over-determined least-squares solution for 244 unknown coefficients, which may be far less computationally efficient than a shorter series based on terms that are more ``appropriate'' for representing $\mathbf{\tau}_{ij}$. 
@@ -48,15 +47,14 @@ With regard to the required tensor invariance of any $\mathbf{\tau}_{ij}$  repre
 \label{sec:1A1}
 
 For instance, the most widely used models assume that the turbulent stress depends only linearly on the resolved strain rate tensor $S_{ij}$  and the identity tensor $\delta_{ij}$. There are only two independent tensors that can be formed from  $S_{ij}$ and  $\delta_{ij}$ that are linear in  $S_{ij}$ and preserve the rank, symmetry, translation, and rotation properties of $\mathbf{\tau}_{ij}$, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:18}
 \begin{align}
-	\label{E:18}
-		\mathbf{m}^{(0)} &= S_{kk}\delta_{ij} \\
-		\mathbf{m}^{(1)} &= S_{ij}
+	\mathbf{m}^{(0)} &= S_{kk}\delta_{ij} \\
+	\mathbf{m}^{(1)} &= S_{ij}
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -64,52 +62,47 @@ For instance, the most widely used models assume that the turbulent stress depen
 %        
 
 The most general representation for the subgrid stress must then be a linear combination of these two invariance-preserving tensors $\mathbf{m}^{(\alpha)}$  where $\alpha = 0,1$, and thus can be written as 
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:19}
-		\mathbf{\tau}_{ij} = \sum_{\alpha=0}^{1} c_{\alpha} \mathbf{m}^{(\alpha)}
-		= c_0 S_{kk} \delta_{ij} + c_1 S_{ij},
+\label{E:19}
+	\mathbf{\tau}_{ij} = \sum_{\alpha=0}^{1} c_{\alpha} \mathbf{m}^{(\alpha)}
+	= c_0 S_{kk} \delta_{ij} + c_1 S_{ij},
 \end{equation}
 %%%%%%%%%%%%%%%%%
 %
 %        
-
 where the coefficients $c_0$  and $c_1$  are scalars and so can be functions only of the four invariance-preserving scalars that can be formed from  $\widetilde{S}_{ij}$ and $\delta_{ij}$, namely  $c_{\alpha} = f_{\alpha} (\mathbf{I}_0, \mathbf{I}_1, \mathbf{I}_2,
 \mathbf{I}_3)$ where 
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:20}
 \begin{align}
-	\label{E:20}
-		\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
-		\mathbf{I}_{1} &= tr(\mathbf{S})   = S_{ii} \\
-		\mathbf{I}_{2} &= tr(\mathbf{S^2}) = S_{ij}S_{ij} \\
-		\mathbf{I}_{3} &= tr(\mathbf{S^3}) = S_{ij}S_{jk}S_{ki}. 
+	\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
+	\mathbf{I}_{1} &= tr(\mathbf{S})   = S_{ii} \\
+	\mathbf{I}_{2} &= tr(\mathbf{S^2}) = S_{ij}S_{ij} \\
+	\mathbf{I}_{3} &= tr(\mathbf{S^3}) = S_{ij}S_{jk}S_{ki}. 
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
 %
-%    
+%   
 
 Equation (\ref{E:19}) can be equivalently written for the ``deviatoric stress''  $\tau_{ij}^{dev} \equiv (\tau_{ij} - \tau_{kk}\delta_{ij}/3)$ and the deviatoric strain rate  $S_{ij}^{dev} \equiv (S_{ij} - S_{kk}\delta_{ij}/3)$, for which $S_{kk}^{dev} \equiv 0$. In that case $\mathbf{m}^{(0)} \equiv 0$, so analogous to (\ref{E:19}) the most general representation is
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:21}
-		\mathbf{\tau}_{ij}^{dev} = \sum_{\alpha=0}^{1} c_{\alpha} \mathbf{m}^{(\alpha)}
-		= c_1 S_{ij}^{dev},
+\label{E:21}
+	\mathbf{\tau}_{ij}^{dev} = \sum_{\alpha=0}^{1} c_{\alpha} \mathbf{m}^{(\alpha)}
+	= c_1 S_{ij}^{dev},
 \end{equation}
 %%%%%%%%%%%%%%%%%
 %
 %     
-
 where  $c_1$ (generally called the ``subgrid viscosity'' and denoted $\nu_{sgs}$) can depend only on the four scalar invariants $\mathbf{I}_{0}, \mathbf{I}_{1}, \mathbf{I}_{2}, \mathbf{I}_{3}$  in (\ref{E:20}). The invariance-preserving form for $\mathbf{\tau}_{ij}$  in (\ref{E:19}), or equivalently in (\ref{E:21}), is the basis of so-called \textit{linear} subgrid-scale models, since they assume the subgrid stress to be linearly related to the strain rate tensor, with various linear models differing only in their choice of how the coefficient  $\nu_{sgs}$ depends on the scalar invariants $\mathbf{I}_{0}, \mathbf{I}_{1}, \mathbf{I}_{2}, \mathbf{I}_{3}$.  However, for the purposes of this paper the equivalent form in (\ref{E:19}) is more useful, since it shows how this most general \textit{linear} representation of $\mathbf{\tau}_{ij}$  can be obtained from tensor invariance, under the assumption that $\mathbf{\tau}_{ij}$  depends only on $S_{ij}$  and $\delta_{ij}$ , based on the corresponding tensor bases $\mathbf{m}^{(\alpha)}$. 
  
 
@@ -118,37 +111,36 @@ where  $c_1$ (generally called the ``subgrid viscosity'' and denoted $\nu_{sgs}$
 \label{sec:1A2}
 
 Similarly, there are ``nonlinear'' models that allow $\mathbf{\tau}_{ij}$  to depend not only on the strain rate tensor $S_{ij}$  and the identity tensor $\delta_{ij}$, but also on the rotation rate tensor $R_{ij}$. Such models represent  $\mathbf{\tau}_{ij}$  in a complete set of tensor bases  $\mathbf{m}^{(\alpha)}$ obtained from combinations of $S_{ij}$, $R_{ij}$, and $\delta_{ij}$  that preserve the rank, symmetry, translation, and rotation properties of $\mathbf{\tau}_{ij}$. For instance, Lumley (1970), Pope (1974), Lund $\&$ Novikov (1992), and Gatski $\&$ Speziale (1993) propose an 11-element set of invariance-preserving tensors   that can be formed from $S_{ij}$, $R_{ij}$, and $\delta_{ij}$, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:22}
 \begin{align}
-	\label{E:22}
-		\mathbf{m}^{(0)} &= \mathbf{I} = \delta_{ij} \\
-		\mathbf{m}^{(1)} &= \mathbf{S} = \widetilde{S}_{ij} \\
-		\mathbf{m}^{(2)} &= \mathbf{S^2} = \widetilde{S}_{ik} \widetilde{S}_{kj} \\
-		\mathbf{m}^{(3)} &= \mathbf{R^2} = \widetilde{R}_{ik} \widetilde{R}_{kj} \\
-		\mathbf{m}^{(4)} &= \mathbf{SR - RS} = \widetilde{S}_{ik} \widetilde{R}_{kj} 
-		- \widetilde{R}_{ik} \widetilde{S}_{kj} \\
-		\mathbf{m}^{(5)} &= \mathbf{S^2R - RS^2} 
-		= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
-		-   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
-		\mathbf{m}^{(6)} &= \mathbf{SR^2 + R^2S} 
-		= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
-		+   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
-		\mathbf{m}^{(7)} &= \mathbf{S^2R^2 + R^2S^2} 
-		= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
-		+   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj} \\
-		\mathbf{m}^{(8)} &= \mathbf{SRS^2 - S^2RS} 
-		= 	\widetilde{S}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj}  
-		-   \widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{S}_{mj} \\
-		\mathbf{m}^{(9)} &= \mathbf{RSR^2 - R^2SR} 
-		= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
-		-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mj} \\
-		\mathbf{m}^{(10)} &= \mathbf{RS^2R^2 - R^2S^2R} 
-		= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mn} \widetilde{R}_{nj} 
-		-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mn} \widetilde{R}_{nj}
+ 	\mathbf{m}^{(0)} &= \mathbf{I} = \delta_{ij} \\
+	\mathbf{m}^{(1)} &= \mathbf{S} = \widetilde{S}_{ij} \\
+	\mathbf{m}^{(2)} &= \mathbf{S^2} = \widetilde{S}_{ik} \widetilde{S}_{kj} \\
+	\mathbf{m}^{(3)} &= \mathbf{R^2} = \widetilde{R}_{ik} \widetilde{R}_{kj} \\
+	\mathbf{m}^{(4)} &= \mathbf{SR - RS} = \widetilde{S}_{ik} \widetilde{R}_{kj} 
+	- \widetilde{R}_{ik} \widetilde{S}_{kj} \\
+	\mathbf{m}^{(5)} &= \mathbf{S^2R - RS^2} 
+	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
+	-   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
+	\mathbf{m}^{(6)} &= \mathbf{SR^2 + R^2S} 
+	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
+	+   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
+	\mathbf{m}^{(7)} &= \mathbf{S^2R^2 + R^2S^2} 
+	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
+	+   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj} \\
+	\mathbf{m}^{(8)} &= \mathbf{SRS^2 - S^2RS} 
+	= 	\widetilde{S}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj}  
+	-   \widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{S}_{mj} \\
+	\mathbf{m}^{(9)} &= \mathbf{RSR^2 - R^2SR} 
+	= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
+	-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mj} \\
+	\mathbf{m}^{(10)} &= \mathbf{RS^2R^2 - R^2S^2R} 
+	= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mn} \widetilde{R}_{nj} 
+	-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mn} \widetilde{R}_{nj}
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -158,33 +150,30 @@ Similarly, there are ``nonlinear'' models that allow $\mathbf{\tau}_{ij}$  to de
 Note that (\ref{E:22}a-k) involve no matrix powers higher than two; i.e., $\mathbf{S^2}$ and $\mathbf{R^2}$  appear, but neither $\mathbf{S^3}$  nor $\mathbf{R^3}$  nor any higher-order matrix powers appear. This is a result of the Cayley-Hamilton theorem for any square matrix $\mathbf{A}$, which relates its matrix powers of order three ($\mathbf{A^3}$) and higher to linear combinations of lower matrix powers. It is this fact that limits the complete set of such invariance-preserving tensors  $\mathbf{m}^{(\alpha)}$  to the \textit{finite} number of \textit{independent} tensors in (\ref{E:22}).
 
 Thus, if it is assumed that $\mathbf{\tau}_{ij}$  depends only on $S_{ij}$, $R_{ij}$, and $\delta_{ij}$, then analogous to (\ref{E:19}) the most general representation must be a linear sum of these invariance-preserving tensors, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:23}
-		\mathbf{\tau}_{ij} = \sum_{\alpha=0}^{10} c_{\alpha} \mathbf{m}^{(\alpha)},
+\label{E:23}
+	\mathbf{\tau}_{ij} = \sum_{\alpha=0}^{10} c_{\alpha} \mathbf{m}^{(\alpha)},
 \end{equation}
 %%%%%%%%%%%%%%%%%
 %
 %   
-
 where the coefficients $c_{\alpha} = f(\mathbf{I}_0, \ldots, \mathbf{I}_6)$  can only be functions of the seven unique independent invariance-preserving scalar invariants that can be formed from $S_{ij}$, $R_{ij}$, and $\delta_{ij}$, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:24}
 \begin{align}
-	\label{E:24}
-		\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
-		\mathbf{I}_{1} &= tr(\mathbf{S^2}) = S_{ij}S_{ij} \\
-		\mathbf{I}_{2} &= tr(\mathbf{R^2}) = R_{ij}R_{ij} \\
-		\mathbf{I}_{3} &= tr(\mathbf{S^3}) = S_{ik}S_{kl}S_{li} \\
-		\mathbf{I}_{4} &= tr(\mathbf{SR^2}) = S_{ik}R_{kl}R_{li} \\ 
-		\mathbf{I}_{5} &= tr(\mathbf{S^2R^2}) = S_{ik}S_{kl}R_{lm}R_{mi} \\ 
-		\mathbf{I}_{6} &= tr(\mathbf{S^2R^2SR}) = S_{ik}S_{kl}R_{lm}R_{mn}S_{no}R_{oi} 
+ 	\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
+	\mathbf{I}_{1} &= tr(\mathbf{S^2}) = S_{ij}S_{ij} \\
+	\mathbf{I}_{2} &= tr(\mathbf{R^2}) = R_{ij}R_{ij} \\
+	\mathbf{I}_{3} &= tr(\mathbf{S^3}) = S_{ik}S_{kl}S_{li} \\
+	\mathbf{I}_{4} &= tr(\mathbf{SR^2}) = S_{ik}R_{kl}R_{li} \\ 
+	\mathbf{I}_{5} &= tr(\mathbf{S^2R^2}) = S_{ik}S_{kl}R_{lm}R_{mi} \\ 
+	\mathbf{I}_{6} &= tr(\mathbf{S^2R^2SR}) = S_{ik}S_{kl}R_{lm}R_{mn}S_{no}R_{oi} 
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -204,27 +193,26 @@ In principle, autonomic closure can be formulated by replacing the Volterra seri
 
 Note the series in (\ref{E:23}) with  $\mathbf{m}^{(\alpha)}$ from (\ref{E:22}) involves products of velocity components up to 5\textsuperscript{th} order (via $\mathbf{m}^{(10)}$), which is far higher than the second-order truncation currently being used. Such a series in  $\mathbf{m}^{(\alpha)}$ would be the most general tensor polynomial that preserves all rank, symmetry, translation, and rotation invariance properties of  $\tau_{ij}$ under the assumption that  $\tau_{ij}$ depends only on $S_{ij}$, $R_{ij}$, and $\delta_{ij}$.
 
-The tensor invariant form in (\ref{E:23}) could be readily implemented via autonomic closure, and would thereby allow the coefficients $c_{\alpha}$  to vary point-to-point in response to changes in the local turbulence state, independent of any assumed model for how the coefficients might depend on the scalar invariants $I_0,\ldots,I_6$. However, Lund $\&$ Novikov (1992) and Doronina \textit{et al} (2018) showed that even when these coefficients are allowed to vary freely, there is little improvement obtained over a constant-coefficient implementation of (\ref{E:23}). They conclude that the subgid stress tensor must depend on more than just $S_{ij}$, $R_{ij}$, and $\delta_{ij}$ and that such additional parametric dependence must be included to substantially improve modeling of the subgrid stress tensor $\tau_{ij}$.
+The tensor invariant form in (\ref{E:23}) could be readily implemented via autonomic closure, and would thereby allow the coefficients $c_{\alpha}$  to vary point-to-point in response to changes in the local turbulence state, independent of any assumed model for how the coefficients might depend on the scalar invariants $I_0,\ldots,I_6$. However, Lund $\&$ Novikov (1992) and Doronina \textit{et al} (2018) showed that even when these coefficients are allowed to vary freely, there is little improvement obtained over a constant-coefficient implementation of (\ref{E:23}). They conclude that the subgrid stress tensor must depend on more than just $S_{ij}$, $R_{ij}$, and $\delta_{ij}$ and that such additional parametric dependence must be included to substantially improve modeling of the subgrid stress tensor $\tau_{ij}$.
 
 Indeed, in autonomic closure the velocity component values on the $3 \times 3\times 3$  stencil, relative to the corresponding values at the stencil center point, provide not only the strain and rotation rate tensors $\mathbf{S} \equiv S_{ij}$  and $\mathbf{R} \equiv R_{ij}$, but also their gradients  $\mathbf{\nabla S} \equiv \partial S_{ij}/ \partial x_{k}$ and $\mathbf{\nabla R} \equiv \partial R_{ij}/ \partial x_{k}$. In fact, that is \textit{all} the information that is contained in the velocity component values on the $3 \times 3\times 3$  stencil when translation invariance is enforced by subtracting the stencil-center velocity. Thus, it must be possible to formulate autonomic closure even more generally, and more compactly, as the sum over the complete invariance-preserving set of tensor bases, analogous to  $\mathbf{m}^{(\alpha)}$ in (\ref{E:22}), that can be formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$, $\mathbf{\nabla R}$, and $\mathbf{I}$  while preserving the rank, symmetry, translation and rotation properties of $\tau_{ij}$. It is such a complete tensor invariant formulation of autonomic closure that is pursued here. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Invariance-Preserving Combinations of $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ }
+\section{Invariance-Preserving Combinations of $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$}
 \label{sec:2}
 
 We seek combinations of powers of the following tensors that are available in autonomic closure, which together provide the most general complete invariance-preserving tensor basis in which   can be represented under the assumption that the subgrid stress depends only on $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$, $\mathbf{\nabla R}$, and $\mathbf{I}$ where
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:25}
 \begin{align}
-	\label{E:25}
-		\mathbf{I} &\equiv \delta_{ii} \\
-		\mathbf{S} &\equiv S_{ij} = \frac{1}{2} \bigg( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{ \partial x_i} \bigg)  \\
-		\mathbf{R} &\equiv R_{ij} = \frac{1}{2} \bigg( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{ \partial x_i} \bigg) \\
-		\mathbf{\nabla S} &= \partial S_{ij}/ \partial x_{k} \\
-		\mathbf{\nabla R} &= \partial R_{ij}/ \partial x_{k}
+ 	\mathbf{I} &\equiv \delta_{ii} \\
+	\mathbf{S} &\equiv S_{ij} = \frac{1}{2} \bigg( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{ \partial x_i} \bigg)  \\
+	\mathbf{R} &\equiv R_{ij} = \frac{1}{2} \bigg( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{ \partial x_i} \bigg) \\
+	\mathbf{\nabla S} &= \partial S_{ij}/ \partial x_{k} \\
+	\mathbf{\nabla R} &= \partial R_{ij}/ \partial x_{k}
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -238,14 +226,13 @@ We seek combinations of powers of the following tensors that are available in au
 The subgrid stress $\tau_{ij}$, which is to be expressed as a polynomial function of the tensors in (\ref{E:24}), is of rank-2.  While $\mathbf{S}$ and $\mathbf{R}$ are rank-2 tensors,   and  $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ are rank-3 tensors and there does not yet appear to be a general frame-invariant formulation of a tensor polynomial for a rank-2 tensor in terms of a combination of rank-2 and rank-3 tensors, due to the lack of an equivalent of the Cayley-Hamilton theorem for rank-3 tensors.  However Smith (1971), Pennisi and Trovato (1987), Zheng (1994), and Itskov (2007) provide a general formulation for expressing any rank-2 tensor $\mathbf{B}$ in the complete and minimal rotation-invariant tensor polynomial basis that can be formed from any finite set of rank-2 tensors $\mathbf{A}_{k}$, where $k=1,2,\ldots,N$.
 
 Each of the $N$ tensors $\mathbf{A}_{k}$ is first separated into its symmetric and anti-symmetric parts as
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:26}
 \begin{align}
-	\label{E:26}
-	\text{symmetric part:} && 
+ 	\text{symmetric part:} &&
 	\mathbf{M}_{i} &\equiv \frac{1}{2} \big( \mathbf{A}_k + \mathbf{A}^T_k \big) \quad
 	i = 1,2, \ldots, m \leq N \\
 	\text{anti-symmetric part:} && 
@@ -257,16 +244,14 @@ Each of the $N$ tensors $\mathbf{A}_{k}$ is first separated into its symmetric a
 %
 %    
 
-	
 Similarly, $\mathbf{B}$ = f($\mathbf{A}_{k}$)  is separated into symmetric and anti-symmetric parts as
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:27}
 \begin{align}
-	\label{E:27}
-	\text{symmetric part:} & \qquad
+ 	\text{symmetric part:} & \qquad
 	\mathbf{B}_{S} \equiv \frac{1}{2} \big( \mathbf{B} + \mathbf{B}^T \big) \\
 	\text{anti-symmetric part:} & \qquad
 	\mathbf{B}_{A} \equiv \frac{1}{2} \big( \mathbf{B} - \mathbf{B}^T \big) 
@@ -275,85 +260,76 @@ Similarly, $\mathbf{B}$ = f($\mathbf{A}_{k}$)  is separated into symmetric and a
 %%%%%%%%%%%%%%%%%
 %
 %    
-	
 from which $\mathbf{B}$ can then be reconstructed as $ \mathbf{B}= \mathbf{B}_S + \mathbf{B}_A$ . Following Smith (1971), Pennisi and Trovato (1987), and Itskov (2007), the symmetric part  $\mathbf{B}_S$ can be a function only of the following invariant symmetric rank-2 tensor polynomial bases
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:28}
 \begin{align}
-	\label{E:28}
-		\mathbf{m}^{(0)} &= \mathbf{I}  \\
-		\mathbf{m}^{(1,i)} &= \mathbf{M}_i \\ 
-		\mathbf{m}^{(2,i)} &= \mathbf{M}^2_i \\ 
-		\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}_i \\ 
-		\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}^2_i \\
-		\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j + \mathbf{M}^2_j \mathbf{M}_i \\
-		\mathbf{m}^{(6,p)} &= \mathbf{W}^2_p \\ 
-		\mathbf{m}^{(7,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
-		\mathbf{m}^{(8,pq)} &= \mathbf{W}^2_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}^2_p \\
-		\mathbf{m}^{(9,pq)} &= \mathbf{W}_p \mathbf{W}^2_q - \mathbf{W}^2_q \mathbf{W}_p \\
-		\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}_p - \mathbf{W}_p \mathbf{M}_i   \\
-		\mathbf{m}^{(11,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}_p   \\ 
-		\mathbf{m}^{(12,ip)} &= \mathbf{M}^2_i \mathbf{W}_p-\mathbf{W}_p \mathbf{M}^2_i\\ 
-		\mathbf{m}^{(13,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}^2_p
-							   -\mathbf{W}^2_p \mathbf{M}_i \mathbf{W}_p
+ 	\mathbf{m}^{(0)} &= \mathbf{I}  \\
+	\mathbf{m}^{(1,i)} &= \mathbf{M}_i \\ 
+	\mathbf{m}^{(2,i)} &= \mathbf{M}^2_i \\ 
+	\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}_i \\ 
+	\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}^2_i \\
+	\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j + \mathbf{M}^2_j \mathbf{M}_i \\
+	\mathbf{m}^{(6,p)} &= \mathbf{W}^2_p \\ 
+	\mathbf{m}^{(7,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
+	\mathbf{m}^{(8,pq)} &= \mathbf{W}^2_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}^2_p \\
+	\mathbf{m}^{(9,pq)} &= \mathbf{W}_p \mathbf{W}^2_q - \mathbf{W}^2_q \mathbf{W}_p \\
+	\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}_p - \mathbf{W}_p \mathbf{M}_i   \\
+	\mathbf{m}^{(11,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}_p   \\ 
+	\mathbf{m}^{(12,ip)} &= \mathbf{M}^2_i \mathbf{W}_p-\mathbf{W}_p \mathbf{M}^2_i\\ 
+	\mathbf{m}^{(13,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}^2_p
+						   -\mathbf{W}^2_p \mathbf{M}_i \mathbf{W}_p
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
 %
-%      
-	 	
+%      	
 for all $i<j = 1,2,\ldots,m$  and all $p<q = 1,2,\ldots,w$.  Similarly, the anti-symmetric part  $\mathbf{B}_A$ can be a function only of the following invariant rank-2 anti-symmetric tensor polynomial bases
-
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:29}
 \begin{align}
-	\label{E:29}
-		\mathbf{m}^{(1,i)}  &= \mathbf{W}_p \\ 
-		\mathbf{m}^{(2,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
-		\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}_i \\ 
-		\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}^2_i \\
-		\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j - \mathbf{M}^2_j \mathbf{M}_i \\
-		\mathbf{m}^{(6,ij)} &= \mathbf{M}_i \mathbf{M}_j \mathbf{M}^2_i  
-							-  \mathbf{M}^2_i \mathbf{M}_j \mathbf{M}_i \\ 
-		\mathbf{m}^{(7,ij)} &= \mathbf{M}_j \mathbf{M}_i \mathbf{M}^2_j  
-							-  \mathbf{M}^2_j \mathbf{M}_i \mathbf{M}_j \\  
-		\mathbf{m}^{(8,ijk)}&= \mathbf{M}_i \mathbf{M}_j \mathbf{M}_k 
-							 + \mathbf{M}_j \mathbf{M}_k \mathbf{M}_i  
-							 + \mathbf{M}_k \mathbf{M}_i \mathbf{M}_j \notag \\
-							 &- \mathbf{M}_j \mathbf{M}_i \mathbf{M}_k 
-							 - \mathbf{M}_i \mathbf{M}_k \mathbf{M}_j 
-							 - \mathbf{M}_k \mathbf{M}_j \mathbf{M}_i \\
-		\mathbf{m}^{(9,ip)} &= \mathbf{M}_i \mathbf{W}_p + \mathbf{W}_p \mathbf{M}_i   \\
-		\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}^2_p-\mathbf{W}^2_p \mathbf{M}_i 
+	\mathbf{m}^{(1,i)}  &= \mathbf{W}_p \\ 
+	\mathbf{m}^{(2,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
+	\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}_i \\ 
+	\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}^2_i \\
+	\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j - \mathbf{M}^2_j \mathbf{M}_i \\
+	\mathbf{m}^{(6,ij)} &= \mathbf{M}_i \mathbf{M}_j \mathbf{M}^2_i  
+						-  \mathbf{M}^2_i \mathbf{M}_j \mathbf{M}_i \\ 
+	\mathbf{m}^{(7,ij)} &= \mathbf{M}_j \mathbf{M}_i \mathbf{M}^2_j  
+						-  \mathbf{M}^2_j \mathbf{M}_i \mathbf{M}_j \\  
+	\mathbf{m}^{(8,ijk)}&= \mathbf{M}_i \mathbf{M}_j \mathbf{M}_k 
+						 + \mathbf{M}_j \mathbf{M}_k \mathbf{M}_i  
+						 + \mathbf{M}_k \mathbf{M}_i \mathbf{M}_j \notag \\
+						 &- \mathbf{M}_j \mathbf{M}_i \mathbf{M}_k 
+						 - \mathbf{M}_i \mathbf{M}_k \mathbf{M}_j 
+						 - \mathbf{M}_k \mathbf{M}_j \mathbf{M}_i \\
+	\mathbf{m}^{(9,ip)} &= \mathbf{M}_i \mathbf{W}_p + \mathbf{W}_p \mathbf{M}_i   \\
+	\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}^2_p-\mathbf{W}^2_p \mathbf{M}_i 
 \end{align}
 \end{subequations}	
 %%%%%%%%%%%%%%%%%
 %
 %      
-	 	
 for all $i<j = 1,2,\ldots,m$   and all $p<q = 1,2,\ldots,w$.
 
 Smith (1971) asserts the symmetric and anti-symmetric tensor polynomial bases in (\ref{E:28}a-n) and (\ref{E:29}a-j) to be \textit{complete}, meaning that \textit{any} $\mathbf{B}_S$  and $\mathbf{B}_A$ can be written as a linear sum of the corresponding polynomial terms  $\mathbf{m}^{(\alpha)}_S$ and $\mathbf{m}^{(\alpha)}_A$, each weighted by a corresponding coefficient. However, a complete tensor polynomial basis is \textit{not minimal} if it is reducible to an even smaller basis set that suffices to represent any rank-2 polynomial $\mathbf{B}$. This arises from the fact that there may be tensor polynomial relations among various terms in the basis set that allow the number of tensor products in the basis set to be further reduced. Such relations are generally called \textit{Rivlin identities}, and they result from the generalized Cayley-Hamilton theorem 
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:30}
+\label{E:30}
 	\mathbf{A}^n_k - I^{(1)}_A \mathbf{A}^{(n-1)}_k + I^{(2)}_A \mathbf{A}^{(n-2)}_k
 	+ \ldots + (-1)^{n}I^{(n)}_A \mathbf{I} = 0
 \end{equation}
 %%%%%%%%%%%%%%%%%
 %
 %   
-
-
 where the  $I^{(i)}_{A}$ are scalar invariants of $\mathbf{A}$ defined as  $I^{(1)}_{A} = tr(\mathbf{A})$, $2I^{(2)}_{A} = tr(\mathbf{A})^2- tr(\mathbf{A}^2)$, \ldots , $nI = det(\mathbf{A})$. By differentiating (\ref{E:29}) repeatedly with respect to $\mathbf{A}$, numerous Rivlin identities can be generated in the form of relations among tensor products of various orders. The set of possible Rivlin identities is very large, making it difficult to prove that a given tensor polynomial basis set is minimal. 
 
 Pennisi $\&$ Trovato (1987) first proved the irreducibility of Smith’s (1971) tensor bases in (\ref{E:28}a-n) and (\ref{E:29}a-j), thereby establishing it as a \textit{complete and minimal basis}. Prior to that, a number of rank-2 tensor polynomial bases had been proposed that were complete but were not minimal. Zemach (1998) discusses completeness and minimality of tensor polynomial bases, and Itskov (2007) uses modern tensor notation and algebra to more clearly derive the complete and minimal bases in (\ref{E:27}) and (\ref{E:28}).  Even complete and minimal bases may not appear unique, since Rivlin identities may allow terms in one basis to be expressed equivalently but differently in another basis. The minimality of a basis simply indicates that there is no other basis that can be complete and have a smaller number of basis tensors $\mathbf{m}^{(k)}$. 
@@ -363,7 +339,6 @@ Pennisi $\&$ Trovato (1987) first proved the irreducibility of Smith’s (1971) 
 \label{sec:2B}
 
 We now show that the tensor polynomial basis in (\ref{E:22}a-k), which has been widely used for representing the turbulent stress tensor $\mathbf{\tau}_{ij}$, is not minimal. To do this, we apply the complete and minimal tensor bases in (\ref{E:27}) and (\ref{E:28}) to the special case considered in \Cref{sec:1A2}, for which $\mathbf{\tau}_{ij}$ is taken to depend only on $\mathbf{S}$ and $\mathbf{R}$.  In that case, in (\ref{E:26}a,b) $\mathbf{M}_i \equiv \mathbf{M}_1 = \mathbf{S}$ and $\mathbf{W}_p \equiv \mathbf{W}_1 = \mathbf{R}$ , and from (\ref{E:28}a-n) we then obtain the symmetric tensor basis for  $\mathbf{\tau}_{ij}$ as
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
@@ -376,8 +351,6 @@ We now show that the tensor polynomial basis in (\ref{E:22}a-k), which has been 
 %%%%%%%%%%%%%%%%%
 %
 %   	 
-	 	 
-
 with all other $\mathbf{m}^{(k)}_S= 0$. These should be equivalent to (\ref{E:22}a-k) if both tensor bases are complete and minimal.  However, even then they need not appear identical, since there may be Rivlin identities that allow them to be rearranged into identical forms.
 
 The above terms for $k$ = 0, 1, 2, 6, 10, 12, and 13 are indeed identical to (\ref{E:22}a), (\ref{E:22}b), (\ref{E:22}c), (\ref{E:22}d), (\ref{E:22}e), (\ref{E:22}f), and (\ref{E:22}j). However, in (\ref{E:22}a-k) there is no obvious equivalent to the $\mathbf{m}^{(11)}_S$  term above, nor are there terms above that appear obviously equivalent to (\ref{E:22}g), (\ref{E:22}i), or (\ref{E:22}k). There may be Rivlin identities that allow (\ref{E:22}g), (\ref{E:22}i), or (\ref{E:22}k) to be constructed from the eight symmetric basis tensors  $\mathbf{m}^{(k)}_S$ above. However, since the above basis set $\mathbf{m}^{(k)}_S$ involves just eight tensors, while the basis set  $\mathbf{m}^{(k)}_S$  in (\ref{E:22}a-k) involves ten tensors, the basis set in (\ref{E:22}a-k) cannot be minimal.
@@ -390,13 +363,12 @@ In fluid dynamics, the basis in (\ref{E:22}a-k) was first introduced by Lumley (
 \label{sec:2C}
 
 Taking  $\mathbf{B} \equiv B_{ij}$ as the subgrid stress $\mathbf{\tau}_{ij}$, which is symmetric, then only the symmetric tensor polynomial basis set in (\ref{E:28}a-n) is needed in a tensor polynomial representation of $\mathbf{\tau}_{ij}$. $\mathbf{S}$ and $\mathbf{R}$ are respectively symmetric and anti-symmetric rank-2 tensors, and thus can be included directly in the set of tensors  $\mathbf{A}_k$ in \Cref{sec:2A}.  Therefore
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:31}
 \begin{align}
-	\label{E:31}
 	\mathbf{A}_1 &= \mathbf{S} \\ 
 	\mathbf{A}_2 &= \mathbf{R}
 \end{align}
@@ -404,7 +376,7 @@ Taking  $\mathbf{B} \equiv B_{ij}$ as the subgrid stress $\mathbf{\tau}_{ij}$, w
 %%%%%%%%%%%%%%%%%
 %
 %    
-	 
+
 However, $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$ are rank-3 tensors and, since there does not appear to be a general formulation of a rank-2 tensor polynomial in terms of rank-2 and rank-3 tensors, we choose to form rank-2 tensors from $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$, and include these in the set of tensors   in Section II.A.  To do this we will consider tensor contractions of the form of $\mathbf{\nabla S}^{\alpha}$, $\mathbf{\nabla R}^{\beta}$, and $\mathbf{\nabla S}^{\gamma} \mathbf{\nabla R}^{\delta}$.
 
 
@@ -413,7 +385,6 @@ However, $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$ are rank-3 tensors and, si
 \label{sec:2C1}
 
 Since  $\mathbf{\nabla S}$ is a rank-3 tensor, we need powers  $\alpha$ that contract $\mathbf{\nabla S}^{\alpha}$  to a rank-2 tensor. For any $\alpha$,  $\mathbf{\nabla S}^{\alpha}$ involves $3\alpha$  indices, so two of these must be the free indices \textit{i} and \textit{j}, and the remaining indices must be repeated in integer \textit{m} pairs. Thus allowable values of  $\alpha > 1$ must satisfy $3\alpha - 2 = 2m$ for integer $m \geq 1$, which is the case only for $\alpha = 2,4,6, \ldots$.  For $\alpha = 2$  there are eight possible tensor products of the form $\mathbf{\nabla S}^{2}$, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
@@ -437,13 +408,12 @@ Since  $\mathbf{\nabla S}$ is a rank-3 tensor, we need powers  $\alpha$ that con
 For each of $\alpha = 4,6, \ldots$  there are \textit{far} larger numbers of tensor products of the form $\mathbf{\nabla S}^{\alpha}$ that can form rank-2 symmetric tensors.  Many of these may be reducible via the equivalent of Rivlin identities among them, though for rank-3 tensors there appears to be no equivalent of the Cayley-Hamilton theorem from which to obtain such identities.  Such an approach could potentially lead to a \textit{minimal} tensor polynomial basis set.  However, while there are efficiencies gained from a tensor representation in a minimal basis, there is no loss of generality if a non-minimal basis is used. Moreover, lacking the equivalent of a Cayley-Hamilton theorem for rank-3 tensors leaves open the question of whether it is even possible for there to be a \textit{finite} set of tensor products $\mathbf{\nabla S}^{\alpha}$  that can form rank-2 symmetric tensors. 
 
 Thus, while including these higher-power tensor products $\mathbf{\nabla S}^{\alpha}$   for $\alpha > 2$  may be necessary to obtain a \textit{complete} tensor polynomial basis set, even if only the $\mathbf{\nabla S}^2$   products in (\ref{E:31}) are included in the representation of $\mathbf{\tau}_{ij}$  they will allow effects of $\mathbf{\nabla S}$   to be reflected in the subgrid stress – though in less than a fully complete way.  For these reasons, we retain only the complete set of unique second-order rank-2 contractions $\mathbf{\nabla S}^2$, giving
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:33}
 \begin{align}
-	\label{E:33}
 	\mathbf{A}_3  &= \frac{\partial S_{kk}}{\partial x_i}
 					 \frac{\partial S_{ll}}{\partial x_j} \\
 	\mathbf{A}_4  &= \frac{\partial S_{kl}}{\partial x_i}
@@ -470,14 +440,13 @@ Thus, while including these higher-power tensor products $\mathbf{\nabla S}^{\al
 \subsubsection{Rank-2 contractions involving only $\mathbf{\nabla R}^{\beta}$}
 \label{sec:2C2}
 
-Because in Section II.A the tensors $\mathbf{A}_k$  are identified without regard to their symmetry, since $\mathbf{\nabla R}$ is a rank-3 tensor (like $\mathbf{\nabla S}$) we can by direct analogy with the rank-2 contractions $\mathbf{\nabla S}^2$  in (\ref{E:33}a-h) write corresponding rank-2 contractions $\mathbf{\nabla R}^2$.  However, due to the anti-symmetry of $\mathbf{R}$ it is always the case that $R_{kk} \equiv 0$, even when $S_{kk} \neq 0$, and this eliminates three of the eight corresponding contractions $\mathbf{\nabla R}^2$, leaving only
-
+Because in \Cref{sec:2A} the tensors $\mathbf{A}_k$  are identified without regard to their symmetry, since $\mathbf{\nabla R}$ is a rank-3 tensor (like $\mathbf{\nabla S}$) we can by direct analogy with the rank-2 contractions $\mathbf{\nabla S}^2$  in (\ref{E:33}a-h) write corresponding rank-2 contractions $\mathbf{\nabla R}^2$.  However, due to the anti-symmetry of $\mathbf{R}$ it is always the case that $R_{kk} \equiv 0$, even when $S_{kk} \neq 0$, and this eliminates three of the eight corresponding contractions $\mathbf{\nabla R}^2$, leaving only
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:34}
 \begin{align}
-	\label{E:34}
 	\mathbf{A}_{11}  &= \frac{\partial R_{kl}}{\partial x_i}
 					  \frac{\partial R_{kl}}{\partial x_j} \\
 	\mathbf{A}_{12}  &= \frac{\partial R_{ik}}{\partial x_k}
@@ -499,13 +468,12 @@ Because in Section II.A the tensors $\mathbf{A}_k$  are identified without regar
 \label{sec:2C3}
 
 Since the tensors  $\mathbf{A}_k$ are identified without regard to their symmetry, because  $\mathbf{\nabla S}$ and  $\mathbf{\nabla R}$ are both rank-3 tensors we can again by direct analogy with the rank-2 contractions in (\ref{E:33}a-h) write corresponding second-order rank-2 mixed contractions $\mathbf{\nabla S \nabla R}$. As above, contractions involving $R_{kk}$  are eliminated since in all cases $R_{kk} \equiv 0$, but in this case this eliminates only two of the eight contractions.  Additionally, from the symmetry of $\mathbf{S}$ and the anti-symmetry of $\mathbf{R}$ we have $S_{kl} R_{kl} \equiv 0$ , but due to resulting chain rule terms this does not eliminate any of the remaining six contractions.  Thus, retain only second-order rank-2 mixed contractions $\mathbf{\nabla S \nabla R}$ we have
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:35}
 \begin{align}
-	\label{E:35}
 	\mathbf{A}_{16}  &= \frac{\partial S_{kl}}{\partial x_i}
 					  \frac{\partial R_{kl}}{\partial x_j} \\
 	\mathbf{A}_{17}  &= \frac{\partial S_{ik}}{\partial x_k}
@@ -524,19 +492,17 @@ Since the tensors  $\mathbf{A}_k$ are identified without regard to their symmetr
 %
 %    
 	 	
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Symmetric and anti-symmetric tensor elements $\mathbf{M}_k$ and $\mathbf{W}_k$}
 \label{sec:2D}
 
 Next, the symmetric and anti-symmetric parts of each of the tensor elements  $\mathbf{A}_k$in (\ref{E:32})-(\ref{E:34}) are formed via (\ref{E:26}a,b).  Some of the resulting symmetric parts $\mathbf{M}_k$  are duplicates upon addition in (\ref{E:26}a), and thus are listed only once, and some of the resulting anti-symmetric parts $\mathbf{W}_k$  are zero upon subtraction in (\ref{E:26}b).  The resulting unique symmetric parts are
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:36}
 \begin{align}
-	\label{E:36}
 	\mathbf{M}_1  &= \partial S_{ij}  \\
 	\mathbf{M}_2  &= \frac{\partial S_{kk}}{\partial x_i}
 					 \frac{\partial S_{ll}}{\partial x_j} \\
@@ -618,14 +584,13 @@ Next, the symmetric and anti-symmetric parts of each of the tensor elements  $\m
 %
 %    
 
-Thus there are $m$ = 18 symmetric parts that can be formed from the tensor elements $\mathbf{A}_k$  in (\ref{E:32})-(\ref{E:34}). The resulting unique non-zero anti-symmetric parts are 
-	  	
+Thus there are $m$ = 18 symmetric parts that can be formed from the tensor elements $\mathbf{A}_k$ in (\ref{E:32})-(\ref{E:34}). The resulting unique non-zero anti-symmetric parts are 	
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:37}
 \begin{align}
-	\label{E:37}
 	\mathbf{W}_1  &= \partial R_{ij}  \\
 	\mathbf{W}_2  &= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_k}
@@ -699,7 +664,6 @@ Thus there are $m$ = 18 symmetric parts that can be formed from the tensor eleme
 %
 %    
 
-
 Thus there are $w$ = 12 anti-symmetric parts that can be formed from the tensor elements $\mathbf{A}_k$ in (\ref{E:32})-(\ref{E:34}).  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -707,14 +671,12 @@ Thus there are $w$ = 12 anti-symmetric parts that can be formed from the tensor 
 \label{sec:2E}
 
 Following \Cref{sec:2A}, any symmetric rank-2 tensor can be expressed as a polynomial in the invariant symmetric rank-2 tensor polynomial basis  $\mathbf{m}^{(k)}_S$ given in (\ref{E:28}a-n).  These are based on the second-order symmetric tensors  $\mathbf{M}_i$ for $ i =1,2, \ldots ,18$ in (\ref{E:35}), and on the second-order anti-symmetric tensors $\mathbf{W}_p$  for $p =1,2, \ldots ,12$  in (\ref{E:36}).  The resulting number of $\mathbf{m}^{(k)}_S$ is large.  For instance, the first few  $\mathbf{m}^{(k)}_S$ for $k = 0, 1, 2, 3$ are given by 
-	
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:38}
 \begin{align}
-	\label{E:38}
 	k &= 0  & \mathbf{m}^{(1,1)}_S   &= \mathbf{I} 				&   			\\[15pt]
 	%
 	k &= 1  & \mathbf{m}^{(1,1)}_S   &= \mathbf{M}_1 			&   			\\
@@ -748,14 +710,13 @@ Following \Cref{sec:2A}, any symmetric rank-2 tensor can be expressed as a polyn
 %
 %    
 
-We can easily determine how many  $\mathbf{m}^{(k)}_S$ there are, given that $i<j=1,2,\ldots,18$ and $p<q=1,2,\ldots,12$.  Specifically  
-		 	
+We can easily determine how many  $\mathbf{m}^{(k)}_S$ there are, given that $i<j=1,2,\ldots,18$ and $p<q=1,2,\ldots,12$.  Specifically   	
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\label{E:39}
 \begin{align}
-	\label{E:39}
 	 \mathbf{m}^{(0)}_S   &: 1 	&   	\\  
 	 \mathbf{m}^{(1)}_S   &: 18 	&   	\\  
 	 \mathbf{m}^{(2)}_S   &: 18 	&   	\\  
@@ -777,14 +738,16 @@ We can easily determine how many  $\mathbf{m}^{(k)}_S$ there are, given that $i<
 %    
 
 Thus the total number of invariant symmetric rank-2 tensor polynomial bases $\mathbf{m}^{(k)}_S$  in (\ref{E:28}a-n) is 1570, and a complete frame-invariant formulation of autonomic closure would therefore need to determine a total of 1570 coefficients. 
-In an ``on-the-fly'' implementation of autonomic closure these coefficients would need to be determined at each point and time, which is likely to be unacceptably burdensome from a computational perspective. Alternatively, in a ``static'' implementation of autonomic closure these 1570 coefficients need to be determined just once, in advance of the simulation itself, which may not be not overly burdensome.  In both cases, however, the larger computational burden may come from the large number of tensor component multiplications required to calculate the $\mathbf{m}^{(k)}_S$  in (\ref{E:28}a-n) via the  $\mathbf{M}_i$ in (\ref{E:36}a-r) and the $\mathbf{W}_p$(\ref{E:37}a-l).
+
+In an ``on-the-fly'' implementation of autonomic closure these coefficients would need to be determined at each point and time, which is likely to be unacceptably burdensome from a computational perspective. Alternatively, in a ``static'' implementation of autonomic closure these 1570 coefficients need to be determined just once, in advance of the simulation itself, which may not be not overly burdensome.  In both cases, however, the larger computational burden may come from the large number of tensor component multiplications required to calculate the $\mathbf{m}^{(k)}_S$  in (\ref{E:28}a-n) via the  $\mathbf{M}_i$ in (\ref{E:36}a-r) and the $\mathbf{W}_p$ (\ref{E:37}a-l).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Incompressible flow: Deviatoric forms of $\mathbf{m}^{(i)}_S$ }
 \label{sec:2F}
 
-For incompressible flow, which can be formulated in the deviatoric stress and deviatoric strain rate, many of the $\mathbf{m}^{(k)}_S$  in (\ref{E:27}) and (\ref{E:38}) are zero, allowing considerable reduction in the total number of coefficients.  In that case $S_{ii} = 0$, so we can work in the deviatoric strain rate $\mathbf{S}^{dev}$, for which $S^{dev}_{ii} \equiv 0$, and in the deviatoric stress $\tau^{dev}$, for which $\tau^{dev} \equiv 0$  and thus $\mathbf{m}^{(0)}_S$  in (\ref{E:28}a) and (\ref{E:39}a) does not appear, as was seen in going from (\ref{E:19}) to (\ref{E:21}).  We can then formulate the deviatoric stress $\tau^{dev}$  in terms of $\mathbf{S}^{dev}$, $\mathbf{R}$, $\mathbf{\nabla S}^{dev}$, and $\mathbf{\nabla R}$, which is equivalent to using the results above but enforcing $S_{ii} \equiv 0$  and dropping $\mathbf{m}^{(0)}_S$.  As a result, several of the  $\mathbf{M}_i$ and $\mathbf{W}_p$ in (\ref{E:35}) and (\ref{E:36}) are zero, which reduces the number of polynomial bases $\mathbf{m}^{(k)}_S$.  
+For incompressible flow, which can be formulated in the deviatoric stress and deviatoric strain rate, many of the $\mathbf{m}^{(k)}_S$  in (\ref{E:27}) and (\ref{E:38}) are zero, allowing considerable reduction in the total number of coefficients.  In that case $S_{ii} = 0$, so we can work in the deviatoric strain rate $\mathbf{S}^{dev}$, for which $S^{dev}_{ii} \equiv 0$, and in the deviatoric stress $\tau^{dev}$, for which $\tau^{dev} \equiv 0$  and thus $\mathbf{m}^{(0)}_S$  in (\ref{E:28}a) and (\ref{E:39}a) does not appear, as was seen in going from (\ref{E:19}) to (\ref{E:23}).  We can then formulate the deviatoric stress $\tau^{dev}$  in terms of $\mathbf{S}^{dev}$, $\mathbf{R}$, $\mathbf{\nabla S}^{dev}$, and $\mathbf{\nabla R}$, which is equivalent to using the results above but enforcing $S_{ii} \equiv 0$  and dropping $\mathbf{m}^{(0)}_S$.  As a result, several of the  $\mathbf{M}_i$ and $\mathbf{W}_p$ in (\ref{E:35}) and (\ref{E:36}) are zero, which reduces the number of polynomial bases $\mathbf{m}^{(k)}_S$.  
+
 Specifically,  $\mathbf{M}_2$ in (\ref{E:36}b),  $\mathbf{M}_6$ in (\ref{E:36}f), and $\mathbf{M}_{17}$  in (\ref{E:36}q) are all zero, as are $\mathbf{W}_2$  in (\ref{E:37}b),  $\mathbf{W}_4$ in (\ref{E:37}d), and $\mathbf{W}_{11}$  in (\ref{E:37}k).  This leaves a total of 15 non-zero $\mathbf{M}_i$  and 9 non-zero $\mathbf{W}_p$.  Then, with $i<j = 1,2,\ldots,15$  and all $p<q = 1,2,\ldots,9$, following the same procedure as in (\ref{E:39}a-n) the total number of invariant symmetric rank-2 tensor polynomial bases   $\mathbf{m}^{(k)}_S$ in (\ref{E:28}a-n) for the incompressible case is 1002.  
 
 
@@ -793,21 +756,18 @@ Specifically,  $\mathbf{M}_2$ in (\ref{E:36}b),  $\mathbf{M}_6$ in (\ref{E:36}f)
 \label{sec:3}
 
 The invariant symmetric rank-2 tensor polynomial basis  $\mathbf{m}^{(\alpha)}_S$  for  $\alpha = 0,0,\ldots,1569$ in (\ref{E:28}a-n) is \textit{complete} under the assumption that  $\tau_{ij}$ depends on $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}^{2}$, $\mathbf{\nabla R}^{2}$, and $\mathbf{\nabla S \nabla R}$.  Thus all representations of $\tau_{ij}$ that satisfy the invariance properties of a symmetric rank-2 tensor can be written as a tensor polynomial
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:40}
+\label{E:40}
 	\mathbf{\tau}_{ij} = \sum_{\alpha=0}^{1569} c_{\alpha} \mathbf{m}^{(\alpha)}_{S}.
 \end{equation}
 %%%%%%%%%%%%%%%%%
 %
 % 
 
-
 In (\ref{E:39}), from (\ref{E:27}) with (\ref{E:35}) and (\ref{E:36}) note that
-
 %
 %   BULLET LIST %  
 %%%%%%%%%%%%%%%%%
@@ -832,7 +792,6 @@ In (\ref{E:39}), from (\ref{E:27}) with (\ref{E:35}) and (\ref{E:36}) note that
 Prior work has shown that truncating a Volterra series representation to only retain velocity products up to second order is sufficient to obtain excellent representation of the subgrid stress and the associated subgrid production, regardless whether the second-order products include non-colocated or only colocated stencil points.  Anticipating that at least comparable accuracy must be obtained if (\ref{E:39}) is similarly truncated to retain at most second-order products of velocities, we now consider the order of the velocity products in each of the tensor bases  $\mathbf{m}^{(\alpha)}_{S}$.
 
 The strain rate $\mathbf{S}$ in (\ref{E:25}b) and rotation rate $\mathbf{R}$ in (\ref{E:25}c) are each linear in the velocity components $u_i$ , and therefore  $\mathbf{M}_1$ in (\ref{E:36}a) and $\mathbf{W}_1$  in (\ref{E:37}a) are each linear in the velocities.  The remaining $\mathbf{M}_i$  in (\ref{E:36}b-r) and  $\mathbf{W}_p$ in (\ref{E:37}b-l) all involve rank-2 contractions of the forms $\mathbf{\nabla S}^2$, $\mathbf{\nabla R}^2$, and $\mathbf{\nabla S \nabla R}$, and therefore are second-order in the velocity components $u_i$.  From these, the order of the velocity products in each of the tensor bases $\mathbf{m}^{(\alpha)}_{S}$  in (\ref{E:28}a-n) can be readily determined.  
-
 %
 %   ALPHA  LIST %  
 %%%%%%%%%%%%%%%%%
@@ -853,12 +812,11 @@ The strain rate $\mathbf{S}$ in (\ref{E:25}b) and rotation rate $\mathbf{R}$ in 
 %   
 
 Using (a)-(d) above, the tensor representation in (\ref{E:39}) can be truncated to retain all terms that are up to second-order in the velocities, while the preserving frame invariance, as
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{equation}
-	\label{E:41}
+\label{E:41}
 	\mathbf{\tau}_{ij} =  c_{0} \mathbf{I}
 	+ \underbrace{
 				c_{1} \mathbf{m}^{(1,1)}_{S}
@@ -886,13 +844,11 @@ Using (a)-(d) above, the tensor representation in (\ref{E:39}) can be truncated 
 %   
 
 The four non-gradient terms in (\ref{E:40}) can be expressed directly in $\mathbf{S}$ and $\mathbf{R}$ as indicated above, and from (\ref{E:28}b)  $\mathbf{m}^{(1,\alpha)}_{S}$ in the gradient terms is simply equal to $\mathbf{m}_{(\alpha)}$ in (\ref{E:36}b-r), allowing (\ref{E:40}) to be written as
-
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{align}
-	\label{E:42}
+\label{E:42}
 	\mathbf{\tau}_{ij} &=  c_{0} \mathbf{I}
 	+ c_{1} \mathbf{S}
 	+ c_{19} \mathbf{S}^2

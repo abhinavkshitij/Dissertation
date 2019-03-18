@@ -32,11 +32,11 @@ This section presents a description of the autonomic closure methodology \cite{\
 \section{The autonomic closure methodology} 
 \label{sec:IIA}
 
- Traditional prescribed closure models represent a subgrid term in a predefined way in terms of specified parameters, such as the resolved strain rate $\widetilde{S}_{ij} $, based on theoretical or other considerations, often with one or more model constants allowed to vary locally via a dynamical procedure \cite{\prescribed}. 
- In contrast, autonomic closure as proposed in Refs. \cite{\autonomic} is based on a highly generalized nonparametric representation of subgrid terms using only the primitive variables in a simulation. 
- This generalized nonparametric representation typically has $O(10^2-10^4)$ degrees of freedom that are determined dynamically at every point $\mathbf{x}$  and time $t$ in the simulation. 
- Such a highly generalized representation in the primitive-variable values on a local set $\mathbf{S}$ of stencil points around each space-time point $(\mathbf{x},t)$ removes the need for a predefined parametric model. 
- Doing so allows far greater adaptability of the subgrid closure to the local turbulence state than is possible even with dynamical forms of traditional prescribed closure models. 
+Traditional prescribed closure models represent a subgrid term in a predefined way in terms of specified parameters, such as the resolved strain rate $\widetilde{S}_{ij} $, based on theoretical or other considerations, often with one or more model constants allowed to vary locally via a dynamical procedure \cite{\prescribed}. 
+In contrast, autonomic closure as proposed in Refs. \cite{\autonomic} is based on a highly generalized nonparametric representation of subgrid terms using only the primitive variables in a simulation. 
+This generalized nonparametric representation typically has $O(10^2-10^4)$ degrees of freedom that are determined dynamically at every point $\mathbf{x}$  and time $t$ in the simulation. 
+Such a highly generalized representation in the primitive-variable values on a local set $\mathbf{S}$ of stencil points around each space-time point $(\mathbf{x},t)$ removes the need for a predefined parametric model. 
+Doing so allows far greater adaptability of the subgrid closure to the local turbulence state than is possible even with dynamical forms of traditional prescribed closure models. 
 
 Here we apply autonomic closure to the subgrid stress  $\tau_{ij}(\mathbf{x},t)$ . Although the methodology can be generalized to multi-time stencils \cite{\autonomic}, here we consider a time-local implementation. An underlying general nonparametric representation  $F_{ij}$ for the local subgrid stress $\tau_{ij}$  can then be expressed in the primitive variables $\widetilde{\mathbf{u}}$  and  ${\widetilde{p}}$  as
 %
@@ -139,12 +139,12 @@ Implementing autonomic closure involves choices of $F_{ij}$, $N$, $M$, and $V_B$
 However while the implementation in Ref. \cite{king2016autonomic} is accurate, as can be seen in Fig. 1, it is too computationally costly in comparison with traditional prescribed closure models to serve as a widely-usable alternative closure for practical applications of LES. Therefore, in the following sections we evaluate the effects of various implementation choices on the accuracy and computational cost of autonomic closure. Specifically, we consider specific combinations of the following key implementation choices: 
 
 \begin{itemize}
-\item local vs. nonlocal forms based on the bounding box volume  $V_B = (n\widehat{\Delta})^3$ 
-\item velocity-only vs. velocity-pressure Volterra series representations $F_{ij}$
-\item colocated vs. non-colocated products on the stencils $\widetilde{\mathbf{S}}$  and  $\widehat{\mathbf{S}}$ 
-\item first-order vs. second-order Volterra series representations $F_{ij}$
-\item varying numbers $M$ of training points relative to the number $N$ of coefficients $\mathbf{h}_{ij}$  
-\item varying training point spacing  $(V_B/M)^{1/3}$
+	\item local vs. nonlocal forms based on the bounding box volume  $V_B = (n\widehat{\Delta})^3$ 
+	\item velocity-only vs. velocity-pressure Volterra series representations $F_{ij}$
+	\item colocated vs. non-colocated products on the stencils $\widetilde{\mathbf{S}}$  and  $\widehat{\mathbf{S}}$ 
+	\item first-order vs. second-order Volterra series representations $F_{ij}$
+	\item varying numbers $M$ of training points relative to the number $N$ of coefficients $\mathbf{h}_{ij}$  
+	\item varying training point spacing  $(V_B/M)^{1/3}$
 \end{itemize}
 
 These allow implementations ranging from a large, second-order, velocity-pressure, non-colocated, nonlocal formulation with $M/N \gg 1$, which provides a large number $N$ of degrees of freedom in $F_{ij}$  but is computational costly, to a minimal first-order, velocity-only, colocated, local formulation with $M/N \ll 1$  , which has the lowest computational cost but can be expected to be less accurate. The main objective is to determine which implementations of autonomic closure provide high accuracy in  $\tau_{ij}(\mathbf{x},t)$ and $P(\mathbf{x},t)$   at acceptable computational cost.
