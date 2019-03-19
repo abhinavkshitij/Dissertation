@@ -23,13 +23,13 @@
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Autonomic closure}
+\chapter{Autonomic Closure}
 \label{ch:3}
 
 This section presents a description of the autonomic closure methodology \cite{\autonomic} and the implementation choices within it that affect its accuracy and computational cost. 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The autonomic closure methodology} 
+\section{The Autonomic Closure Methodology} 
 \label{sec:IIA}
 
 Traditional prescribed closure models represent a subgrid term in a predefined way in terms of specified parameters, such as the resolved strain rate $\widetilde{S}_{ij} $, based on theoretical or other considerations, often with one or more model constants allowed to vary locally via a dynamical procedure \cite{\prescribed}. 
@@ -132,7 +132,7 @@ where  $\lambda$ is the damping coefficient. When $M/N \gg 1$  the value of  $\l
 Note the resulting local $\mathbf{h}_{ij}$   is used only once to evaluate $\tau_{ij}(\mathbf{x},t)$   at the bounding box center point $\mathbf{x}$ for the current time $t$. A new set of coefficients  $\mathbf{h}_{ij}$ is obtained for each $(\mathbf{x},t)$  in the simulation. As a result, autonomic closure does not provide a fixed set of coefficients $\mathbf{h}_{ij}$  and thus does not provide a closure model for $\tau_{ij}$. Instead, it is the autonomic methodology itself that is the closure for $\tau_{ij}(\mathbf{x},t)$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementations of autonomic closure }
+\section{Implementations of Autonomic Closure }
 \label{sec:IIB}
 
 Implementing autonomic closure involves choices of $F_{ij}$, $N$, $M$, and $V_B$ that impact the generalizability of $\mathbf{h}_{ij}$, in a machine learning sense, from the test scale to the LES scale, and also determine the computational cost of this closure methodology. For example, the implementation in Ref. \cite{king2016autonomic} used a second-order, non-colocated, velocity-pressure Volterra series for $F_{ij}$, which provided a large number ($N = 5995$) of coefficients $\mathbf{h}_{ij}$  in $F_{ij}$, and also used the largest possible bounding box, which allowed a large number ($M  = 15,625$) of training points to determine $\mathbf{h}_{ij}$. Results from that implementation verified that autonomic closure produces subgrid stress fields $\tau_{ij}^{F}(\mathbf{x},t)$   and subgrid production fields  $P^{F}(\mathbf{x},t) \equiv -\tau_{ij}^{F}\widetilde{S}_{ij}$ that represent the true $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$   fields over essentially all resolved scales far more accurately than do existing prescribed closure models, such as the dynamic Smagorinsky model \cite{king2016autonomic}. 

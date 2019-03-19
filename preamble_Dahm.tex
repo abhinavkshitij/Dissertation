@@ -269,28 +269,33 @@
   {0.5em}
 \newcommand{\divisionfont}{\normalfont} % Font must be \normalfont
 \newcommand{\divisionafterskip}%
-  {\baselineskip}
+  {0.5\baselineskip}
 
+% SECTION
 \setbeforesecskip{\divisionbeforeskip}  % Apply default formatting to all heading levels
 \setsecindent{\divisionindent}          % Note: If you change \setsecnumdepth above, you 
-\setsecheadstyle{\divisionfont}         %   will need to set the indent for all lower 
+\setsecheadstyle{\bfseries}         %   will need to set the indent for all lower 
 \setaftersecskip{\divisionafterskip}    %   levels to '0pt'; otherwise, they will be 
                                         %   preceded by unnecessary space
+% SUBSECTION
 \setbeforesubsecskip{\divisionbeforeskip}
 \setsubsecindent{\divisionindent}
-\setsubsecheadstyle{\divisionfont}
+\setsubsecheadstyle{\bfseries}
 \setaftersubsecskip{\divisionafterskip}
 
+% SUB-SUBSECTION
 \setbeforesubsubsecskip{\divisionbeforeskip}
 \setsubsubsecindent{\divisionindent}
-\setsubsubsecheadstyle{\divisionfont}
+\setsubsubsecheadstyle{\itshape}
 \setaftersubsubsecskip{\divisionafterskip}
 
+% PARAGRAPH
 \setbeforeparaskip{\divisionbeforeskip}
 \setparaindent{\divisionindent}
 \setparaheadstyle{\divisionfont}
 \setafterparaskip{\divisionafterskip}
 
+% SUB-PARAGRAPH
 \setbeforesubparaskip{\divisionbeforeskip}
 \setsubparaindent{\divisionindent}
 \setsubparaheadstyle{\divisionfont}
@@ -729,13 +734,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tables and figures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\captiondelim{. }                       %~Use period (.) after caption number instead of 
-                                        %   colon (:). Change according to style guide. 
-\captionstyle[\centering]%              % Set justifcation for [one line captions] 
-  {\raggedright}                        %   and {multiple line captions}
-\setlength{\belowcaptionskip}{0pt}      % Bring caption down closer to figure/table
-
+\usepackage[  margin=15pt, 
+              justification=justified, 
+              labelsep=period]%
+              {caption}
 \usepackage{subcaption}
+%\captiondelim{. }                       %~Use period (.) after caption number instead of 
+                                        %   colon (:). Change according to style guide. 
+% \captionstyle[\centered]%              % Set justifcation for [one line captions] 
+%   {\raggedright}                        %   and {multiple line captions}
+%\setlength{\belowcaptionskip}{0pt}      % Bring caption down closer to figure/table
 
 
 \makeatletter                           % Consecutive numbering throughout 

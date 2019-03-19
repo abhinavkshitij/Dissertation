@@ -22,7 +22,7 @@ $A priori$ tests are used here to assess the relative accuracy and computational
 We also develop metrics to assess the accuracy of any implementation of autonomic closure. As noted in \Cref{sec:IB}, in highly intermittent fields such as the subgrid production $P(\mathbf{x},t)$ it may not be possible to have precise point-by-point agreement between the true field and that resulting from a subgrid stress closure. However a closure should (i) produce $P(\mathbf{x},t)$  fields that are structurally similar to the corresponding true production fields, with large values of forward and backward scatter concentrated in regions at the same locations and of the same size and shape, (ii) produce similar statistical distributions of positive and negative values as in the true  $P(\mathbf{x},t)$ fields, and (iii) produce $\langle P(\mathbf{x},t) \rangle \geq \varepsilon$, where  $\varepsilon$ is the true subgrid production rate. Therefore, in addition to comparing average values and statistical distributions of $\tau_{ij}$ and $P$ from autonomic closure to corresponding results from the true subgrid stress and production fields, we develop metrics to quantitatively compare the scale-dependent support-density fields on which large positive and negative subgrid production values are concentrated in the true $P(\mathbf{x},t)$  fields and in  $P^{F}(\mathbf{x},t)$ from autonomic closure. These provide sensitive measures of how well any closure for $\tau_{ij}$  represents the detailed spatial structure of regions in which large forward and backward scatter occur in the subgrid production field.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Pseudo-LES fields, test fields, and resulting stress fields} 
+\section{Pseudo-LES fields, Test Fields, and Resulting Stress Fields} 
 \label{sec:IIIA}
 
 Direct numerical simulation (DNS) data from a $1024^3$ simulation of homogeneous isotropic turbulence at $ Re_{\lambda} = 433$ from the Johns Hopkins Turbulence Database \cite{\jhuDNS} were used for these $a priori$ assessments. Velocity $u_i(\mathbf{x},t)$  and pressure  $p(\mathbf{x},t)$ fields were first projected on a $256^3$ grid having regular grid spacing $\Delta$, on which all results are displayed. A spectrally sharp filter with cutoff at $k_{\widetilde{\Delta}} = 40$, well within the inertial range, was applied to produce pseudo-LES fields $\widetilde{u_i}(\mathbf{x},t)$ and $\widetilde{p_i}(\mathbf{x},t)$   on the $256^3$ display grid. This grid accommodates wavenumbers up to  $k_{\Delta} = 128$, allowing the nonlinear product fields $\widetilde{u}_i \widetilde{u}_j (\mathbf{x},t)$, which have wavenumbers up to $2k_{\widetilde{\Delta}}= 80$, to be represented without aliasing. The true subgrid stress fields $\tau_{ij}(\mathbf{x},t) = \widetilde{u_iu_j} - \widetilde{u}_i \widetilde{u}_j$  were then constructed on the same $256^3$ display grid. A second spectrally sharp test filter with cutoff at  $k_{\widetilde{\Delta}}= 20$, providing test-to-LES filter ratio  $\alpha \equiv \widehat{\Delta}/\widetilde{\Delta}= 2$, produced test fields $\widehat{\widetilde{u_i}}(\mathbf{x},t)$   and  $\widehat{\widetilde{p}}(\mathbf{x},t)$ on the same $256^3$ display grid. This grid allows the product fields $\widehat{\widetilde{u_i}}\widehat{\widetilde{u_j}}(\mathbf{x},t)$, which contain wavenumbers up to $2k_{\widetilde{\Delta}}= 40$, to also be represented without aliasing. The test stress fields  $T_{ij}(\mathbf{x},t) = \widehat{\widetilde{u_iu_j}} - \widehat{\widetilde{u}}_i \widehat{\widetilde{u}}_j$  were then constructed on the $256^3$ display grid.
@@ -77,7 +77,7 @@ The test stress fields $T_{ij}(\mathbf{x},t)$  and the test-filtered velocity  $
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center}
+	\begin{center} \hspace{1.5cm}
 	\includegraphics[width=\maxwidth{4in}]{Fig3_y213-03.eps}
 	\caption{ Typical subgrid production field $P(\mathbf{x},t)$, showing (a) true field, (b) result from autonomic closure, (c) true support-density field $G(\mathbf{x},t)$ , and (d) corresponding support-density field from autonomic closure. }
 	\label{F:3}
@@ -88,7 +88,7 @@ The test stress fields $T_{ij}(\mathbf{x},t)$  and the test-filtered velocity  $
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Statistical comparisons of $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ } 
+\section{Statistical Comparisons of $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ } 
 \label{sec:IIIB}
 
 For each implementation in \Cref{tab:1} the resulting subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$   and production fields $P^{F}(\mathbf{x},t) \equiv -\tau_{ij}^{F} \widetilde{S}_{ij}$ from autonomic closure are compared with the corresponding true stress and production fields  $\tau_{ij}^{F}(\mathbf{x},t)$  and $P(\mathbf{x},t) \equiv -\tau_{ij} \widetilde{S}_{ij}$  . These comparisons include probability densities of stresses and production to assess if the implementation produces similar distributions of positive and negative values as in the true $\tau_{ij}^{F}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ fields. We also compare the average subgrid production $\langle P^F \rangle$  from each implementation to the true value $\varepsilon$.
@@ -110,7 +110,7 @@ However, probability densities only give the distributions of magnitudes in thes
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Support fields for $P(\mathbf{x},t)$} 
+\section{Support Fields for $P(\mathbf{x},t)$} 
 \label{sec:IIIC}
 
 \Cref{F:3}a,b show a typical comparison of the subgrid production field $P^{F}(\mathbf{x},t)$ from autonomic closure with the corresponding true field $P(\mathbf{x},t)$. Probability densities of subgrid stress and production are used in \Cref{ch:5} to compare magnitudes in these fields. However Fig. 3 also shows structural similarities in  $P(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$, even in many of the detailed features of these fields, including regions where large positive and negative values of $P$ are clustered. Of central importance, large magnitudes in $P^{F}(\mathbf{x},t)$  in Fig. 3b are clustered in regions at about the same locations and of about the same size and shape as those in $P(\mathbf{x},t)$ in \Cref{F:3}a. 
@@ -120,7 +120,7 @@ However, despite the clear similarities in \Cref{F:3}a,b in the location, size, 
 The support of a field is the subset of the domain on which the field values are non-zero. Here we define the support on which large magnitudes of the subgrid production fields  $P(\mathbf{x},t)$ and $P^F(\mathbf{x},t)$ are concentrated, by thresholding the absolute value of each field at a fixed fraction  $\gamma$ of $P'_{rms}$ . This defines $\Sigma(\mathbf{x},t)$  as either zero or one, depending on whether the absolute value of the subgrid production is below or above the threshold. Points where  $\Sigma = 1$ are on the support of large production magnitudes and those where  $\Sigma = 0$  are off the support. Thresholding $\Sigma$  at $\gamma = 0.75$   provides clear identification of the sensible support on which large magnitudes of the subgrid production fields are concentrated. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Support-density fields $G(\mathbf{x},t)$ }
+\section{Support-density Fields $G(\mathbf{x},t)$ }
 \label{sec:IIID}
 
 The support for each of the subgrid production fields can be separated into different scales to allow scale-by-scale comparisons of  $P(\mathbf{x},t)$ and $P^F(\mathbf{x},t)$   . From the support  $\Sigma(\mathbf{x},t)$  we define the corresponding support-density field  $G(\mathbf{x},t)$  as 
@@ -140,7 +140,7 @@ where $\Gamma_{\Delta}(|\mathbf{x} - \mathbf{x'}|)$  is a convolution filter ker
 Successive filter length scales  $\Delta_{\Gamma}$ in (\ref{E:10}) allow scale-dependent structure in the support-density fields to be determined. Comparisons at the same filter scale between true production support-density fields and those obtained from the closure allow quantitative assessment of scale-by-scale agreement in these fields. \Cref{F:4} shows an example of such scale-dependent comparisons of the support-density fields   $G(\mathbf{x},t)$  and  $G^{F}(\mathbf{x},t)$   for the subgrid production fields   $P(\mathbf{x},t)$  and  $P^{F}(\mathbf{x},t)$   in \Cref{F:3} at successive scale ratios $\Delta_{\Gamma}/\widetilde{\Delta}$ . 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Support-density metrics  $M_1$ and $M_2$ }
+\section{Support-density Metrics  $M_1$ and $M_2$ }
 \label{sec:IIIE}
 
 From support-density fields   $G(\mathbf{x},t)$  and  $G^{F}(\mathbf{x},t)$   for   $P(\mathbf{x},t)$  and  $P^{F}(\mathbf{x},t)$    as in \Cref{F:4}, we use two metrics to quantitatively compare their spatial structure. At any scale-ratio  $\Delta_{\Gamma}/\widetilde{\Delta}$ we define
@@ -162,7 +162,7 @@ From support-density fields   $G(\mathbf{x},t)$  and  $G^{F}(\mathbf{x},t)$   fo
 where   is the correlation between the support-density fields $G(\mathbf{x},t)$  and  $G^{F}(\mathbf{x},t)$, with $G' \equiv G - \langle G \rangle_V$, and $M_2$  is the normalized $rms$ difference between  $G(\mathbf{x},t)$  and  $G^{F}(\mathbf{x},t)$. The volume averages are over the entire domain. Note $M_1 \rightarrow 1$  as the two support-density fields become perfectly correlated, and  $M_2 \rightarrow 0$  as the two support-density fields become identical. The variations in  $M_1$ and $M_2$  with scale-ratio $\Delta_{\Gamma}/\widetilde{\Delta}$  allow quantitative comparisons of the spatial support-densities on which the true production field  $P(\mathbf{x},t)$  and its associated $P^{F}(\mathbf{x},t)$ from the $\tau_{ij}$  closure are concentrated. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Computational cost}
+\section{Computational Cost}
 \label{sec:IIIF}
 
 We also evaluate the computational time for each implementation of autonomic closure. Only the time associated with the subgrid stress evaluation is considered; all other factors are independent of the choice of closure. In autonomic closure there are three contributors to the computational time:  
