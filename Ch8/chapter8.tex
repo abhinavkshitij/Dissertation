@@ -17,7 +17,7 @@
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Frame-invariant Volterra Series Representation}
+\chapter{Frame-invariant  Series Representation}
 \label{ch:8}
 
 We recently used the results of \citeauthor*{\Smith} (\citeyear{\Smith}) to obtain the most general representation of the symmetric subgrid stress tensor  $\tau_{ij}$ in terms of the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ and rank-two products up to second order of their gradients  $\mathbf{\nabla S}$  and $\mathbf{\nabla R}$. In particular, Smith’s framework guarantees that the resulting tensor polynomial representation satisfies the rank, symmetry, rotation, and reflection properties of the stress tensor $\tau_{ij}$ -- essential for any such representation to be strictly valid.  Moreover, Smith’s formulation was shown by \citeauthor*{\Pennisi} (\citeyear{\Pennisi}) to be minimal, thus there is no smaller number of symmetric basis tensors that can form a complete polynomial representation of $\tau_{ij}$.  
@@ -28,7 +28,8 @@ One might suspect that some of the many resulting velocity component products ap
 
 Alternatively, it may be possible to use the results of \citeauthor*{\Smith} (\citeyear{\Smith}) to obtain a different, and potentially more computationally efficient, complete and minimal tensor polynomial in terms of the $P$ = 27 velocity vectors  $\mathbf{u}_{m}$ on our $3 \times 3 \times 3$   stencil, rather than via the 1570-term tensor polynomial in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Smith’s formulation in fact provides the complete and minimal tensor bases for representing any symmetric rank-two tensor in terms of any number of vectors and rank-two tensors.  Rather than forming the tensor polynomial representation in terms of rank-two tensors from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$, we will here use Smith’s formulation to obtain the tensor polynomial representation directly in terms of the  $m = 1, 2,\ldots , P =$ 27 velocity vectors $\mathbf{u}_{m}$ on the stencil.  Such a series will naturally have each possible velocity component product appear only once, and thus should provide the potentially efficient alternative representation noted above.
 
-In fact, as we will see, this $\tau_{ij}$ representation in terms of tensor bases formed directly from the $\mathbf{u}_{m}$ will be very similar to the original \textit{ad hoc} Volterra series we began with.  However, while the original Volterra series representation was not frame invariant, this new representation will be. Moreover, our original Volterra series was arbitrarily truncated after second-order products in the velocity components, but in this new representation we will see that in any valid representation of $\tau_{ij}$  in terms of $\mathbf{u}_{m}$  there \textit{cannot} be any velocity component products of order higher than two. Thus in this new representation \textit{no} truncation is needed, even while preserving the completeness of the tensor representation. 
+
+In fact, as we will see, this $\tau_{ij}$ representation in terms of tensor bases formed directly from the $\mathbf{u}_{m}$ will be very similar to the original \textit{ad hoc}  series we began with.  However, while the original  series representation was not frame invariant, this new representation will be. Moreover, our original  series was arbitrarily truncated after second-order products in the velocity components, but in this new representation we will see that in any valid representation of $\tau_{ij}$  in terms of $\mathbf{u}_{m}$  there \textit{cannot} be any velocity component products of order higher than two. Thus in this new representation \textit{no} truncation is needed, even while preserving the completeness of the tensor representation. 
 
 We may anticipate that the resulting new polynomial in the basis tensors formed from the $\mathbf{u}_{m}$ will have more terms than does our recent 1570-term polynomial in the basis tensors formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Yet this new polynomial may nevertheless be more computationally efficient, since each component of its basis tensors involve only a simple second-order velocity component product, and we are guaranteed that there are no repeated products in this representation. 
 
@@ -67,14 +68,13 @@ where $\otimes$  denotes the ``dyadic product'' (or ``outer product'', or ``tens
 %
 %        
 
-Unlike our original Volterra series representation, note that all six independent components of $\mathbf{\tau}$ in (\ref{E:15}) have the \textit{same} set of coefficients $c$, so that (\ref{E:15}) preserves all invariants of  $\mathbf{\tau}$ in \textit{any} coordinate frame, whereas our original Volterra representation was not invariant-preserving and thus had separate coefficients for each $ij$-component of $\tau \equiv \tau_{ij}$.
+Unlike our original  series representation, note that all six independent components of $\mathbf{\tau}$ in (\ref{E:15}) have the \textit{same} set of coefficients $c$, so that (\ref{E:15}) preserves all invariants of  $\mathbf{\tau}$ in \textit{any} coordinate frame, whereas our original  representation was not invariant-preserving and thus had separate coefficients for each $ij$-component of $\tau \equiv \tau_{ij}$.
 
 Since in our case the $\mathbf{u}_{m}$  are the velocities at each of the 27 stencil points, the symmetric dyadic products in (\ref{E:15}) and (\ref{E:16}) are simply all possible invariance-preserving combinations of all second-order products (colocated and non-colocated) of the velocity components.  The first sum gives the 27 colocated velocity products, which include both square ($i = j$) and non-square ($i \neq j$)  terms. The second sum gives the $({27}^2 - 27)/2 = 351$  non-colocated velocity products; note how the dyadic products in this term are constructed to preserve the $ij$-symmetry of $\mathbf{\tau}$.
 
 Strictly speaking, representation theory dictates that the scalar-valued coefficients $c$ in (\ref{E:15}) can, at most, be functions of all scalar invariants that can be formed from the set of vectors $\mathbf{u}_{m}$. From \citeauthor*{\Smith} (\citeyear{\Smith}; Eq. 2.41), for a representation involving only the vectors $\mathbf{u}_{m}$, the only such scalar invariants are $I_{\alpha \alpha} \equiv \mathbf{u}_{\alpha} \cdot \mathbf{u}_{\alpha}$  and $I_{\alpha \beta} \equiv \mathbf{u}_{\alpha} \cdot \mathbf{u}_{\beta}$   where $\alpha = 1, \ldots, P$  and $\beta > \alpha$.  In principle, one could try to somehow discover how each of the $c$'s in (\ref{E:15}) depend on the  $P$ scalar invariants  $I_{\alpha \alpha}$ and the  $(P^2 - P)/2$ scalar invariants $I_{\alpha \beta}$, and if successful in doing so would have arrived at the only possible tensorally-correct representation of the form $\mathbf{\tau} = f(\mathbf{u}_m; m =1,\ldots,P)$.  However, the whole point of autonomic closure is precisely to avoid a need to propose models for coefficients $c = f(I_{11}, \ldots ,I_{PP}, I_{12}, \ldots, I_{P-1P})$  in representations for $\mathbf{\tau}$, and to instead use tools of data science to autonomically discover the best values for these coefficients at each simulation point and time. 
 
 Returning to (\ref{E:15}), it might be tempting to discard the term  $c_0\mathbf{I}$ by arguing that the definition of $\mathbf{\tau}$, namely
-
 %
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
@@ -88,40 +88,39 @@ Returning to (\ref{E:15}), it might be tempting to discard the term  $c_0\mathbf
 %%%%%%%%%%%%%%%%%
 %
 %        
-
 requires $\mathbf{\tau} = 0$  when $\mathbf{u} \equiv 0$. One might thus consider forcing $c_0 \equiv 0$  to ensure (\ref{E:15}) satisfies this requirement.  However, recall from above that $c_0$  is in principle a scalar-valued function $f$  of the scalar invariants  $\mathbf{u}_{\alpha} \cdot \mathbf{u}_{\alpha}$ and $\mathbf{u}_{\alpha} \cdot \mathbf{u}_{\beta}$, so when all the  $\mathbf{u}_{\alpha, \beta} \equiv 0$ then these scalar invariants are all zero, in which case it is possible (even likely) that $c_0 = f(0,\ldots0) = 0$.  This then allows $c_0 = 0$   when  $\mathbf{u} \equiv 0$ and thereby satisfies $\mathbf{\tau} = 0$  when  $\mathbf{u} \equiv 0$ even when the $c_0 \mathbf{I}$  term in (\ref{E:15}) is retained.  Furthermore, when $\mathbf{u} \neq 0$  we may expect $c_0 \neq 0$, in which case again the $c_0 \mathbf{I}$ term in (\ref{E:15}) must be retained.  Thus in all cases, the  $c_0 \mathbf{I}$ term in (\ref{E:15}) must be retained.  Only when  $\mathbf{\tau}$ in (\ref{E:15}) is the deviatoric stress can we set $c_0 \equiv 0$.
 
 
 
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\begin{center} \hspace{1.5cm}
-	\includegraphics[width=\maxwidth{4in}]{Smith_UC_UN_y_43_12-03.eps}
-	\caption{Comparison of (a) true stress fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
-	\label{F:Smith_UC}
-	\end{center}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.5cm}
+% 	\includegraphics[width=\maxwidth{4in}]{Smith_UC_UN_y_43_12-03.eps}
+% 	\caption{Comparison of (a) true stress fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+% 	\label{F:Smith_UC}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 There is, however, a problem with (\ref{E:15}) that can be easily recognized and that originates from a subtle assumption in Smith’s representation.  It is well known that to leading order the stress  $\mathbf{\tau}$ depends linearly on the strain rate $\mathbf{S} = (\nabla \mathbf{u} + \nabla \mathbf{u}^T)/2$; numerous such linear stress-strain models, including the basic and dynamic Smagorinsky models, are fairly successful by assuming a linear relation between $\mathbf{\tau}$  and $\mathbf{S}$, namely $\mathbf{\tau} = c_0\mathbf{I} + c_S \mathbf{S}$  or equivalently $\tau_{ij} = c_0\delta_{ij} + c_S S_{ij}$, where $c_0 = \tau_{kk}/3$  and $c_S$  is a Smagorinsky coefficient or, more generally, an eddy viscosity.  However, (\ref{E:15}) does not allow any such linear stress-strain form, because it has no terms that are linear in the velocities $\mathbf{u}_{m}$  and thereby does not allow any linear variations of $\tau$ with S.
 
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\begin{center} \hspace{1.5cm}
-	\includegraphics[width=\maxwidth{4in}]{Smith_UC_P_y_43_12-03.eps}
-	\caption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
-	\label{F:Smith_UC_P}
-	\end{center}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.5cm}
+% 	\includegraphics[width=\maxwidth{4in}]{Smith_UC_P_y_43_12-03.eps}
+% 	\caption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+% 	\label{F:Smith_UC_P}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 The reason (\ref{E:15}) has no linear terms in the velocities $\mathbf{u}_{m}$ is because all the vectors $\mathbf{u}_{m}$ in Smith’s representation are implicitly assumed to be located at the same point at which $\mathbf{\tau}$  is being represented. When the vectors $\mathbf{u}_{m}$  are at the same point then all \textit{linear} combinations of them, namely sums and differences of the vectors $\mathbf{u}_{m}$, are also vectors (rank-one tensors) – there are no possible linear combinations of the $\mathbf{u}_{m}$ that form rank-two tensors.
 
@@ -148,25 +147,25 @@ Thus, from \citeauthor*{\Smith} (\citeyear{\Smith}) and the additional reasoning
 
 where the second term now correctly brings in the leading-order linear stress-strain relation.
 
-Note that, since the $c$'s in (\ref{E:17}) are the \textit{same} for all six independent components of $\mathbf{\tau}$, there are only $1 + 1 + 27 + 351 = 380$ coefficients involved in the entire representation of $\mathbf{\tau}$, even though (\ref{E:17}) includes all possible invariance-preserving non-colocated velocity products. The original Volterra series was not invariance-preserving, and required  $6 \times 3403 = 20,418$ coefficients to represent the entire tensor $\mathbf{\tau}$. If only colocated velocity products were retained in the original Volterra series it required $6 \times 244 = 1464$  coefficients, whereas in (\ref{E:17}) including only colocated velocity products amounts to omitting the final term, which leaves just $1 + 1 + 27 = 29$ coefficients that must be found to completely represent $\mathbf{\tau}$.
+Note that, since the $c$'s in (\ref{E:17}) are the \textit{same} for all six independent components of $\mathbf{\tau}$, there are only $1 + 1 + 27 + 351 = 380$ coefficients involved in the entire representation of $\mathbf{\tau}$, even though (\ref{E:17}) includes all possible invariance-preserving non-colocated velocity products. The original  series was not invariance-preserving, and required  $6 \times 3403 = 20,418$ coefficients to represent the entire tensor $\mathbf{\tau}$. If only colocated velocity products were retained in the original  series it required $6 \times 244 = 1464$  coefficients, whereas in (\ref{E:17}) including only colocated velocity products amounts to omitting the final term, which leaves just $1 + 1 + 27 = 29$ coefficients that must be found to completely represent $\mathbf{\tau}$.
 
-It might be argued that, since we have included the strain rate tensor in the linear term in (\ref{E:17}), we should also include all higher-order rank-two symmetric invariance-preserving combinations of $\mathbf{S}$ and $\mathbf{R}$ – that is what our earlier representation in terms of $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ did. However, the two sums in (\ref{E:17}) already account for all possible second-order velocity component products on the stencil, so in a sense including second-order terms that can be formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ might be duplicative. In fact, the general representation of Smith (1971) does not allow any higher-order velocity component products in (\ref{E:15}), which might suggest that there can also be no higher-order products of $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ in (\ref{E:17}). Yet that argument is not a strong as we might like, since strictly speaking Smith’s representation assumes all quantities to be at the same point.  There is no fully correct answer to this, since we are mixing Smith’s formulation – which assumes all the vectors to be at the same point -- with an additional linear term that seeks to account for the fact that the vectors are not at the same point. It seems best not to assert that (\ref{E:17}) is complete and minimal, and instead to say that it has been truncated after second-order velocity products similar to what we did with the original Volterra representation and with our 1570-term invariance-preserving representation in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$.
+It might be argued that, since we have included the strain rate tensor in the linear term in (\ref{E:17}), we should also include all higher-order rank-two symmetric invariance-preserving combinations of $\mathbf{S}$ and $\mathbf{R}$ – that is what our earlier representation in terms of $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ did. However, the two sums in (\ref{E:17}) already account for all possible second-order velocity component products on the stencil, so in a sense including second-order terms that can be formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ might be duplicative. In fact, the general representation of Smith (1971) does not allow any higher-order velocity component products in (\ref{E:15}), which might suggest that there can also be no higher-order products of $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$ in (\ref{E:17}). Yet that argument is not a strong as we might like, since strictly speaking Smith’s representation assumes all quantities to be at the same point.  There is no fully correct answer to this, since we are mixing Smith’s formulation – which assumes all the vectors to be at the same point -- with an additional linear term that seeks to account for the fact that the vectors are not at the same point. It seems best not to assert that (\ref{E:17}) is complete and minimal, and instead to say that it has been truncated after second-order velocity products similar to what we did with the original  representation and with our 1570-term invariance-preserving representation in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$.
 
-Regardless whether (\ref{E:17}) can be considered complete or truncated, it definitely preserves the rank, symmetry, rotation, and reflection properties of $\mathbf{\tau}$, and thus can be used as the basis for an invariance-preserving implementation of autonomic closure. While it remains an open question whether it implicitly involves truncation of higher-order velocity products, we would likely truncate it anyway after second-order products, since our work to date has suggested this is sufficient to obtain very accurate representations of $\tau(\mathbf{x},t)$. The real advantages of (\ref{E:17}) over the original Volterra representation include:
+Regardless whether (\ref{E:17}) can be considered complete or truncated, it definitely preserves the rank, symmetry, rotation, and reflection properties of $\mathbf{\tau}$, and thus can be used as the basis for an invariance-preserving implementation of autonomic closure. While it remains an open question whether it implicitly involves truncation of higher-order velocity products, we would likely truncate it anyway after second-order products, since our work to date has suggested this is sufficient to obtain very accurate representations of $\tau(\mathbf{x},t)$. The real advantages of (\ref{E:17}) over the original  representation include:
 
 \begin{itemize}
-	\item 	Unlike the original Volterra representation, (\ref{E:17}) is tensorally correct in that it represents the \textit{entire} tensor  $\mathbf{\tau}$ as a single polynomial in which each term is a rank-two tensor that preserves the symmetry, rotation and reflection properties of $\mathbf{\tau}$.
+	\item 	Unlike the original  representation, (\ref{E:17}) is tensorally correct in that it represents the \textit{entire} tensor  $\mathbf{\tau}$ as a single polynomial in which each term is a rank-two tensor that preserves the symmetry, rotation and reflection properties of $\mathbf{\tau}$.
 
 	\item	While (\ref{E:17}) as written is not Galilean invariant, it can be readily made to satisfy translation invariance by simply subtracting the stencil center point velocity from all velocities on the stencil, and letting  $\mathbf{u}_{m}$ denote the resulting velocity differences.  Note this forces the resulting $\mathbf{u}_{m}$ at the stencil center point to be zero, thereby reducing $P$ from 27 to 26 independent velocity vectors.  This in turn reduces the number of coefficients in (\ref{E:17}) to $1 + 1 + 26 + (26^2 - 26)/2 = 353$, and if only colocated velocity products are included then the number of coefficients is $1 + 1 + 26 = 28$.
 
-	\item	The representation in (\ref{E:17}) involves far fewer coefficients than did the original Volterra series, and thus would allow \textit{far} faster ``on-the-fly'' implementations of autonomic closure in an LES code. It involves a factor of $20,418/379 = 54$  fewer degrees-of-freedom $N$ in its representation of $\mathbf{\tau}$  than did the truncated Volterra series in the components of $\mathbf{u}_{m}$. Since the computational burden of autonomic closure scales as $N^2 \cdot M + N^3$, with $N > M$  this reduction in $N$ should reduce the computational time by a factor of $54^3 = 150,000$  relative to the original truncated Volterra series.
+	\item	The representation in (\ref{E:17}) involves far fewer coefficients than did the original  series, and thus would allow \textit{far} faster ``on-the-fly'' implementations of autonomic closure in an LES code. It involves a factor of $20,418/379 = 54$  fewer degrees-of-freedom $N$ in its representation of $\mathbf{\tau}$  than did the truncated  series in the components of $\mathbf{u}_{m}$. Since the computational burden of autonomic closure scales as $N^2 \cdot M + N^3$, with $N > M$  this reduction in $N$ should reduce the computational time by a factor of $54^3 = 150,000$  relative to the original truncated  series.
 
-	\item	A further advantage of (\ref{E:17}) has to do with the number $M$ of training points needed. Due to the large reduction in the number of coefficients needed to represent $\mathbf{\tau}$, far fewer training points should be needed to determine these coefficients while keeping $N/M$ the same as we previously used. That should allow even smaller bounding boxes than the current $10^3$ box used in the CL24 implementation of the Volterra series representation. This would allow a more local closure, and thus presumably a more accurate closure, in addition to a further reduction in computational cost from the smaller number of training points.
+	\item	A further advantage of (\ref{E:17}) has to do with the number $M$ of training points needed. Due to the large reduction in the number of coefficients needed to represent $\mathbf{\tau}$, far fewer training points should be needed to determine these coefficients while keeping $N/M$ the same as we previously used. That should allow even smaller bounding boxes than the current $10^3$ box used in the CL24 implementation of the  series representation. This would allow a more local closure, and thus presumably a more accurate closure, in addition to a further reduction in computational cost from the smaller number of training points.
 
 	\item	The representation for $\mathbf{\tau}$  in (\ref{E:17}) also involves fewer terms and fewer coefficients $c$ than does the 1570-term velocity-only invariance-preserving representation formulated in  $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$.  
 \end{itemize}
 
-These factors suggest the representation in (\ref{E:17}) is a superior form for use in autonomic closure than either the \textit{ad hoc} truncated Volterra series.  It may also be a more computationally efficient but less complete form than is the 1570-term representation formulated in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$.
+These factors suggest the representation in (\ref{E:17}) is a superior form for use in autonomic closure than either the \textit{ad hoc} truncated  series.  It may also be a more computationally efficient but less complete form than is the 1570-term representation formulated in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$.
 
-We should thus test (\ref{E:17}) as a generalized invariance-preserving representation of   in terms of velocities $\mathbf{u}_{m}$ on a $3 \times 3 \times 3$  stencil. Despite some similarities with the original series representation we should not refer to (\ref{E:17}) as a Volterra series representation, but rather as an ``invariance-preserving representation for  $\mathbf{\tau}$ '' motivated by the \citeauthor*{\Smith} (\citeyear{\Smith}) formulation, but with the addition of the only possible linear term to account for the fact that the velocities are not strictly at the same point but on a spatial stencil.
+We should thus test (\ref{E:17}) as a generalized invariance-preserving representation of   in terms of velocities $\mathbf{u}_{m}$ on a $3 \times 3 \times 3$  stencil. Despite some similarities with the original series representation we should not refer to (\ref{E:17}) as a  series representation, but rather as an ``invariance-preserving representation for  $\mathbf{\tau}$ '' motivated by the \citeauthor*{\Smith} (\citeyear{\Smith}) formulation, but with the addition of the only possible linear term to account for the fact that the velocities are not strictly at the same point but on a spatial stencil.
 

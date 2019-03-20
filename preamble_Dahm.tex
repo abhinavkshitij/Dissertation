@@ -237,13 +237,13 @@
 \makechapterstyle{ASU}{%                % Define chapter heading style
   \renewcommand*{\chapterheadstart}{}   % Chapter title flush with top margin
   \renewcommand*{\chapnamefont}%        % Set font for 'Chapter' or 'Appendix' 
-    {\normalfont}
+    {\bfseries}
   \renewcommand*{\chapnumfont}%         % Set font for number in chapter headings
     {\normalfont}
   \renewcommand*{\afterchapternum}%     % Insert a double line break after 
     {\\[\baselineskip]}                 %   chapter number
   \renewcommand*{\chaptitlefont}%       % Set font for chapter title name
-    {\normalfont}
+    {\bfseries}
   \setlength{\afterchapskip}{0pt}       % Set vertical space between chapter title and
                                         %   first paragraph; equivalent to one line break
                                         %   (vertical space = \afterchapskip + \baselineskip)
@@ -264,12 +264,12 @@
                                         %   (Default is to number all [5 levels deep].)
 
 \newcommand{\divisionbeforeskip}%       % Create default formatting for headings
-  {\baselineskip}
+   {0.25\baselineskip}
 \newcommand{\divisionindent}%
   {0.5em}
 \newcommand{\divisionfont}{\normalfont} % Font must be \normalfont
 \newcommand{\divisionafterskip}%
-  {0.5\baselineskip}
+   {0.25\baselineskip}
 
 % SECTION
 \setbeforesecskip{\divisionbeforeskip}  % Apply default formatting to all heading levels
@@ -743,8 +743,7 @@
                                         %   colon (:). Change according to style guide. 
 % \captionstyle[\centered]%              % Set justifcation for [one line captions] 
 %   {\raggedright}                        %   and {multiple line captions}
-%\setlength{\belowcaptionskip}{0pt}      % Bring caption down closer to figure/table
-
+%\setlength{\belowcaptionskip}{-10pt}      % Bring caption down closer to figure/table
 
 \makeatletter                           % Consecutive numbering throughout 
   \counterwithout{figure}{chapter}      %   (including back matter)

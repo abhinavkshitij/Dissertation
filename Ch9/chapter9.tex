@@ -26,15 +26,15 @@
 \nocite{frameinvflux18}
 \nocite{\tensorintegrity} 
 
-To date, autonomic closure has been implemented via a local Volterra series representation of the subgrid terms in the values of the primitive variables of a large eddy simulation.  For the subgrid stress $\mathbf{\tau}_{ij} \equiv \widetilde{u_i u_j} - \widetilde{u}_i \widetilde{u}_j$, these are the values of the velocity components and pressure at the 27 points on a $3 \times 3 \times 3$  stencil. Translational invariance is enforced by subtracting the stencil center-point velocity from the velocities at all the stencil points, thus retaining only the velocity gradients on the stencil. To keep the number of terms in this series manageable, the series has been truncated after second-order terms. Furthermore, keeping pressure values in this series was shown to provide negligible benefit when second-order terms are retained in the expansion. Thus the current preferred implementation is a second-order velocity-only form involving a 244-term Volterra series, and requires finding the optimal local coefficients for each of these 244 terms. 
+To date, autonomic closure has been implemented via a local  series representation of the subgrid terms in the values of the primitive variables of a large eddy simulation.  For the subgrid stress $\mathbf{\tau}_{ij} \equiv \widetilde{u_i u_j} - \widetilde{u}_i \widetilde{u}_j$, these are the values of the velocity components and pressure at the 27 points on a $3 \times 3 \times 3$  stencil. Translational invariance is enforced by subtracting the stencil center-point velocity from the velocities at all the stencil points, thus retaining only the velocity gradients on the stencil. To keep the number of terms in this series manageable, the series has been truncated after second-order terms. Furthermore, keeping pressure values in this series was shown to provide negligible benefit when second-order terms are retained in the expansion. Thus the current preferred implementation is a second-order velocity-only form involving a 244-term  series, and requires finding the optimal local coefficients for each of these 244 terms. 
 
-Although truncation of the Volterra series after second order provides remarkably accurate results in \textit{a priori} tests for homogeneous isotropic turbulence, this truncation is undeniably arbitrary. More important, this low-order truncation can be expected to limit the accuracy of this closure methodology under more stressing turbulence conditions. Even under less stressing conditions, this approach requires an over-determined least-squares solution for 244 unknown coefficients, which may be far less computationally efficient than a shorter series based on terms that are more ``appropriate'' for representing $\mathbf{\tau}_{ij}$. 
+Although truncation of the  series after second order provides remarkably accurate results in \textit{a priori} tests for homogeneous isotropic turbulence, this truncation is undeniably arbitrary. More important, this low-order truncation can be expected to limit the accuracy of this closure methodology under more stressing turbulence conditions. Even under less stressing conditions, this approach requires an over-determined least-squares solution for 244 unknown coefficients, which may be far less computationally efficient than a shorter series based on terms that are more ``appropriate'' for representing $\mathbf{\tau}_{ij}$. 
 
 By ``appropriate'' series terms we mean terms that preserve the tensor invariance properties of  $\mathbf{\tau}_{ij}$, specifically the symmetry, translation, and rotation invariance of rank-2 symmetric tensors.  Translational invariance is enforced as noted above, while symmetry requires  $\mathbf{\tau}_{ij} = \mathbf{\tau}_{ji}$.  With regard to frame rotation invariance, for any proper orthogonal tensor $\mathbf{Q}$ (i.e., $Q_{ik}Q_{kj} - \delta_{ij}$   with det $\mathbf{Q}$ = 1) that rotates Cartesian coordinate frame $\mathbf{x}$ into a new Cartesian frame $\mathbf{x'}$  as $\mathbf{x'} = \mathbf{Qx}$, the stress tensors in the two frames must be related as $\mathbf{\tau'} = \mathbf{Q\tau Q}^{T}$, so that the scalar invariants $I = \mathbf{\tau_{ii}}$, $-2II = \tau_{ij}\tau_{ji}$, and $3III = \tau_{ij}\tau_{jk}\tau_{ki}$  are the same in both coordinate frames.  The stress tensor is then said to be ``frame invariant''; specifically, in an \textit{n}-dimensional Cartesian space it satisfies the rotation properties associated with the special orthogonal group SO(\textit{n}).  Any valid representation for $\mathbf{\tau}_{ii}$  must preserve these symmetry, translation, and rotation properties.
 
 Currently, these tensor invariance properties are only indirectly (and weakly) incorporated in autonomic closure, by training the solution for the series coefficients on test-scale stresses that inherently satisfy these same invariance properties. In principle, these invariance properties could be directly enforced by using an alternative series representation of $\mathbf{\tau}_{ij}$  in which each term of the series satisfies these tensor invariance properties. As shown below, such an approach can lead to a finite series representation of $\mathbf{\tau}_{ij}$  consisting of a potentially smaller number of terms that does not require any truncation. Moreover, this finite series representation can be “complete” in the sense that it contains all possible tensorally-correct combinations of an assumed set of quantities that $\mathbf{\tau}_{ij}$  can depend on. Such a complete tensor invariant representation would presumably be the most accurate and efficient formulation of autonomic closure.
 
-Here we develop such a tensor invariant series representation for $\mathbf{\tau}_{ij}$   as an alternative to the current Volterra series representation. Unlike other invariance-preserving general representations for the subgrid stress, which typically assume that $\mathbf{\tau}_{ij}$  depends only on the strain rate tensor  $\mathbf{S} \equiv {S}_{ij}$, or only on the strain rate and rotation rate tensors  $\mathbf{S}$ and $\mathbf{R} \equiv {R}_{ij}$, in autonomic closure the relative velocities on a $3 \times 3 \times 3$  stencil provide not only the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ but also their gradients  $\mathbf{\nabla S} \equiv \partial S_{ij}/ \partial x_k$ and $\mathbf{\nabla R} \equiv \partial R_{ij}/ \partial x_k$. This allows an even far more general tensor invariant formulation for $\mathbf{\tau}_{ij}$  than has previously been obtained \cite{\tensorinvariant}. Autonomic closure can find the optimal local coefficients for each of the terms in the resulting series representation, and in so doing can provide more accurate $\mathbf{\tau}_{ij}$  values across a far wider range of turbulence conditions.  Moreover, it can do so at far lower computational cost than would be possible by a comparable brute force increase in the order of truncation of a Volterra series representation for $\mathbf{\tau}_{ij}$.
+Here we develop such a tensor invariant series representation for $\mathbf{\tau}_{ij}$   as an alternative to the current  series representation. Unlike other invariance-preserving general representations for the subgrid stress, which typically assume that $\mathbf{\tau}_{ij}$  depends only on the strain rate tensor  $\mathbf{S} \equiv {S}_{ij}$, or only on the strain rate and rotation rate tensors  $\mathbf{S}$ and $\mathbf{R} \equiv {R}_{ij}$, in autonomic closure the relative velocities on a $3 \times 3 \times 3$  stencil provide not only the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ but also their gradients  $\mathbf{\nabla S} \equiv \partial S_{ij}/ \partial x_k$ and $\mathbf{\nabla R} \equiv \partial R_{ij}/ \partial x_k$. This allows an even far more general tensor invariant formulation for $\mathbf{\tau}_{ij}$  than has previously been obtained \cite{\tensorinvariant}. Autonomic closure can find the optimal local coefficients for each of the terms in the resulting series representation, and in so doing can provide more accurate $\mathbf{\tau}_{ij}$  values across a far wider range of turbulence conditions.  Moreover, it can do so at far lower computational cost than would be possible by a comparable brute force increase in the order of truncation of a  series representation for $\mathbf{\tau}_{ij}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Invariance-preserving Tensor Representations of $\mathbf{\tau}_{ij}$ } 
@@ -79,7 +79,7 @@ where the coefficients $c_0$  and $c_1$  are scalars and so can be functions onl
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
-\label{E:20}
+\label{E:20} \vspace{-0.25in}
 \begin{align}
 	\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
 	\mathbf{I}_{1} &= tr(\mathbf{S})   = S_{ii} \\
@@ -115,7 +115,7 @@ Similarly, there are ``nonlinear'' models that allow $\mathbf{\tau}_{ij}$  to de
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
-\label{E:22}
+\label{E:22} \vspace{-0.25in}
 \begin{align}
  	\mathbf{m}^{(0)} &= \mathbf{I} = \delta_{ij} \\
 	\mathbf{m}^{(1)} &= \mathbf{S} = \widetilde{S}_{ij} \\
@@ -165,7 +165,7 @@ where the coefficients $c_{\alpha} = f(\mathbf{I}_0, \ldots, \mathbf{I}_6)$  can
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
-\label{E:24}
+\label{E:24} \vspace{-0.33in}
 \begin{align}
  	\mathbf{I}_{0} &= tr(\mathbf{I})   = \delta_{ii} \\
 	\mathbf{I}_{1} &= tr(\mathbf{S^2}) = S_{ij}S_{ij} \\
@@ -179,7 +179,6 @@ where the coefficients $c_{\alpha} = f(\mathbf{I}_0, \ldots, \mathbf{I}_6)$  can
 %%%%%%%%%%%%%%%%%
 %
 %    
-
 Equation (\ref{E:23}), with (\ref{E:22}) and (\ref{E:24}), is a complete general tensor polynomial in $S_{ij}$, $R_{ij}$, and $\delta_{ii}$ that preserves the rank, symmetry, translation, and rotation properties of $\mathbf{\tau}_{ij}$.  Under the assumption that $\mathbf{\tau}_{ij}$  depends only on $\mathbf{S}$, $\mathbf{R}$ and $\mathbf{I}$, all valid representations of the stress tensor $\tau_{ij}$  must be expressible as in (\ref{E:23}).
 
 Lund $\&$ Novikov (1992) further showed that, under the additional assumption that the strain rate $\mathbf{S}$ is not in an axisymmetric state (i.e., when $\mathbf{S}$ does not have repeated eigenvalues) and when the vorticity vector obtained from $\mathbf{R}$ is not aligned with any of the strain rate eigenvectors, then the number of \textit{independent} $\mathbf{m}^{(\alpha)}$ in (\ref{E:23}) is reduced from eleven to six, and the number of independent scalar invariants in (\ref{E:24}a-g) is reduced from seven to five. 
@@ -189,7 +188,7 @@ Lund $\&$ Novikov (1992) further showed that, under the additional assumption th
 \section{Toward the Most-general Invariance-preserving Formulation of Autonomic Closure} 
 \label{sec:1B}
 
-In principle, autonomic closure can be formulated by replacing the Volterra series in terms of the primitive variables $u_i$  with the invariance-preserving series in (\ref{E:23}) in terms of the tensor bases $\mathbf{m}^{(\alpha)}$  in (\ref{E:22}). The coefficients $c_{\alpha}$  would then be determined locally via the autonomic closure methodology, rather than from a prescribed model that relates the coefficients to the seven scalar invariants $I_{\alpha}$ in (\ref{E:23}). Doing this would formulate autonomic closure in a series representation having far fewer terms than the current Volterra series, and thus might be computationally faster than the current implementation based on the 244-term series in the primitive variables truncated after second-order products (though evaluating the  $\mathbf{m}^{(\alpha)}$  to build the $\mathbf{\widehat{V}}$  matrix could consume much of the reduction in computational time). More important, such a formulation would no longer be based on an arbitrarily truncated Volterra series, but instead would be based on the most general \textit{complete} series representation (under the assumption that $\tau_{ij}$  depends only on $S_{ij}$, $R_{ij}$, and $\delta_{ij}$) that is consistent with the tensor properties of the subgrid stress. 
+In principle, autonomic closure can be formulated by replacing the  series in terms of the primitive variables $u_i$  with the invariance-preserving series in (\ref{E:23}) in terms of the tensor bases $\mathbf{m}^{(\alpha)}$  in (\ref{E:22}). The coefficients $c_{\alpha}$  would then be determined locally via the autonomic closure methodology, rather than from a prescribed model that relates the coefficients to the seven scalar invariants $I_{\alpha}$ in (\ref{E:23}). Doing this would formulate autonomic closure in a series representation having far fewer terms than the current  series, and thus might be computationally faster than the current implementation based on the 244-term series in the primitive variables truncated after second-order products (though evaluating the  $\mathbf{m}^{(\alpha)}$  to build the $\mathbf{\widehat{V}}$  matrix could consume much of the reduction in computational time). More important, such a formulation would no longer be based on an arbitrarily truncated  series, but instead would be based on the most general \textit{complete} series representation (under the assumption that $\tau_{ij}$  depends only on $S_{ij}$, $R_{ij}$, and $\delta_{ij}$) that is consistent with the tensor properties of the subgrid stress. 
 
 Note the series in (\ref{E:23}) with  $\mathbf{m}^{(\alpha)}$ from (\ref{E:22}) involves products of velocity components up to 5\textsuperscript{th} order (via $\mathbf{m}^{(10)}$), which is far higher than the second-order truncation currently being used. Such a series in  $\mathbf{m}^{(\alpha)}$ would be the most general tensor polynomial that preserves all rank, symmetry, translation, and rotation invariance properties of  $\tau_{ij}$ under the assumption that  $\tau_{ij}$ depends only on $S_{ij}$, $R_{ij}$, and $\delta_{ij}$.
 
@@ -206,6 +205,7 @@ We seek combinations of powers of the following tensors that are available in au
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
+\vspace{-0.25in}
 \label{E:25}
 \begin{align}
  	\mathbf{I} &\equiv \delta_{ii} \\
@@ -789,7 +789,21 @@ In (\ref{E:39}), from (\ref{E:27}) with (\ref{E:35}) and (\ref{E:36}) note that
 %   
 
 
-Prior work has shown that truncating a Volterra series representation to only retain velocity products up to second order is sufficient to obtain excellent representation of the subgrid stress and the associated subgrid production, regardless whether the second-order products include non-colocated or only colocated stencil points.  Anticipating that at least comparable accuracy must be obtained if (\ref{E:39}) is similarly truncated to retain at most second-order products of velocities, we now consider the order of the velocity products in each of the tensor bases  $\mathbf{m}^{(\alpha)}_{S}$.
+Prior work has shown that truncating a  series representation to only retain velocity products up to second order is sufficient to obtain excellent representation of the subgrid stress and the associated subgrid production, regardless whether the second-order products include non-colocated or only colocated stencil points.  Anticipating that at least comparable accuracy must be obtained if (\ref{E:39}) is similarly truncated to retain at most second-order products of velocities, we now consider the order of the velocity products in each of the tensor bases  $\mathbf{m}^{(\alpha)}_{S}$.
+
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.75cm}
+% 	\includegraphics[width=\maxwidth{5in}]{Smith20_tau_21.eps}
+% 	\caption{Comparison of (a) true stress fields $\tau_{12}$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
+% 	\label{F:Smith20_tau}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 The strain rate $\mathbf{S}$ in (\ref{E:25}b) and rotation rate $\mathbf{R}$ in (\ref{E:25}c) are each linear in the velocity components $u_i$ , and therefore  $\mathbf{M}_1$ in (\ref{E:36}a) and $\mathbf{W}_1$  in (\ref{E:37}a) are each linear in the velocities.  The remaining $\mathbf{M}_i$  in (\ref{E:36}b-r) and  $\mathbf{W}_p$ in (\ref{E:37}b-l) all involve rank-2 contractions of the forms $\mathbf{\nabla S}^2$, $\mathbf{\nabla R}^2$, and $\mathbf{\nabla S \nabla R}$, and therefore are second-order in the velocity components $u_i$.  From these, the order of the velocity products in each of the tensor bases $\mathbf{m}^{(\alpha)}_{S}$  in (\ref{E:28}a-n) can be readily determined.  
 %
@@ -873,9 +887,24 @@ The four non-gradient terms in (\ref{E:40}) can be expressed directly in $\mathb
 
 Equation (\ref{E:41}) with $\mathbf{M}_{(\alpha)}$  in (\ref{E:36}b-r) is the most general frame-invariant tensor representation for $\mathbf{\tau}_{ij}$  (under the assumption that the stress depends only on $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}^{2}$, $\mathbf{\nabla R}^{2}$, and $\mathbf{\nabla S \nabla R}$) that is complete up to second order in the velocity components  $u_i$.  It involves 22 coefficients, though it can be additionally argued – separate from any considerations of frame invariance – that $c_0 \equiv 0$, in which case there are only 21 coefficients. 
 
-These 21 terms include all multi-point second-order velocity products, which in a velocity-only Volterra series representation (King, Dahm $\&$ Hamlington 2015) required 3403 terms. This complete frame-invariant tensor formulation of autonomic closure uses all of the information available in the velocities on a $3 \times 3 \times 3$  stencil, and does so with the smallest possible number of terms, while ensuring frame invariance. The reduction in the number of terms substantially reduces the computational burden of solving the over-determined linear system for the unknown coefficients, however this comes at the expense of having to compute a substantial number of matrix products $\mathbf{M}_{(\alpha)}$  via (\ref{E:36}b-r).
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.75cm}
+% 	\includegraphics[width=\maxwidth{5in}]{Smith20_P_aliased.eps}
+% 	\caption{Comparison of (a) true production fields $P$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
+% 	\label{F:Smith20_P}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
-The principal advantage of (\ref{E:41}) may not be the reduction in the number of coefficients that must be obtained via the autonomic closure framework (either in an ``on-the-fly'' implementation or in a ``static'' implementation), but the fact that this general representation is the only possible ``tensorally correct and complete'' form up to second order in the velocities. As a result, unlike the Volterra series formulation, the tensorally correct and complete forms in (\ref{E:39}) and (\ref{E:41}) should have \textit{universal} coefficients   if   can be represented by $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}^{2}$, $\mathbf{\nabla R}^{2}$, and $\mathbf{\nabla S \nabla R}$. This could allow a 1570-term static implementation, or even a 21-term static implementation, to be far more accurate than a static implementation of a Volterra formulation, and may even allow a static implementation to be as accurate as a far more computationally burdensome ``on-the-fly'' implementation.   
+
+These 21 terms include all multi-point second-order velocity products, which in a velocity-only  series representation (King, Dahm $\&$ Hamlington 2015) required 3403 terms. This complete frame-invariant tensor formulation of autonomic closure uses all of the information available in the velocities on a $3 \times 3 \times 3$  stencil, and does so with the smallest possible number of terms, while ensuring frame invariance. The reduction in the number of terms substantially reduces the computational burden of solving the over-determined linear system for the unknown coefficients, however this comes at the expense of having to compute a substantial number of matrix products $\mathbf{M}_{(\alpha)}$  via (\ref{E:36}b-r).
+
+The principal advantage of (\ref{E:41}) may not be the reduction in the number of coefficients that must be obtained via the autonomic closure framework (either in an ``on-the-fly'' implementation or in a ``static'' implementation), but the fact that this general representation is the only possible ``tensorally correct and complete'' form up to second order in the velocities. As a result, unlike the  series formulation, the tensorally correct and complete forms in (\ref{E:39}) and (\ref{E:41}) should have \textit{universal} coefficients   if   can be represented by $\mathbf{I}$, $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}^{2}$, $\mathbf{\nabla R}^{2}$, and $\mathbf{\nabla S \nabla R}$. This could allow a 1570-term static implementation, or even a 21-term static implementation, to be far more accurate than a static implementation of a  formulation, and may even allow a static implementation to be as accurate as a far more computationally burdensome ``on-the-fly'' implementation.   
 
 Truncations of (\ref{E:39}) analogous to (\ref{E:41}) but that retain terms of higher order in a similarly  ``tensorally correct and complete'' form can be readily obtained via the same procedure used in this section. 
 

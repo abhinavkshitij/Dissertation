@@ -13,7 +13,7 @@
 %
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Performance of Volterra Series-Based Implementations of Autonomic Closure}
+\chapter{Performance of  Series-Based Implementations of Autonomic Closure}
 \label{ch:5}
 
 \Cref{tab:1} shows parameters from \Cref{sec:IIB} for each implementation of autonomic closure considered here. Together these allow a systematic assessment of the effects of various implementation choices on the performance of autonomic closure. Cases are grouped into three categories. The first category (Cases 1a-4b) primarily examines effects of series truncation order, inclusion of pressure, and the relative training ratio $M/N$, while the bounding box size $n^3$ and the number $M$ of training points vary as needed to obtain these  $M/N$ values. The second (Cases 5a-6b) primarily examines effects of colocated and non-colocated implementations, with and without pressure, keeping the bounding box at its largest possible size and the relative training ratio  $M/N$ roughly comparable to the first category. The third category (Cases 7a-8b) primarily examines highly local implementations and series truncation order, with relative training ratios $M/N$  necessarily low due to the small bounding box sizes. 
@@ -91,7 +91,9 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 \section{Velocity-pressure vs Velocity-only Implementations}
 \label{sec:IVC}
 
-The Volterra series used here for $F_{ij}$  in (5) and (6) consists of all possible products up to second order among the variables on a  $3 \times 3 \times 3$ stencil, including all multi-variable products. When only single-point products are included, then $F_{ij}$  has $N = 379$ degrees of freedom for a velocity-pressure implementation and $N = 244$ for a velocity-only implementation. As noted in \Cref{sec:IIB}, including pressure increases nonlocal effects in the nonparametric representation $F_{ij}$  beyond the nonlocality available from the velocities on the stencil. At the same time, a velocity-pressure formulation also increases the number of degrees of freedom $N$. 
+The  series used here for $F_{ij}$  in (5) and (6) consists of all possible products up to second order among the variables on a  $3 \times 3 \times 3$ stencil, including all multi-variable products. When only single-point products are included, then $F_{ij}$  has $N = 379$ degrees of freedom for a velocity-pressure implementation and $N = 244$ for a velocity-only implementation. As noted in \Cref{sec:IIB}, including pressure increases nonlocal effects in the nonparametric representation $F_{ij}$  beyond the nonlocality available from the velocities on the stencil. At the same time, a velocity-pressure formulation also increases the number of degrees of freedom $N$. 
+
+\Cref{F:7}  compares several velocity-pressure implementations with corresponding velocity-only implementations (Cases 1a vs 1b, 2a vs 2b, 3a vs 3b, 4a vs 4b, and 5a vs 5b). Each pair has the same number $M/N$  of training points per degree of freedom, and in each pair the case number ending in “b” includes pressure. In the $M_1$  and $M_2$  results, it can be seen that for first-order implementations ($N$ = 82 or 109) there is some improvement when pressure is included, but for second-order implementations ($N$ = 244 or 379) there is essentially negligible benefit from including pressure. This indicates that the improvement seen in first-order implementations when including pressure is not so much due to the addition of nonlocal effects from the pressure itself, but instead largely due to the greater number $N$ of degrees of freedom in $F_{ij}$  when an additional stencil variable is included. 
 
 %
 %    FIGURE     % 
@@ -107,7 +109,6 @@ The Volterra series used here for $F_{ij}$  in (5) and (6) consists of all possi
 %
 %
 
-\Cref{F:7}  compares several velocity-pressure implementations with corresponding velocity-only implementations (Cases 1a vs 1b, 2a vs 2b, 3a vs 3b, 4a vs 4b, and 5a vs 5b). Each pair has the same number $M/N$  of training points per degree of freedom, and in each pair the case number ending in “b” includes pressure. In the $M_1$  and $M_2$  results, it can be seen that for first-order implementations ($N$ = 82 or 109) there is some improvement when pressure is included, but for second-order implementations ($N$ = 244 or 379) there is essentially negligible benefit from including pressure. This indicates that the improvement seen in first-order implementations when including pressure is not so much due to the addition of nonlocal effects from the pressure itself, but instead largely due to the greater number $N$ of degrees of freedom in $F_{ij}$  when an additional stencil variable is included. 
 
 A velocity-pressure implementation does however lead to greater computational cost over the corresponding velocity-only implementation. As seen in \Cref{tab:1}, including pressure typically raises the computational cost by a factor of 2-4. Including pressure may thus be justified for first-order implementations, where the additional degrees of freedom provide some benefit, but not for second-order implementations, where $N$ is already large enough that a further increase in the number of degrees of freedom provides negligible benefits.
 
@@ -130,7 +131,7 @@ Additionally, note in \Cref{tab:1} that noncolocated implementations (Cases 5a a
 \section{First-order vs Second-order Implementations}
 \label{sec:IVD}
 
-\Cref{tab:1} and (\ref{E:13}) show there is a substantial increase in computational cost from the increase in $N$ when second-order terms are included in the Volterra series for  $F_{ij}$ in (\ref{E:5}) and (\ref{E:6}). This can be seen by comparing the computational times for Cases 1a vs 3a, 1b vs 3b, 2a vs 4a, and 2b vs 4b. Each pair has the same number  $M/N$ of training points per degree-of-freedom. Including second-order terms is seen to increase computational cost by a factor of 14-30 over the cost for a corresponding first-order implementation, consistent with the scaling in (\ref{E:13}).  
+\Cref{tab:1} and (\ref{E:13}) show there is a substantial increase in computational cost from the increase in $N$ when second-order terms are included in the  series for  $F_{ij}$ in (\ref{E:5}) and (\ref{E:6}). This can be seen by comparing the computational times for Cases 1a vs 3a, 1b vs 3b, 2a vs 4a, and 2b vs 4b. Each pair has the same number  $M/N$ of training points per degree-of-freedom. Including second-order terms is seen to increase computational cost by a factor of 14-30 over the cost for a corresponding first-order implementation, consistent with the scaling in (\ref{E:13}).  
 
 \Cref{F:8} compares the performance of first-order and second-order implementations via pdfs of the subgrid stress and production, and the support-density metrics  $M_1$ and $M_2$ for the subgrid production fields. It is evident in the pdfs of  $\tau_{ij}$ and $P$ and in $M_1$   and $M_2$  that the second-order (blue) implementations give more accurate results for  $\tau_{ij}$ and $P$ than do first-order (red) implementations. Part of the benefit from second-order implementations is simply due to the greater number $N$ of degrees of freedom in  $F_{ij}$ when second-order terms are retained, consistent with results found in \Cref{sec:IVC}. However, having seen in  \Cref{sec:IVC} that including pressure in a second-order implementation provides negligible benefit, it is apparent that the advantage of these second-order implementations over the corresponding first-order implementations can be understood solely in terms of the velocities on the stencil. 
 
@@ -167,7 +168,7 @@ Since the number $M$ of training points does not have a primary effect on the re
 \section{Average Subgrid Dissipation Rates}
 \label{sec:IVF}
 
-The pdfs of subgrid production in Figs. 6b, 7b, 8b, and 9b show that the $P^F(\mathbf{x},t)$  fields contain large positive and negative values, which combine to produce the average subgrid production rate $\langle P^F \rangle$. For each implementation of autonomic closure in \Cref{tab:1}, the resulting  subgrid production fields $P^F(\mathbf{x},t)$  were averaged to obtain $\langle P^F \rangle$, and the corresponding true subgrid production fields $P(\mathbf{x},t)$   were averaged to obtain $\langle P \rangle \equiv \varepsilon$. The resulting ratio of autonomic-to-true average subgrid production $\langle P^F \rangle\ \varepsilon$  for each implementation is shown in \Cref{tab:1}. Since $\varepsilon > 0$ , when  $\langle P^F\rangle/ \varepsilon > 0$  then $\langle P^F \rangle > 0$, which corresponds to a net average rate of energy transfer from the resolved scales into the subgrid scales.  This can be seen in \Cref{tab:1} to be the case for all these implementations of autonomic closure. 
+The pdfs of subgrid production in Figs.\ref{F:6}b, \ref{F:7}b, \ref{F:8}b, and \ref{F:9}b show that the $P^F(\mathbf{x},t)$  fields contain large positive and negative values, which combine to produce the average subgrid production rate $\langle P^F \rangle$. For each implementation of autonomic closure in \Cref{tab:1}, the resulting  subgrid production fields $P^F(\mathbf{x},t)$  were averaged to obtain $\langle P^F \rangle$, and the corresponding true subgrid production fields $P(\mathbf{x},t)$   were averaged to obtain $\langle P \rangle \equiv \varepsilon$. The resulting ratio of autonomic-to-true average subgrid production $\langle P^F \rangle\ \varepsilon$  for each implementation is shown in \Cref{tab:1}. Since $\varepsilon > 0$ , when  $\langle P^F\rangle/ \varepsilon > 0$  then $\langle P^F \rangle > 0$, which corresponds to a net average rate of energy transfer from the resolved scales into the subgrid scales.  This can be seen in \Cref{tab:1} to be the case for all these implementations of autonomic closure. 
 
 %
 %    FIGURE     % 
@@ -266,7 +267,7 @@ As noted in previous sections, the autonomic closure depends on factors that rem
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recommended Volterra Series-based Implementation}
+\section{Recommended  Series-based Implementation}
 \label{sec:IVG}
 
 Based on the results in \Crefrange{sec:IVA}{sec:IVF}, the most accurate and efficient implementation of autonomic closure among the cases in \Cref{tab:1} is Case 3a. This is a relatively local, second-order, velocity-only, colocated implementation that has been found here to be nearly as accurate as that in Ref.  \cite{king2016autonomic} (Case 5b), but at a computational cost that is $O(10^3)$ smaller.  
