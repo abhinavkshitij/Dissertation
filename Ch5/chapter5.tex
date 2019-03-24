@@ -69,7 +69,36 @@ As noted in \Cref{sec:IIB}, large bounding boxes allow for larger numbers $M$ of
 
 To understand the performance of local (small $n^3$) and nonlocal (large $n^3$) implementations of autonomic closure, \Cref{F:6} shows probability densities of a typical subgrid stress component  $\tau_{ij}$ and the subgrid production $P$, and the scale-dependent support-density metrics $M_1$ and $M_2$  comparing the accuracy in the support-densities of the subgrid production fields. The red curves show the performance of local implementations (Cases 3a vs 4a) and the blue curves are from nonlocal implementations (Cases 6a vs 6b). Cases 3a and 6a have the same number $M/N$  of training points per degree of freedom, as do Cases 4a and 6b, and all these cases are second-order velocity-only implementations, so these comparisons are indicative of the effects of local versus nonlocal implementations. 
 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2NG2.eps}
+	\caption{NG2}
+	\label{F:NG2}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
 In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementations give more accurate results for the support on which large magnitudes of subgrid production are concentrated than do the nonlocal implementations. Support-density correlations $M_1$ for the local implementations are as high as $98\%$ and rms errors $M_2$  decrease to less than $2.3\%$  at the largest scale-ratio, while for the nonlocal implementations the correlations $M_1$  only reach $94\%$ and rms errors $M_2$  decrease only to $4\%$. The pdfs in  \Cref{F:6} show that, for the same $M/N$  value, the local implementations give better representation of  $\tau_{ij}$ and $P$, especially in the tails that correspond to large magnitudes, than do the corresponding nonlocal implementations. Moreover, note in \Cref{tab:1} that the computational cost is the same for Cases 3a and 6a, and for Cases 4a and 6b, since  $M/N$ is the same for each pair, as discussed in \Cref{sec:IVA}. We conclude that, all other factors being the same, local implementations are more accurate than nonlocal ones. 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2CG24.eps}
+	\caption{CG24}
+	\label{F:CG24}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
 
 \Cref{F:6} shows relatively little difference in accuracy between the two local implementations (Cases 3a and 4a) or between the two nonlocal implementations (Cases 6a and 6b). Since each pair differs primarily in its  $M/N$ value, there apparently is little benefit in autonomic closure from increasing the number of training points per degree of freedom from  $M/N = 4$ to  $M/N = 8$. Additionally, the greater separation  $(V_B/M)^{1/3}$ between training points in the nonlocal implementations (Cases 6a and 6b) compared to that in the local implementations also appears to provide little benefit. These effects will be examined in greater detail in \Cref{sec:IVE}.
 
@@ -87,11 +116,42 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 %
 %
 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2CL28.eps}
+	\caption{CL28}
+	\label{F:CL28}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Velocity-pressure vs Velocity-only Implementations}
 \label{sec:IVC}
 
 The  series used here for $F_{ij}$  in (5) and (6) consists of all possible products up to second order among the variables on a  $3 \times 3 \times 3$ stencil, including all multi-variable products. When only single-point products are included, then $F_{ij}$  has $N = 379$ degrees of freedom for a velocity-pressure implementation and $N = 244$ for a velocity-only implementation. As noted in \Cref{sec:IIB}, including pressure increases nonlocal effects in the nonparametric representation $F_{ij}$  beyond the nonlocality available from the velocities on the stencil. At the same time, a velocity-pressure formulation also increases the number of degrees of freedom $N$. 
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2NG2p.eps}
+	\caption{NG2p}
+	\label{F:NG2p}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
 
 \Cref{F:7}  compares several velocity-pressure implementations with corresponding velocity-only implementations (Cases 1a vs 1b, 2a vs 2b, 3a vs 3b, 4a vs 4b, and 5a vs 5b). Each pair has the same number $M/N$  of training points per degree of freedom, and in each pair the case number ending in “b” includes pressure. In the $M_1$  and $M_2$  results, it can be seen that for first-order implementations ($N$ = 82 or 109) there is some improvement when pressure is included, but for second-order implementations ($N$ = 244 or 379) there is essentially negligible benefit from including pressure. This indicates that the improvement seen in first-order implementations when including pressure is not so much due to the addition of nonlocal effects from the pressure itself, but instead largely due to the greater number $N$ of degrees of freedom in $F_{ij}$  when an additional stencil variable is included. 
 
@@ -133,6 +193,21 @@ Additionally, note in \Cref{tab:1} that noncolocated implementations (Cases 5a a
 
 \Cref{tab:1} and (\ref{E:13}) show there is a substantial increase in computational cost from the increase in $N$ when second-order terms are included in the  series for  $F_{ij}$ in (\ref{E:5}) and (\ref{E:6}). This can be seen by comparing the computational times for Cases 1a vs 3a, 1b vs 3b, 2a vs 4a, and 2b vs 4b. Each pair has the same number  $M/N$ of training points per degree-of-freedom. Including second-order terms is seen to increase computational cost by a factor of 14-30 over the cost for a corresponding first-order implementation, consistent with the scaling in (\ref{E:13}).  
 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2CL14.eps}
+	\caption{CL14}
+	\label{F:CL14}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
 \Cref{F:8} compares the performance of first-order and second-order implementations via pdfs of the subgrid stress and production, and the support-density metrics  $M_1$ and $M_2$ for the subgrid production fields. It is evident in the pdfs of  $\tau_{ij}$ and $P$ and in $M_1$   and $M_2$  that the second-order (blue) implementations give more accurate results for  $\tau_{ij}$ and $P$ than do first-order (red) implementations. Part of the benefit from second-order implementations is simply due to the greater number $N$ of degrees of freedom in  $F_{ij}$ when second-order terms are retained, consistent with results found in \Cref{sec:IVC}. However, having seen in  \Cref{sec:IVC} that including pressure in a second-order implementation provides negligible benefit, it is apparent that the advantage of these second-order implementations over the corresponding first-order implementations can be understood solely in terms of the velocities on the stencil. 
 
 %
@@ -158,6 +233,21 @@ A second-order implementation allows an even larger set of such parametric quant
 \label{sec:IVE}
 
 As noted in \Cref{sec:IIB}, both the number of training points and their relative independence might be expected to affect the amount of information available in the $\widehat{\mathbf{V}}$  matrix to determine the $N$ degrees of freedom in $F_{ij}$, and thereby increase its generalizability from the test scale to the LES scale. In general, large numbers $M$ of training points and increased separation $(V_B/M)^{1/3}$  between them could thus lead to improved accuracy in $\tau_{ij}(\mathbf{x},t)$  and the associated  $P(\mathbf{x},t)$. However, simply increasing both $M$ and $(V_B/M)^{1/3}$  simultaneously by making the bounding box volume  $V_B$ large was shown in \Cref{sec:IVB} to be ineffective, since the resulting less-local implementation then causes $\widehat{\mathbf{V}}$ to contain training points that are not relevant to the turbulence state at the bounding box center point $\mathbf{x}$. On the other hand, reducing  $V_B$ inherently limits the number of available training points and their relative separation. 
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=\maxwidth{6in}]{tau6x2CL18.eps}
+	\caption{CL18}
+	\label{F:CL18}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
 
 We first examine the effect of the number  $M/N$ of training points per degree of freedom 
 in $F_{ij}$. \Cref{F:9}  compares the performance of implementations with $M/N \leq 1$  to those having $M/N \gg 1$. In general, cases having  $M/N \gg 1$ (red) outperform those with  $M/N \leq 1$ (blue). However, it can be seen that there is no apparent benefit from increasing $M/N$ above about 4. For instance, Cases 3a and 4a have nearly identical performance, as do Cases 1a and 2a, even though  $M/N$ in each pair are 4.0 and 8.0, respectively. The same can be seen in comparing Cases 6a and 7a in \Cref{F:7}. Cases 7a and 8a in \Cref{F:9} also have nearly identical performance, even though their $M/N$ values differ by a factor of four. These results indicate that, as long as $M/N$  is sufficiently larger than one (e.g., $M/N \geq 4$), other aspects of autonomic closure including the locality gained by making the bounding box volume  $n^3$ smaller and allowing for second-order terms in $F_{ij}$  have more effect on the resulting accuracy than does the number of training points per degree of freedom.
