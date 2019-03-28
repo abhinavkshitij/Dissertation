@@ -22,17 +22,230 @@
 \chapter{Performance of Frame-Invariant Implementations of Autonomic Closure}
 \label{ch:10}
 
-\nocite{frameinv}
-\nocite{frameinvflux18}
-\nocite{\tensorintegrity} 
+% \nocite{frameinv}
+% \nocite{frameinvflux18}
+% \nocite{\tensorintegrity} 
 
-\lipsum[1] 
+% Navigation paragraph: Provide a logical outline of sections.
+
+% 
+% Efficient implemenatations
+Frame-invariant implementations, described in previous chapters, 
+	provide complete and minimal representations
+of subgrid stress $\tau_{ij}(\mathbf{x},t)$.
+%
+% Minimal set of tensor polynomials
+While the non-terminating series representation in \Cref{E:5,E:6}  
+require infinitely higher-order velocity products 
+		to sufficiently model non-linear, non-local and non-equilibrium turbulence,
+frame-invariant tensor formulations, 
+		(\Cref{ch:8,ch:9}) 
+perform equally well with finite tensor-appropriate representations
+to accurately represent 
+	subgrid stress $\tau_{ij}(\mathbf{x},t)$ 
+	and production term $P(\mathbf{x},t)$.  
+
+%
+% Smith-UN
+\Cref{E:14}, 
+designated as "Smith-UN", 
+	contains 27 colocated 
+	and 351 non-colocated velocity products, 
+that provide a complete and minimal tensor polynomial representation 
+for subgrid stress. 
+%
+% Smith-UC
+Since computational times $t$ scale with $N^3$ \labelcref{E:12},
+%
+	\Cref{E:14} can be truncated up to colocated velocity products 
+(designated as "Smith-UC") 
+	to achieve significant reduction in computational costs
+		with a marginal loss in accuracy. 
+%
+% Tensor-appropriate representations
+Tensor polynomial representations -- 
+	\Cref{E:41} ("Smith-5"), 
+	\Cref{E:ASU8} ("ASU-8"), 
+	\Cref{E:22} ("Pope-11"), and 
+	\Cref{E:42} ("Smith-20") --
+further provide more efficient implementations.
+%
+%
+However, as noted in later sections,		
+any gain in computational efficiency 
+comes at a cost of implementation accuracy.
+	  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Computational Times} 
+\label{sec:10A}
+
+%
+% 
+The resulting single-core computational time for frame-invariant implementations of autonomic closure is given in \Cref{tab:2}. 
+%
+%
+As noted in \Cref{sec:IVA}, 
+	the computational cost for autonomic closure is determined primarily by the time needed to build the $\widehat{\mathbf{V}}$  matrix, 
+		which is expected to scale as $M \cdot N$, 
+	and the time needed for the damped least-squares solution in (\ref{E:9}) for the coefficients $\mathbf{h}_{ij}$, which is expected to scale as $N^2$. 
+% 
+% Training data points
+However, instead of solving for six sets of unknown coefficients $c_i$, 
+the frame-invariant representations 
+need only one set of unknown coefficients $c_i$ 
+to compute the subgrid stress, making them computationally efficient. 
+%
+%
+Each training point furnishes six training data,
+allowing six times as much training information 
+to compute the unknown coefficients $c_i$. 
+%
+%
+With more training data ($M'$) available per training point ($M$) per degree of freedom ($N$), frame-invariant implementations use smaller bounding box sizes (\Cref{sec:IVE}), 
+that lead to improved accuracy in $\tau_{ij}(\mathbf{x},t)$  
+and the associated  $P(\mathbf{x},t)$.
+%
+%
+With the exception of Smith-UN, all frame-invariant implementations use the smallest regular bounding box ($3\times3\times3$), using least possible information to model local turbulence. 
+%
+% SCALABILITY
+%
+Despite having an additional step of computing gradients, 
+computational timings in frame-invariant implementations scale with \Cref{E:12}.
+
+% Refer to Table 1 and Sec 5.1, and the explain the difference between number of training points and number of training data points. 
+
+
+% 
+% -  This gives us two classes of tensor representations, each having similar bounding box sizes (Table 2), and training point ratio. In contrast to series representations of Section 3.1, each training point furnish 6 data points. 
+% - The inverse problem determines the unknown coefficients *c_i* based off training data M’.
+% - It is therefore more appropriate to use training data M’ instead of training points M to access implementation performance.
+
+% 
+% Breakdown of computational times
+% 
+% 1. Gradients using central-differencing schemes [fast]
+% 2. Build V matrix [fast]
+% 3. Solve inverse problem [BOTTLENECK] 
+% 	- Only one inversion to compute one set of coefficients.
+% 4. Compute stress [fast]
+%
+%
+
+
+%
+%
+%     TABLE     %  
+%%%%%%%%%%%%%%%%%
+
+\begin{table}[tb]
+	\label{tab:2}
+	\centering
+
+	\caption{Frame-invariant implementations of autonomic closure considered in \Cref{ch:8,ch:9}, showing code, number $N$ of degrees-of-freedom in $F_{ij}$, relative bounding box size $n^3$, number $M$ of training points in bounding box, relative training point spacing, number $M'$ of training data in bounding box, number of training data per degree-of-freedom $M'/N$, and computational time  \vspace{0.5cm}}
+
+	\begin{tabular}{lrcrcrrr}
+	\hline \\
+
+	\textbf{Code} & 
+	$N$ & 
+	$n^3 = \frac{V_B}{\widehat{\Delta}^3}$ & 
+	$M$ &
+	$\frac{(V_B/M)^{1/3}}{\widehat{\Delta}}$ &
+	$M'$ & 
+	$M'/N$ & 
+	t(s)	\\ \\
+
+	\hline \\
+		Smith-UC	&	28	&	$3^3$	&	27	&	1.0	&	162	&	5.8	& 4.0	\\
+		Smith-UN	&	379	&	$7^3$	&	343	&	1.0 &	2058&	5.4	& 2591	\\ \\
+	\hline \\
+		Smith-5		&	5	&	$3^3$	&	27	&	1.0	&	162	&	32.4 & 2.2	\\
+		ASU-8		&	8	&	$3^3$	&	27	&	1.0	&	162	&	20.3 & 2.8	\\ 
+		Pope-11		&	11	&	$3^3$	&	27	&	1.0 &	162	&	14.7 & 3.8	\\ 
+		Smith-20	&	20	&	$3^3$	&	27	&	1.0 &	162	&	8.3	 & 5.6	\\ \\
+	\hline	\\
+	\end{tabular}	
+\end{table}
+
+%%%%%%%%%%%%%%%%%
+%
+%         
+
+
+ 
+
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\begin{center} 
+	\includegraphics[width=\maxwidth{4in}]{Scaling.png}
+	\caption{Scaled timings of frame-invariant implementations}
+	\label{F:comp_time}
+	\end{center}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Performance of Frame-Invariant Series Implementations} 
-\label{sec:10A}
+\label{sec:10B}
 
-\lipsum[2] 
+%
+% Accuracy of frame-invariant impl.
+
+%
+% Because we are invoking frame-invariance, we can 
+
+% - Invoking frame invariance reduces the number of coefficients, **h’s** .  
+% - Instead of computing a set of h’s for each stress component *ij*, h’s trained from frame invariant implementations train the model for all 6 *ij* components. In series representation, we solve six inverse problems. Here we solve only one inverse problem. Since matrix inversion step is the bottleneck, by reducing the time to solve the inverse problem speeds up computations.   
+% - Therefore, applying frame invariance not accurate and physically meaningful, but provides a fast, effective implementation that clocks at a comparable speed to the DS method, making it viable for practical applications.
+% - Because they are fast, accurate and efficient they make the ideal choice for the dynamic implementation to be deployed in forward runs. 
+
+% 
+% Performance of Smith-UC [N=28]
+\Cref{F:Smith_UC,F:Smith_UC_P} 
+indicate that Smith-UC, 
+	with 28 degrees of freedom, 
+computes the subgrid stress $\tau_{ij}(\mathbf{x},t)$ 
+	and production term $P(\mathbf{x},t)$
+	with comparable accuracy of 
+Case 3a (CL24), which  has 244 degrees of freedom. 	  
+%
+%	
+		Smith-UC achieves a remarkable accuracy, 
+	while taking less 1/100th the computational time of CL24,
+	and less than 1/10th Dynamic Smagorinsky (DS),
+making it a viable choice in forward runs. 
+[Sounds informal: apply technical writing rules]
+
+%
+% Performance of Smith-UN [N=379]
+%
+% Second-order terms provide marginal improvement
+\Cref{F:Smith_UC,F:Smith_UC_P} also show that having an additional set of 351 non-linear, second-order velocity product terms in Smith-UN do not appear to significantly improve accuracy, despite having greater number of degrees of freedom.
+%
+% Redundancy
+While these rank-1 tensor representations are complete and minimal, the effective number of degrees of freedom can be significantly lower than the total number of terms. 
+%
+The pdfs of Smith-UC and Smith-UN in \Cref{F:Smith_PDF} show no major difference in the overall statistics of $\tau_{ij}(\mathbf{x},t)$ and $P(\mathbf{x},t)$. 
+%
+% Expensive
+As computational times scale with $N^3$, Smith-UN is prohibitively expensive to deploy.
+%
+% Conclusion
+Smith-UC is as accurate as Smith-UN, but a computationally efficient implementation.  
+
+
 
 
 %
@@ -49,7 +262,9 @@
 %
 %
 
-\lipsum[2] 
+
+% 
+% Observation 
 
 %
 %    FIGURE     % 
@@ -66,7 +281,6 @@
 %
 
 
-\lipsum[10-11] 
 
 %
 %    FIGURE     % 
@@ -85,9 +299,54 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Performance of Complete Frame-Invariant Tensor Formulation} 
-\label{sec:10B}
+\label{sec:10C}
 
-\lipsum[3] 
+
+% 
+% Dealiased, spectral fields
+Tensor polynomials comprise of strain rates, rotation rates, their gradients and higher-order tensor products, making it necessary to eliminate aliasing by zero-padding and minimize finite-differencing errors, using higher-order (spectral) differencing schemes. 
+%
+% **Aliasing**
+Since the series in (\ref{E:23}) with  $\mathbf{m}^{(\alpha)}$ from (\ref{E:22}) involves products of velocity components up to 5\textsuperscript{th} order, which is far higher than the second-order truncation currently being used, dealiasing was applied by zero-padding the original field by a factor of $2^4 = 16$ to accommodate every spectral mode present in higher-order tensor products.   
+%
+%
+% **Resolution**
+%Higher-order spectral differencing reduce discretization errors while computing gradients.
+% otherwise computed with lower-order central differencing schemes.
+%
+% General comment on the performance of rank-2 tensor appropriate forms.
+Yet the dealiased subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and production fields $P^{F}(\mathbf{x},t)$ in \Cref{F:Smith20_tau,F:Smith20_P} clearly indicate that the four tensor-appropriate formulations - Smith-5, ASU-8, Pope-11, and Smith-20 - compare poorly with Smith-UC results. 
+%
+% Efficient
+While these tensor formulations are as computationally efficient as the Smith-UC, their accuracy drops with a decrease in the number of degrees of freedom $N$.
+%provide computational costs comparable to that of Smith-UC. 
+%
+% Accuracy
+% However having very few degrees of freedom affects the accuracy of the implementation. 
+%
+% DS model has only 1 DOF
+It is for this reason that the limiting case of the Dynamic Smagorinsky implementation, with a single tensor term ($\mathbf{S}$) (one degree of freedom), suffers from poor accuracy while computing subgrid stress fields $\tau_{ij}^{F}(\mathbf{x},t)$ and production fields $P^{F}(\mathbf{x},t)$ (\Cref{F:13a}).
+%
+% Rank-2 forms
+% The complete and minimal rank-2 tensor formulations can be viewed as the algebraic generalization of the Dynamic Smagorinsky , although the accuracy is limited by the number of degrees of freedom (F:Smith20_tau).
+
+%
+% Smith-20 performs worse than others 
+**NEEDS REVIEW**
+
+[It is not clear why Smith-20, despite having more degrees of freedom fares poorly against  Smith-5, ASU-8, and Pope-11, that are not based off strain and rotation rate gradients. One plausible reason is that series truncation in \Cref{E:38} insufficiently represents the symmetric rank-2 subgrid stress tensor.]
+
+
+% Despite taking steps to eliminate the deleterious effects, arising out of discretization and aliasing, the computed stress fields are still way off the mark. Possibly because the overdetermined system over predicts the coefficients.
+
+% Complete frame invariant implementations based off S, R perform better than the ones that contain del S and del R.
+% - There aren’t sufficient points in a 3x3x3 bounding box to adequately determine strain and rotation rate gradients. 
+% - They have far more training data per degree of freedom compared to SmithUC and SmithUN.
+% - They again perform comparably well with DS, making them a potential candidate to deploy in forward runs. 
+% - Results from Smith-5 are significant since they show that  second-order tensor products (S, R, S^2 and SR-RS)  alone can represent the stress tensor. This could imply that much of the information about the turbulence state is found in lower-order tensor products, and that  higher-order terms do not contribute much. 
+% - Such tensor polynomial representations can be better represented with a large-sized bounding box, since strain rates and rotation rates that are determined by central differencing suffer from resolution and aliasing issues.
+
+
 
 
 %
@@ -105,8 +364,6 @@
 %
 
 
-\lipsum[4-5] 
-
 
 %
 %    FIGURE     % 
@@ -122,7 +379,14 @@
 %
 %
 
-\lipsum[4-5] 
 
 
+% %
+% % CONCLUSION:
+
+% %
+% % How did we conclude that frame-inraint implmentaions are accurate and efficient
+% Frame-invariant implementations are accurate and efficient, since they have fewer degrees of freedom and greater training data per degree of freedom. 
+% %
+% %
 

@@ -59,8 +59,8 @@
                                         %   the oral defense
 \listadd{\committeechair}{Professor Werner J.A. Dahm} %<Enter committee chair name; use \listadd for
 \newcommand*{\chairlabel}{Chair}        
-\listadd{\committeemember}{Professor Hans D. Mittelmann} 
-%\listadd{\committeemember}{Associate Professor Marcus Herrmann} 
+%\listadd{\committeemember}{Professor Hans D. Mittelmann} 
+\listadd{\committeemember}{Associate Professor Marcus Herrmann} 
 \listadd{\committeemember}{Associate Professor Yulia T. Peet} 
 \listadd{\committeemember}{Assistant Professor Peter E. Hamlington} 
 \listadd{\committeemember}{Assistant Professor Jeonglae Kim} 
@@ -85,8 +85,13 @@
                                         % Paper and stock size are equivalent, 
                                         % so both \trimtop and \trimedge are set to 0pt
 \newlength{\forfootskip}
-\setlength{\forfootskip}%
-  {3\baselineskip}
+
+% ---
+% TEMP FIX:
+\setlength{\forfootskip}%               % Initially set to 3\baselineskip
+  {0\baselineskip}
+% ---
+
 \newlength{\textblockheight}            % Calculate height of text block to leave room
 \setlength{\textblockheight}{9.0in}     %   for footers, keeping page numbers outside
 \addtolength{\textblockheight}%         %   the 1in vertical margins
@@ -99,10 +104,22 @@
 \setheaderspaces{*}{0.5\baselineskip}{*}% Arguments: '\headdrop', '\headsep', and/or ratio
                                         %   Note: This is only used in the list of 
                                         %   contents sections
-\setheadfoot{\baselineskip}%            % Set '\headheight' and '\footskip'
-  {\forfootskip}
+% ---
+% TEMP FIX:                                        
+\setheadfoot{1\baselineskip}%           % Set '\headheight' and '\footskip'
+   {\forfootskip}                       % Initially set to \setheadfoot{\baselineskip}
+                                        % {\forfootskip}
+% ----   
+
 \checkandfixthelayout                   % Required by memoir package after setting layout
 \settypeoutlayoutunit{in}               % Write layout dimensions to log file in inches
+
+% ---
+% TEMP FIX:
+% Fix for printing out hardcopy. Comment out while submitting the softcopy. 
+\usepackage{fancyhdr}
+\setlength{\footskip}{20pt}
+% ---
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Fonts
