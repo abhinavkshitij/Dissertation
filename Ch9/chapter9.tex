@@ -115,30 +115,52 @@ Similarly, there are ``nonlinear'' models that allow $\mathbf{\tau}_{ij}$  to de
 %    EQUATION   %  
 %%%%%%%%%%%%%%%%%
 \begin{subequations}
-\label{E:22} \vspace{-0.25in}
+\label{E:22} %\vspace{-0.25in}
 \begin{align}
- 	\mathbf{m}^{(0)} &= \mathbf{I} = \delta_{ij} \\
-	\mathbf{m}^{(1)} &= \mathbf{S} = \widetilde{S}_{ij} \\
-	\mathbf{m}^{(2)} &= \mathbf{S^2} = \widetilde{S}_{ik} \widetilde{S}_{kj} \\
-	\mathbf{m}^{(3)} &= \mathbf{R^2} = \widetilde{R}_{ik} \widetilde{R}_{kj} \\
-	\mathbf{m}^{(4)} &= \mathbf{SR - RS} = \widetilde{S}_{ik} \widetilde{R}_{kj} 
-	- \widetilde{R}_{ik} \widetilde{S}_{kj} \\
-	\mathbf{m}^{(5)} &= \mathbf{S^2R - RS^2} 
+	%
+ 	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(0)}} 
+ 	&= \mathbf{I} = \delta_{ij} \\
+	% 	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(1)}} 
+	&= \mathbf{S} = \widetilde{S}_{ij} \\
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(2)}} 
+	&= \mathbf{S^2} = \widetilde{S}_{ik} \widetilde{S}_{kj} \\
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(3)}} 
+	&= \mathbf{R^2} = \widetilde{R}_{ik} \widetilde{R}_{kj} \\
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(4)}}
+	&= \mathbf{SR - RS} 
+	= \widetilde{S}_{ik} \widetilde{R}_{kj} - \widetilde{R}_{ik} \widetilde{S}_{kj} \\
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(5)}} 
+	&= \mathbf{S^2R - RS^2} 
 	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
 	-   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
-	\mathbf{m}^{(6)} &= \mathbf{SR^2 + R^2S} 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(6)}}
+	&= \mathbf{SR^2 + R^2S} 
 	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lj} 
 	+   \widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lj} \\
-	\mathbf{m}^{(7)} &= \mathbf{S^2R^2 + R^2S^2} 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(7)}}
+	&= \mathbf{S^2R^2 + R^2S^2} 
 	= 	\widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
 	+   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj} \\
-	\mathbf{m}^{(8)} &= \mathbf{SRS^2 - S^2RS} 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(8)}} 
+	&= \mathbf{SRS^2 - S^2RS} 
 	= 	\widetilde{S}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mj}  
 	-   \widetilde{S}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{S}_{mj} \\
-	\mathbf{m}^{(9)} &= \mathbf{RSR^2 - R^2SR} 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(9)}} 
+	&= \mathbf{RSR^2 - R^2SR} 
 	= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{R}_{lm} \widetilde{R}_{mj}  
 	-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mj} \\
-	\mathbf{m}^{(10)} &= \mathbf{RS^2R^2 - R^2S^2R} 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(10)}$}][l]{\mathbf{m}^{(10)}} 
+	&= \mathbf{RS^2R^2 - R^2S^2R} 
 	= 	\widetilde{R}_{ik} \widetilde{S}_{kl} \widetilde{S}_{lm} \widetilde{R}_{mn} \widetilde{R}_{nj} 
 	-   \widetilde{R}_{ik} \widetilde{R}_{kl} \widetilde{S}_{lm} \widetilde{S}_{mn} \widetilde{R}_{nj}
 \end{align}
@@ -267,21 +289,48 @@ from which $\mathbf{B}$ can then be reconstructed as $ \mathbf{B}= \mathbf{B}_S 
 \begin{subequations}
 \label{E:28}
 \begin{align}
- 	\mathbf{m}^{(0)} &= \mathbf{I}  \\
-	\mathbf{m}^{(1,i)} &= \mathbf{M}_i \\ 
-	\mathbf{m}^{(2,i)} &= \mathbf{M}^2_i \\ 
-	\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}_i \\ 
-	\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}^2_i \\
-	\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j + \mathbf{M}^2_j \mathbf{M}_i \\
-	\mathbf{m}^{(6,p)} &= \mathbf{W}^2_p \\ 
-	\mathbf{m}^{(7,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
-	\mathbf{m}^{(8,pq)} &= \mathbf{W}^2_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}^2_p \\
-	\mathbf{m}^{(9,pq)} &= \mathbf{W}_p \mathbf{W}^2_q - \mathbf{W}^2_q \mathbf{W}_p \\
-	\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}_p - \mathbf{W}_p \mathbf{M}_i   \\
-	\mathbf{m}^{(11,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}_p   \\ 
-	\mathbf{m}^{(12,ip)} &= \mathbf{M}^2_i \mathbf{W}_p-\mathbf{W}_p \mathbf{M}^2_i\\ 
-	\mathbf{m}^{(13,ip)} &= \mathbf{W}_p \mathbf{M}_i \mathbf{W}^2_p
-						   -\mathbf{W}^2_p \mathbf{M}_i \mathbf{W}_p
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(0)}}
+ 	&= \mathbf{I}  \\
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(1,i)}}
+	&= \mathbf{M}_i \\ 
+	%	
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(2,i)}}
+	&= \mathbf{M}^2_i \\
+	%	 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(3,ij)}}
+	&= \mathbf{M}_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}_i \\
+	%	 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(4,ij)}}
+	&= \mathbf{M}^2_i \mathbf{M}_j + \mathbf{M}_j \mathbf{M}^2_i \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(5,ij)}}
+	&= \mathbf{M}_i \mathbf{M}^2_j + \mathbf{M}^2_j \mathbf{M}_i \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(6,p)}}
+	&= \mathbf{W}^2_p \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(7,pq)}}
+	&= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(8,pq)}}
+	&= \mathbf{W}^2_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}^2_p \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(9,pq)}}
+	&= \mathbf{W}_p \mathbf{W}^2_q - \mathbf{W}^2_q \mathbf{W}_p \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(10,ip)}}
+	&= \mathbf{M}_i \mathbf{W}_p - \mathbf{W}_p \mathbf{M}_i   \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(11,ip)}}
+	&= \mathbf{W}_p \mathbf{M}_i \mathbf{W}_p   \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(12,ip)}}
+	&= \mathbf{M}^2_i \mathbf{W}_p-\mathbf{W}_p \mathbf{M}^2_i\\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,pq)}$}][l]{\mathbf{m}^{(13,ip)}}
+	&= \mathbf{W}_p \mathbf{M}_i \mathbf{W}^2_p
+	  -\mathbf{W}^2_p \mathbf{M}_i \mathbf{W}_p
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -294,23 +343,43 @@ for all $i<j = 1,2,\ldots,m$  and all $p<q = 1,2,\ldots,w$.  Similarly, the anti
 \begin{subequations}
 \label{E:29}
 \begin{align}
-	\mathbf{m}^{(1,i)}  &= \mathbf{W}_p \\ 
-	\mathbf{m}^{(2,pq)} &= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
-	\mathbf{m}^{(3,ij)} &= \mathbf{M}_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}_i \\ 
-	\mathbf{m}^{(4,ij)} &= \mathbf{M}^2_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}^2_i \\
-	\mathbf{m}^{(5,ij)} &= \mathbf{M}_i \mathbf{M}^2_j - \mathbf{M}^2_j \mathbf{M}_i \\
-	\mathbf{m}^{(6,ij)} &= \mathbf{M}_i \mathbf{M}_j \mathbf{M}^2_i  
-						-  \mathbf{M}^2_i \mathbf{M}_j \mathbf{M}_i \\ 
-	\mathbf{m}^{(7,ij)} &= \mathbf{M}_j \mathbf{M}_i \mathbf{M}^2_j  
-						-  \mathbf{M}^2_j \mathbf{M}_i \mathbf{M}_j \\  
-	\mathbf{m}^{(8,ijk)}&= \mathbf{M}_i \mathbf{M}_j \mathbf{M}_k 
-						 + \mathbf{M}_j \mathbf{M}_k \mathbf{M}_i  
-						 + \mathbf{M}_k \mathbf{M}_i \mathbf{M}_j \notag \\
-						 &- \mathbf{M}_j \mathbf{M}_i \mathbf{M}_k 
-						 - \mathbf{M}_i \mathbf{M}_k \mathbf{M}_j 
-						 - \mathbf{M}_k \mathbf{M}_j \mathbf{M}_i \\
-	\mathbf{m}^{(9,ip)} &= \mathbf{M}_i \mathbf{W}_p + \mathbf{W}_p \mathbf{M}_i   \\
-	\mathbf{m}^{(10,ip)} &= \mathbf{M}_i \mathbf{W}^2_p-\mathbf{W}^2_p \mathbf{M}_i 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(1,i)}}
+	&= \mathbf{W}_p \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(2,pq)}}
+	&= \mathbf{W}_p \mathbf{W}_q - \mathbf{W}_q \mathbf{W}_p \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(3,ij)}}
+	&= \mathbf{M}_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}_i \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(4,ij)}}
+	&= \mathbf{M}^2_i \mathbf{M}_j - \mathbf{M}_j \mathbf{M}^2_i \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(5,ij)}}
+	&= \mathbf{M}_i \mathbf{M}^2_j - \mathbf{M}^2_j \mathbf{M}_i \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(6,ij)}}
+	&= \mathbf{M}_i \mathbf{M}_j \mathbf{M}^2_i  
+	-  \mathbf{M}^2_i \mathbf{M}_j \mathbf{M}_i \\ 
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(7,ij)}}
+	&= \mathbf{M}_j \mathbf{M}_i \mathbf{M}^2_j  
+	-  \mathbf{M}^2_j \mathbf{M}_i \mathbf{M}_j \\
+	%
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(8,ijk)}}
+	&= \mathbf{M}_i \mathbf{M}_j \mathbf{M}_k 
+	 + \mathbf{M}_j \mathbf{M}_k \mathbf{M}_i  
+	 + \mathbf{M}_k \mathbf{M}_i \mathbf{M}_j \notag \\
+	&- \mathbf{M}_j \mathbf{M}_i \mathbf{M}_k 
+	 - \mathbf{M}_i \mathbf{M}_k \mathbf{M}_j 
+	 - \mathbf{M}_k \mathbf{M}_j \mathbf{M}_i \\
+	 % 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(9,ip)}}
+	&= \mathbf{M}_i \mathbf{W}_p + \mathbf{W}_p \mathbf{M}_i   \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{m}^{(8,ijk)}$}][l]{\mathbf{m}^{(10,ip)}}
+	&= \mathbf{M}_i \mathbf{W}^2_p-\mathbf{W}^2_p \mathbf{M}_i 
+	% 
 \end{align}
 \end{subequations}	
 %%%%%%%%%%%%%%%%%
@@ -415,22 +484,38 @@ Thus, while including these higher-power tensor products $\mathbf{\nabla S}^{\al
 \begin{subequations}
 \label{E:33}
 \begin{align}
-	\mathbf{A}_3  &= \frac{\partial S_{kk}}{\partial x_i}
-					 \frac{\partial S_{ll}}{\partial x_j} \\
-	\mathbf{A}_4  &= \frac{\partial S_{kl}}{\partial x_i}
-					 \frac{\partial S_{kl}}{\partial x_j} \\
-	\mathbf{A}_5  &= \frac{\partial S_{ik}}{\partial x_k}
-					 \frac{\partial S_{lj}}{\partial x_l} \\
-	\mathbf{A}_6  &= \frac{\partial S_{ik}}{\partial x_l}
-					 \frac{\partial S_{lj}}{\partial x_k} \\
-	\mathbf{A}_7  &= \frac{\partial S_{ik}}{\partial x_k}
-					 \frac{\partial S_{ll}}{\partial x_j} \\
-	\mathbf{A}_8  &= \frac{\partial S_{ik}}{\partial x_l}
-					 \frac{\partial S_{kl}}{\partial x_j} \\
-	\mathbf{A}_9  &= \frac{\partial S_{kk}}{\partial x_i}
-					 \frac{\partial S_{lj}}{\partial x_l} \\
-	\mathbf{A}_{10} &= \frac{\partial S_{kl}}{\partial x_i}
-				     \frac{\partial S_{kj}}{\partial x_l}      
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{{\mathbf{A}_3}}
+	&= \frac{\partial S_{kk}}{\partial x_i}
+	   \frac{\partial S_{ll}}{\partial x_j} \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_4}  
+	&= \frac{\partial S_{kl}}{\partial x_i}
+	   \frac{\partial S_{kl}}{\partial x_j} \\
+	%
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_5}
+	&= \frac{\partial S_{ik}}{\partial x_k}
+	   \frac{\partial S_{lj}}{\partial x_l} \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_6}
+	&= \frac{\partial S_{ik}}{\partial x_l}
+	   \frac{\partial S_{lj}}{\partial x_k} \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_7}
+	&= \frac{\partial S_{ik}}{\partial x_k}
+	   \frac{\partial S_{ll}}{\partial x_j} \\
+	%   
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_8}
+	&= \frac{\partial S_{ik}}{\partial x_l}
+	   \frac{\partial S_{kl}}{\partial x_j} \\
+	%   
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_9}
+	&= \frac{\partial S_{kk}}{\partial x_i}
+	   \frac{\partial S_{lj}}{\partial x_l} \\
+	%   
+	\mathmakebox[\widthof{$\mathbf{A}_{10}$}][l]{\mathbf{A}_{10}}
+	&= \frac{\partial S_{kl}}{\partial x_i}
+	   \frac{\partial S_{kj}}{\partial x_l}
+	%         
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -504,76 +589,111 @@ Next, the symmetric and anti-symmetric parts of each of the tensor elements  $\m
 \begin{subequations}
 \label{E:36}
 \begin{align}
-	\mathbf{M}_1  &= \partial S_{ij}  \\
-	\mathbf{M}_2  &= \frac{\partial S_{kk}}{\partial x_i}
-					 \frac{\partial S_{ll}}{\partial x_j} \\
-	\mathbf{M}_3  &= \frac{\partial S_{kl}}{\partial x_i}
-					 \frac{\partial S_{kl}}{\partial x_j} \\
-	\mathbf{M}_4  &= \frac{\partial S_{ik}}{\partial x_k}
-					 \frac{\partial S_{lj}}{\partial x_l} \\	
-	\mathbf{M}_5  &= \frac{\partial S_{ik}}{\partial x_l}
-					 \frac{\partial S_{lj}}{\partial x_k} \\	
-	\mathbf{M}_6  &= \frac{1}{2} 
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_1}  
+	&= \partial S_{ij}  \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_2}
+	&= \frac{\partial S_{kk}}{\partial x_i}
+	   \frac{\partial S_{ll}}{\partial x_j} \\
+	%   
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_3}
+	&= \frac{\partial S_{kl}}{\partial x_i}
+	   \frac{\partial S_{kl}}{\partial x_j} \\
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_4} 
+	&= \frac{\partial S_{ik}}{\partial x_k}
+	   \frac{\partial S_{lj}}{\partial x_l} \\
+	% 
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_5}
+	&= \frac{\partial S_{ik}}{\partial x_l}
+	   \frac{\partial S_{lj}}{\partial x_k} \\
+	%   	
+	\mathmakebox[\widthof{$\mathbf{M}_{14}$}][l]{\mathbf{M}_6}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_k}
 					 \frac{\partial S_{ll}}{\partial x_j} 
 				  	+ 
 					 \frac{\partial S_{ll}}{\partial x_j} 
-					 \frac{\partial S_{ik}}{\partial x_k} \bigg) \\	
-	\mathbf{M}_7  &= \frac{1}{2} 
+					 \frac{\partial S_{ik}}{\partial x_k} \bigg) \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_7}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial S_{kl}}{\partial x_j} 
 				    + 
 					 \frac{\partial S_{kl}}{\partial x_i} 
-					 \frac{\partial S_{jk}}{\partial x_l} \bigg) \\				 
-	\mathbf{M}_8  &= \frac{\partial R_{kl}}{\partial x_i}
-					 \frac{\partial R_{kl}}{\partial x_j} \\
-	\mathbf{M}_9  &= \frac{\partial R_{ik}}{\partial x_k}
-					 \frac{\partial R_{lj}}{\partial x_l} \\
-	\mathbf{M}_{10} &= \frac{\partial R_{ik}}{\partial x_k}
-					 \frac{\partial R_{lj}}{\partial x_l} \\
-	\mathbf{M}_{11}  &= \frac{1}{2} 
+					 \frac{\partial S_{jk}}{\partial x_l} \bigg) \\
+	%				 				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_8}
+	&= \frac{\partial R_{kl}}{\partial x_i}
+	   \frac{\partial R_{kl}}{\partial x_j} \\
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_9}
+	&= \frac{\partial R_{ik}}{\partial x_k}
+	   \frac{\partial R_{lj}}{\partial x_l} \\
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{10}}
+	&= \frac{\partial R_{ik}}{\partial x_k}
+	   \frac{\partial R_{lj}}{\partial x_l} \\
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{11}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial R_{ik}}{\partial x_l}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	+ 
 					 \frac{\partial R_{kl}}{\partial x_i} 
 					 \frac{\partial R_{jk}}{\partial x_l} \bigg) \\
-	\mathbf{M}_{12}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{12}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial R_{kl}}{\partial x_i}
 					 \frac{\partial R_{kj}}{\partial x_l} 
 				  	+ 
 					 \frac{\partial R_{ki}}{\partial x_l} 
-					 \frac{\partial R_{kl}}{\partial x_j} \bigg)  \\	
-	\mathbf{M}_{13}  &= \frac{1}{2} 
+					 \frac{\partial R_{kl}}{\partial x_j} \bigg)  \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{13}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kl}}{\partial x_i}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	+ 
 					 \frac{\partial R_{kl}}{\partial x_i}
 					 \frac{\partial S_{kl}}{\partial x_j}  \bigg)  \\
-	\mathbf{M}_{14}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{14}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_k}
 					 \frac{\partial R_{lj}}{\partial x_l} 
 				  	+ 
 					 \frac{\partial R_{li}}{\partial x_l} 
 					 \frac{\partial S_{jk}}{\partial x_k} \bigg)  \\
-	\mathbf{M}_{15}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{15}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial R_{lj}}{\partial x_k} 
 				  	+ 
 					 \frac{\partial R_{li}}{\partial x_k} 
 					 \frac{\partial S_{jk}}{\partial x_l} \bigg)  \\
-	\mathbf{M}_{16}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{16}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	+ 
 					 \frac{\partial R_{kl}}{\partial x_i} 
 					 \frac{\partial S_{jk}}{\partial x_l} \bigg)  \\
-	\mathbf{M}_{17}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{17}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kk}}{\partial x_i}
 					 \frac{\partial R_{lj}}{\partial x_l} 
 				  	+ 
 					 \frac{\partial R_{li}}{\partial x_l} 
-					 \frac{\partial S_{kk}}{\partial x_j} \bigg)  \\	
-	\mathbf{M}_{18}  &= \frac{1}{2} 
+					 \frac{\partial S_{kk}}{\partial x_j} \bigg)  \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{M}_{18}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kl}}{\partial x_i}
 					 \frac{\partial R_{kj}}{\partial x_l} 
 				  	+ 
@@ -592,73 +712,97 @@ Thus there are $m$ = 18 symmetric parts that can be formed from the tensor eleme
 \begin{subequations}
 \label{E:37}
 \begin{align}
-	\mathbf{W}_1  &= \partial R_{ij}  \\
-	\mathbf{W}_2  &= \frac{1}{2} 
+	\mathmakebox[\widthof{$\mathbf{W}_{10}$}][l]{\mathbf{W}_1}
+	&= \partial R_{ij}  \\
+	%
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_2}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_k}
 					 \frac{\partial S_{ll}}{\partial x_j} 
 				  	- 
 					 \frac{\partial S_{ll}}{\partial x_i} 
-					 \frac{\partial S_{jk}}{\partial x_k} \bigg) \\	
-	\mathbf{W}_3  &= \frac{1}{2} 
+					 \frac{\partial S_{jk}}{\partial x_k} \bigg) \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_3}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial S_{kl}}{\partial x_j} 
 				    - 
 					 \frac{\partial S_{kl}}{\partial x_i} 
-					 \frac{\partial S_{jk}}{\partial x_l} \bigg) \\				 
-	\mathbf{W}_4  &= \frac{1}{2} 
+					 \frac{\partial S_{jk}}{\partial x_l} \bigg) \\
+	%				 				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_4}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kk}}{\partial x_i}
 					 \frac{\partial S_{lj}}{\partial x_l} 
 				  	- 
 					 \frac{\partial S_{li}}{\partial x_l} 
 					 \frac{\partial S_{kk}}{\partial x_j} \bigg) \\
-	\mathbf{W}_5  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_5}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial R_{ik}}{\partial x_l}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	- 
 					 \frac{\partial R_{kl}}{\partial x_i} 
-					 \frac{\partial R_{jk}}{\partial x_l} \bigg)  \\	
-	\mathbf{W}_6  &= \frac{1}{2} 
+					 \frac{\partial R_{jk}}{\partial x_l} \bigg)  \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_6}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial R_{kl}}{\partial x_i}
 					 \frac{\partial R_{kj}}{\partial x_l} 
 				  	- 
 					 \frac{\partial R_{ki}}{\partial x_l}
 					 \frac{\partial R_{kl}}{\partial x_j}  \bigg)  \\
-	\mathbf{W}_7  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_7}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kl}}{\partial x_i}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	- 
 					 \frac{\partial R_{kl}}{\partial x_i} 
 					 \frac{\partial S_{kl}}{\partial x_j} \bigg)  \\
-	\mathbf{W}_8  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_8}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_k}
 					 \frac{\partial R_{lj}}{\partial x_l} 
 				  	- 
 					 \frac{\partial R_{li}}{\partial x_l} 
 					 \frac{\partial S_{jk}}{\partial x_k} \bigg)  \\
-	\mathbf{W}_9  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_9}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial R_{lj}}{\partial x_k} 
 				  	- 
 					 \frac{\partial R_{li}}{\partial x_k} 
 					 \frac{\partial S_{jk}}{\partial x_l} \bigg)  \\
-	\mathbf{W}_{10}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_{10}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{ik}}{\partial x_l}
 					 \frac{\partial R_{kl}}{\partial x_j} 
 				  	- 
 					 \frac{\partial R_{kl}}{\partial x_i} 
-					 \frac{\partial S_{jk}}{\partial x_l} \bigg)  \\	
-	\mathbf{W}_{11}  &= \frac{1}{2} 
+					 \frac{\partial S_{jk}}{\partial x_l} \bigg)  \\
+	%				 	
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_{11}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kk}}{\partial x_i}
 					 \frac{\partial R_{lj}}{\partial x_l} 
 				  	- 
 					 \frac{\partial R_{li}}{\partial x_l} 
 					 \frac{\partial S_{kk}}{\partial x_j} \bigg)  \\
-	\mathbf{W}_{12}  &= \frac{1}{2} 
+	%				 
+	\mathmakebox[\widthof{$\mathbf{M}_{10}$}][l]{\mathbf{W}_{12}}
+	&= \frac{1}{2} 
 			  \bigg( \frac{\partial S_{kl}}{\partial x_i}
 					 \frac{\partial R_{kj}}{\partial x_l} 
 				  	- 
 					 \frac{\partial R_{ki}}{\partial x_l} 
-					 \frac{\partial S_{kl}}{\partial x_j} \bigg)				 
+					 \frac{\partial S_{kl}}{\partial x_j} \bigg)
+	%				 				 
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -678,33 +822,33 @@ Following \Cref{sec:2A}, any symmetric rank-2 tensor can be expressed as a polyn
 \begin{subequations}
 \label{E:38}
 \begin{align}
-	k &= 0  & \mathbf{m}^{(1,1)}_S   &= \mathbf{I} 				&   			\\[15pt]
+	k &= 0  & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(1,1)}_S}   &= \mathbf{I} 				&   			\\[15pt]
 	%
-	k &= 1  & \mathbf{m}^{(1,1)}_S   &= \mathbf{M}_1 			&   			\\
-	  &     & \mathbf{m}^{(1,2)}_S   &= \mathbf{M}_2 			&   			\\
+	k &= 1  & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(1,1)}_S}   &= \mathbf{M}_1 			&   			\\
+	  &     & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(1,2)}_S}   &= \mathbf{M}_2 			&   			\\
 	  &	    &    				     &  \vdots  &   \notag 						\\
-	  &     & \mathbf{m}^{(1,18)}_S  &= \mathbf{M}_{18} 		& 				\\[15pt]
+	  &     & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(1,18)}_S}  &= \mathbf{M}_{18} 		& 				\\[15pt]
 	  %
-	k &= 2  & \mathbf{m}^{(2,1)}_S   &= \mathbf{M}^2_1 			&   			\\  
-	  &  	& \mathbf{m}^{(2,2)}_S   &= \mathbf{M}^2_2 			& 				\\
+	k &= 2  & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(2,1)}_S}   &= \mathbf{M}^2_1 			&   			\\  
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(2,2)}_S}   &= \mathbf{M}^2_2 			& 				\\
 	  &     &  						 &  \vdots 	& 	\notag 						\\ 
-	  &     & \mathbf{m}^{(2,18)}_S  &= \mathbf{M}^2_{18} 		& 				\\[15pt]   
+	  &     & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(2,18)}_S}  &= \mathbf{M}^2_{18} 		& 				\\[15pt]   
 	  %
-	k &= 3  & \mathbf{m}^{(3,1)}_S   &= \mathbf{M_1M_2} + \mathbf{M_2M_1}  &   	\\  
-	  &  	& \mathbf{m}^{(3,2)}_S   &= \mathbf{M_1M_3} + \mathbf{M_3M_1}  &   	\\  
-	  &  	& \mathbf{m}^{(3,3)}_S   &= \mathbf{M_1M_4} + \mathbf{M_4M_1}  &   	\\  
+	k &= 3  & \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,1)}_S}   &= \mathbf{M_1M_2} + \mathbf{M_2M_1}  &   	\\  
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,2)}_S}   &= \mathbf{M_1M_3} + \mathbf{M_3M_1}  &   	\\  
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,3)}_S}   &= \mathbf{M_1M_4} + \mathbf{M_4M_1}  &   	\\  
 	  &     &  						 &  \vdots 	& 	\notag \\ 
-	  &  	& \mathbf{m}^{(3,17)}_S  &= \mathbf{M_1M_{18}} + \mathbf{M_{18}M_1} & \\ 
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,17)}_S}  &= \mathbf{M_1M_{18}} + \mathbf{M_{18}M_1} & \\ 
 	  % 
-	  &  	& \mathbf{m}^{(3,18)}_S  &= \mathbf{M_2M_3} + \mathbf{M_3M_2}  &   	\\
-	  &  	& \mathbf{m}^{(3,19)}_S  &= \mathbf{M_2M_4} + \mathbf{M_4M_2}  &   	\\  
-	  &  	& \mathbf{m}^{(3,20)}_S  &= \mathbf{M_2M_5} + \mathbf{M_5M_2}  &   	\\
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,18)}_S}  &= \mathbf{M_2M_3} + \mathbf{M_3M_2}  &   	\\
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,19)}_S}  &= \mathbf{M_2M_4} + \mathbf{M_4M_2}  &   	\\  
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,20)}_S}  &= \mathbf{M_2M_5} + \mathbf{M_5M_2}  &   	\\
 	  &     &  						 &  \vdots & 	\notag \\
-	  &  	& \mathbf{m}^{(3,33)}_S  &= \mathbf{M_2M_{18}} + \mathbf{M_{18}M_2}  &  \\
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,33)}_S}  &= \mathbf{M_2M_{18}} + \mathbf{M_{18}M_2}  &  \\
 	  %
 	  &     &  						 &  \vdots 	& 	\notag \\
 	  %
-	  &  	& \mathbf{m}^{(3,153)}_S &= \mathbf{M_{17}M_{18}} + \mathbf{M_{18}M_{17}} &   
+	  &  	& \mathmakebox[\widthof{$\mathbf{m}^{(3,153)}_S$}][l]{\mathbf{m}^{(3,153)}_S} &= \mathbf{M_{17}M_{18}} + \mathbf{M_{18}M_{17}} &   
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%
@@ -718,20 +862,33 @@ We can easily determine how many  $\mathbf{m}^{(k)}_S$ there are, given that $i<
 \begin{subequations}
 \label{E:39}
 \begin{align}
-	 \mathbf{m}^{(0)}_S   &: 1 	&   	\\  
-	 \mathbf{m}^{(1)}_S   &: 18 	&   	\\  
-	 \mathbf{m}^{(2)}_S   &: 18 	&   	\\  
-	 \mathbf{m}^{(3)}_S   &: (18^2 - 18)/2 = 153 	&   	\\  
-	 \mathbf{m}^{(4)}_S   &: (18^2 - 18)/2 = 153  	&   	\\  
-	 \mathbf{m}^{(5)}_S   &: (18^2 - 18)/2 = 153  	&   	\\  
-	 \mathbf{m}^{(6)}_S   &: 12 	&   	\\  
-	 \mathbf{m}^{(7)}_S   &: (12^2 - 12)/2 = 66 	&   	\\ 
-	 \mathbf{m}^{(8)}_S   &: (12^2 - 12)/2 = 66 	&   	\\ 
-	 \mathbf{m}^{(9)}_S   &: (12^2 - 12)/2 = 66 	&   	\\  
-	 \mathbf{m}^{(10)}_S  &: 18 \cdot 12 = 216 	&   	\\ 
-	 \mathbf{m}^{(11)}_S  &: 18 \cdot 12 = 216 	&   	\\ 
-	 \mathbf{m}^{(12)}_S  &: 18 \cdot 12 = 216 	&   	\\ 
-	 \mathbf{m}^{(13)}_S  &: 18 \cdot 12 = 216 	&    
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(0)}_S}   &: 1 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(1)}_S}   &: 18 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(2)}_S}   &: 18 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(3)}_S}   &: (18^2 - 18)/2 = 153 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(4)}_S}   &: (18^2 - 18)/2 = 153  	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(5)}_S}   &: (18^2 - 18)/2 = 153  	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(6)}_S}   &: 12 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(7)}_S}   &: (12^2 - 12)/2 = 66 	&   	\\
+	 % 
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(8)}_S}   &: (12^2 - 12)/2 = 66 	&   	\\
+	 % 
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(9)}_S}   &: (12^2 - 12)/2 = 66 	&   	\\
+	 %  
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(10)}_S}  &: 18 \cdot 12 = 216 	&   	\\
+	 % 
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(11)}_S}  &: 18 \cdot 12 = 216 	&   	\\
+	 % 
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(12)}_S}  &: 18 \cdot 12 = 216 	&   	\\
+	 % 
+	 \mathmakebox[\widthof{$\mathbf{m}^{(13)}_S$}][l]{\mathbf{m}^{(13)}_S}  &: 18 \cdot 12 = 216 	&    
 \end{align}
 \end{subequations}
 %%%%%%%%%%%%%%%%%

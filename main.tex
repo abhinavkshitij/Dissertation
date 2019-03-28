@@ -48,10 +48,10 @@
                                         %   your dedication or omit this line and type in 
                                         %   your dedication here. 
 
-\chapter*{Acknowledgements}             %~Acknowledgements are optional
-\input{acknowledgements}          %<Enter the name of the .tex file containing your
-                                        %   acknowledgements or omit this line and type in
-                                        %   your acknowledgements here. 
+% \chapter*{Acknowledgements}             %~Acknowledgements are optional
+% \input{acknowledgements}          %<Enter the name of the .tex file containing your
+%                                         %   acknowledgements or omit this line and type in
+%                                         %   your acknowledgements here. 
 
 \iftoggle{usemicrotype}                 % If 'microtype' is in use, turn off protrusion
   {\microtypesetup{protrusion=false}}%  %   for TOC
@@ -166,7 +166,7 @@
 }    
 \phantomsection
 \addtocontents{toc}%                    % Add this 'mark' to TOC so subsequent pages use
-  {\protect\markboth{\bibheading}{Page}}%   the bibliography heading (unlikely since 
+  {\protect\markboth{CHAPTER}{Page}}%   the bibliography heading (unlikely since 
                                         %   the appendices follow quickly) 
 \iftoggle{usebiblatex}{%                % Output the bibliography
   \printbibliography[heading=none]      % Using a 'biblatex' package; do not let 
