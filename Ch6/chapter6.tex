@@ -1,4 +1,4 @@
-\graphicspath{ {./Ch6/}  } 
+\graphicspath{ {./Ch6/} } 
 \DeclareGraphicsExtensions{.png,.pdf,.jpg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -26,19 +26,57 @@ From the preceding sections, the most accurate and efficient implementations of 
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-\begin{minipage}[b]{\linewidth}
 	\centering \hspace{1.5cm}
-	\includegraphics[width=4in]{Fig13_tau11.eps}
-	\subcaption{Typical subgrid stress fields $\tau_{ij}(\mathbf{x},t)$.} \label{F:13a}
-\end{minipage}%
-\vspace{0.5cm}
-\begin{minipage}[b]{\linewidth}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau11.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{11}(\mathbf{x},t)$.} \label{F:13a}
+\end{figure}
+%
+\begin{figure}
+	\ContinuedFloat
 	\centering \hspace{1.5cm}
-	\includegraphics[width=4in]{Fig13_P.eps}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau12.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{12}(\mathbf{x},t)$.} \label{F:13a2}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau13.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{13}(\mathbf{x},t)$.} \label{F:13a3}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau22.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{22}(\mathbf{x},t)$.} \label{F:13a4}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau23.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{23}(\mathbf{x},t)$.} \label{F:13a5}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau33.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{33}(\mathbf{x},t)$.} \label{F:13a6}
+\end{figure}
+%
+\begin{figure}
+	\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=5in]{y43/Fig13_P.eps}}
 	\subcaption{Corresponding subgrid production fields $P(\mathbf{x},t)$.}\label{F:13b}
-\end{minipage}
-\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Cref{F:13a}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:13b}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from dynamic Smagorinsky (DS) model, and (d) results from Bardina scale-similarity (BD) model; all are for same scale ratio $\alpha \equiv \Delta_{\Gamma} / \widetilde{\Delta} = 2$.}
-\label{F:13}
+\end{figure}
+%
+\begin{figure}
+	\ContinuedFloat
+	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:13a}{F:13a6}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:13b}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from dynamic Smagorinsky (DS) model, and (d) results from Bardina scale-similarity (BD) model; all are for same scale ratio $\alpha \equiv \Delta_{\Gamma} / \widetilde{\Delta} = 2$.}
+	\label{F:13}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %

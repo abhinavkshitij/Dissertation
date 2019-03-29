@@ -248,33 +248,93 @@ Smith-UC is as accurate as Smith-UN, but a computationally efficient implementat
 
 
 
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.5cm}
+% 	\includegraphics[width=\maxwidth{5in}]{Smith_UC_UN_y_43_12-03.eps}
+% 	\caption{Comparison of (a) true stress fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+% 	\label{F:Smith_UC}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
+
+
+% % 
+% % Observation 
+
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.5cm}
+% 	\includegraphics[width=\maxwidth{5in}]{Smith_UC_P_y_43_12-03.eps}
+% 	\caption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
+% 	\label{F:Smith_UC_P}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
+
 %
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center} \hspace{1.5cm}
-	\includegraphics[width=\maxwidth{4in}]{Smith_UC_UN_y_43_12-03.eps}
-	\caption{Comparison of (a) true stress fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
-	\label{F:Smith_UC}
-	\end{center}
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_11-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{11}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UC}
 \end{figure}
-%%%%%%%%%%%%%%%%%
 %
-%
-
-
-% 
-% Observation 
-
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center} \hspace{1.5cm}
-	\includegraphics[width=\maxwidth{4in}]{Smith_UC_P_y_43_12-03.eps}
-	\caption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN. }
-	\label{F:Smith_UC_P}
-	\end{center}
+	\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_12-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{12}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCb}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_13-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{13}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCc}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_22-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{22}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCd}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_23-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{23}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCe}
+\end{figure}
+%
+\begin{figure}
+\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_33-03.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{33}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCf}
+\end{figure}
+%
+\begin{figure}
+	\ContinuedFloat
+	\centering \hspace{1.5cm}
+	\subfloat{\includegraphics[width=4in]{Smith_UC_P_y_43_12-03.eps}}
+	\subcaption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN.}\label{F:Smith_UC_P}
+\end{figure}
+%
+\begin{figure}
+	\ContinuedFloat
+	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:Smith_UC}{F:Smith_UCf}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:Smith_UC_P}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from Smith-UC, and (d) results from Smith-UN model.}
+	\label{F:Smith_UC}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
