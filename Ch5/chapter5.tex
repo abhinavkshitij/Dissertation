@@ -136,7 +136,7 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 \begin{figure}
 	\ContinuedFloat
 	\caption{Local vs Nonlocal implementations. Typical comparison of  true fields (left) and autonomic closure, case 6a (right), showing (a) normal subgrid stresses, (b) shear subgrid stress, and (c) subgrid production $P(\mathbf{x},t)$}
-	\label{F:CG24c}
+	\label{F:CG24}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -148,11 +148,10 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center}
-	\includegraphics[width=\maxwidth{5in}]{Fig6.pdf}
+	\centering \hspace{-1.0cm}
+	\includegraphics[width=\maxwidth{6.5in}]{Fig6.pdf}
 	\caption{ Comparison of nonlocal (blue) and local (red) implementations of autonomic closure; (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variations with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$ for subgrid production field. }
 	\label{F:6}
-	\end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -245,11 +244,10 @@ The  series used here for $F_{ij}$  in (5) and (6) consists of all possible prod
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center}
-	\includegraphics[width=\maxwidth{5in}]{Fig7.pdf}
+	\centering \hspace{-1.0cm}
+	\includegraphics[width=\maxwidth{6.5in}]{Fig7.pdf}
 	\caption{ Comparison of velocity-pressure (blue) vs. velocity-only (red) implementations of autonomic closure; (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variation in (11a,b) with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$. }
 	\label{F:7}
-	\end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -262,11 +260,10 @@ A velocity-pressure implementation does however lead to greater computational co
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center}
-	\includegraphics[width=\maxwidth{5in}]{Fig8.pdf}
+	\centering \hspace{-1.0cm}
+	\includegraphics[width=\maxwidth{6.5in}]{Fig8.pdf}
 	\caption{ Comparison of second-order (blue) vs. first-order (red) implementations of autonomic closure; (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variation in (11a,b) with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$.}
 	\label{F:8}
-	\end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -321,11 +318,10 @@ Additionally, note in \Cref{tab:1} that noncolocated implementations (Cases 5a a
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center}
-	\includegraphics[width=\maxwidth{5in}]{Fig9.pdf}
+	\centering \hspace{-1.0cm}
+	\includegraphics[width=\maxwidth{6.5in}]{Fig9.pdf}
 	\caption{Effect of number of training points per degree of freedom in implementations of autonomic closure with $M/N \leq 1$ (blue) and $M/N \gg 1$  (red); (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variation in (11a,b) with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$ for subgrid production support-density fields.}
 	\label{F:9}
-	\end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -370,7 +366,7 @@ As noted in \Cref{sec:IIB}, both the number of training points and their relativ
 %
 \begin{figure}
 	\ContinuedFloat
-	\caption{First-order vs second-order implementations. Typical comparison of  true fields (left) and autonomic closure, case 1a (right), showing (a) normal subgrid stresses, (b) shear subgrid stress, and (c) subgrid production $P(\mathbf{x},t)$}
+	\caption{First-order vs second-order implementations. Typical comparison of  true fields (left) and autonomic closure, case 1b (right), showing (a) normal subgrid stresses, (b) shear subgrid stress, and (c) subgrid production $P(\mathbf{x},t)$}
 	\label{F:CL18}
 \end{figure}
 %%%%%%%%%%%%%%%%%
@@ -430,7 +426,7 @@ For cases in \Cref{tab:1} that produce $\langle P^F \rangle/\varepsilon \geq 1$,
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Homogeneous Shear Turbulence (HST) Apriori Test Results}
+\section{Homogeneous Shear Turbulence (HST) \textit{A priori} Test Results}
 \label{sec:IVHST}
 
 Test results for the homogeneous isotropic turbulence (HIT) indicate that the autonomic closure is performs better than traditional, prescribed models.  Since prescribed models are built upon physics-based modeling approaches, they are restricted to a limited set of turbulence. The governing equations for homogeneous shear turbulence (HST) and wall-bounded flows are modified using additional sets of equations and parameters. Similarly, the LES models are tuned for shear and wall-bounded flows. 
@@ -558,7 +554,7 @@ Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid product
 \begin{figure}
 	\begin{center}
 	\includegraphics[width=\maxwidth{6in}]{Fig11.pdf}
-	\caption{Comparison of probability densities for subgrid stress component fields $\tau_{ij}(\mathbf{x},t)$ from $a priori$ tests of autonomic closure, showing resulting distributions for true subgrid stress fields (black) and from recommended implementation (Case 3a) of autonomic closure (red).}
+	\caption{Comparison of probability densities for subgrid stress component fields $\tau_{ij}(\mathbf{x},t)$ from \textit{a priori} tests of autonomic closure, showing resulting distributions for true subgrid stress fields (black) and from recommended implementation (Case 3a) of autonomic closure (red).}
 	\label{F:11}
 	\end{center}
 \end{figure}
@@ -571,7 +567,7 @@ Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid product
 \begin{figure}
 	\begin{center}
 	\includegraphics[width=\maxwidth{4in}]{Fig12.pdf}
-	\caption{Comparison of probability densities for subgrid production field $P(\mathbf{x},t)$ from $a priori$ tests of autonomic closure, showing results for true subgrid production fields (black) and from recommended implementation (Case 3a) of autonomic closure (red).}
+	\caption{Comparison of probability densities for subgrid production field $P(\mathbf{x},t)$ from \textit{a priori} tests of autonomic closure, showing results for true subgrid production fields (black) and from recommended implementation (Case 3a) of autonomic closure (red).}
 	\label{F:12}
 	\end{center}
 \end{figure}
@@ -581,7 +577,7 @@ Typical subgrid stress fields  $\tau_{ij}^{F}(\mathbf{x},t)$ and subgrid product
 
 Moreover, \Cref{tab:1} shows the average subgrid production from Case 3a to be $\langle P^F \rangle \approx 1.08 \varepsilon$, indicating that this implementation transfers energy out of the resolved scales at a net average rate just slightly higher than the true average subgrid dissipation rate $\varepsilon$. As a result, this implementation satisfies the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could negatively impact fidelity when implemented in a large eddy simulation.
 
-Based on the average subgrid production rate in \Cref{tab:1} and on the statistical and structural comparisons of  $\tau_{ij}^{F}(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  with  $\tau_{ij}(\mathbf{x},t)$ and  $P(\mathbf{x},t)$ in \Crefrange{F:6}{F:12}, the recommended implementation of autonomic closure (Case 3a) satisfies the criteria noted in \Cref{sec:IB} for any subgrid closure to be accurate across essentially all resolved scales and to potentially provide computational stability in a simulation. This implementation of autonomic closure is accurate and efficient enough for practical use in large eddy simulations, allowing future $a posteriori$ tests to assess its stability when used in an LES code.
+Based on the average subgrid production rate in \Cref{tab:1} and on the statistical and structural comparisons of  $\tau_{ij}^{F}(\mathbf{x},t)$ and $P^{F}(\mathbf{x},t)$  with  $\tau_{ij}(\mathbf{x},t)$ and  $P(\mathbf{x},t)$ in \Crefrange{F:6}{F:12}, the recommended implementation of autonomic closure (Case 3a) satisfies the criteria noted in \Cref{sec:IB} for any subgrid closure to be accurate across essentially all resolved scales and to potentially provide computational stability in a simulation. This implementation of autonomic closure is accurate and efficient enough for practical use in large eddy simulations, allowing future \textit{a posteriori} tests to assess its stability when used in an LES code.
 
 
 

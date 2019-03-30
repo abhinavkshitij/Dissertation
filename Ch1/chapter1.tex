@@ -59,8 +59,35 @@ Large eddy simulation (LES) is being increasingly applied to complex flows \cite
 Each physical process introduces governing equations, such as equations for conservation of mass, momentum, energy, and scalars, expressed as a combination of linear and nonlinear terms in the velocity field  $\mathbf{u}(\mathbf{x},t)$ and various scalar fields $\varphi(\mathbf{x},t)$. Due to the spatial filtering inherent in LES, each nonlinear term in these equations creates an associated subgrid term when the equations are written in the corresponding resolved fields $\widetilde{\mathbf{u}}(\mathbf{x},t)$ and $\widetilde{\varphi}(\mathbf{x},t)$. Each of these subgrid terms must be related to the resolved fields to obtain a closed set of equations.  Closure of subgrid terms has traditionally been done by means of prescribed subgrid models \cite{\prescribedsubgrid} that typically involve substantial \textit{ad hoc} treatments. Errors introduced by these models can be important contributors to the overall error in results from large eddy simulations \cite{\LES}. For this reason, developing a general method that provides accurate subgrid closures for large eddy simulations has been a central focus area of turbulence research over the past several decades. 
 
 We recently used the results of Smith (1971) to obtain the most general representation of the symmetric subgrid stress tensor $\tau_{ij}$  in terms of the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$ and rank-two products up to second order of their gradients $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. In particular, Smith’s framework guarantees that the resulting tensor polynomial representation satisfies the rank, symmetry, rotation, and reflection properties of the stress tensor $\tau_{ij}$  – essential for any such representation to be strictly valid.  Moreover, Smith’s formulation was shown by Pennisi and Trovato (1987) to be minimal, thus there is no smaller number of symmetric basis tensors that can form a complete polynomial representation of $\tau_{ij}$.
+%
+%    EQUATION   %  
+%%%%%%%%%%%%%%%%%
+\begin{subequations}
+\label{E:cons}
+\begin{align}
+	&\frac{\partial \widetilde{u}_i }{\partial x_i}  =  0 \\
+	%
+	&\frac{\partial \widetilde{u}_i }{\partial t} 
+	+\frac{\partial}{\partial x_j} \widetilde{u_i} \widetilde{u_j}
+	= - \frac{1}{\rho} \frac{\partial \widetilde{p}}{\partial x_i}  
+	+ \nu \frac{\partial^2 \widetilde{u_i}}{\partial x_j \partial x_j }
+	- \frac{\partial}{\partial x_j} 
+	\big[ \widetilde{u_iu_j} - \widetilde{u_i}\widetilde{u_j} \big]\\
+	%
+	&\frac{\partial \widetilde{\varphi} }{\partial t} 
+	+\frac{\partial}{\partial x_j} \widetilde{u_j} \widetilde{\varphi}
+	= D_{\varphi} \frac{\partial^2 \widetilde{\varphi}}{\partial x_j \partial x_j }
+	- \frac{\partial}{\partial x_j} 
+	\big[ \widetilde{u_i \varphi} - \widetilde{u_i}\widetilde{\varphi} \big]
+	%
+\end{align}
+\end{subequations}
+%%%%%%%%%%%%%%%%%
+%
+%    
 
 The resulting representation, while complete and minimal, is computationally expensive to evaluate.  It consists of 1570 tensor terms that each involve products up to fourth order in the underlying rank-two tensors $\mathbf{M}_i$ and $\mathbf{W}_p$, each of which in turn involve products up to second order in $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Since the strain and rotation rate tensors $\mathbf{S}$ and $\mathbf{R}$, and gradients $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$, are linear in the components of the velocities $\mathbf{u}_m$  at the $m = 1, 2, \,\dots\, , P = 27$ points on the local  stencil, each term in this frame-invariant representation ultimately involves products up to $eighth$ order in these velocity components.  
+
 
 One might suspect that some of the many resulting velocity component products appearing in each of the 1570 tensor bases may be the same. Leaving them grouped as they appear in this 1570-term tensor polynomial form involves the smallest number of coefficients of any complete frame-invariant symmetric tensor representation. However, that may be less computationally efficient than if these repeated velocity component products were instead grouped together in an equivalent series having more coefficients but involving far fewer arithmetic operations to evaluate all components of all the basis tensors. However, due to the enormous number of such repeated velocity component products in this tensor polynomial, identifying such alternate groupings “by hand” is completely impractical, and even our efforts to use symbolic mathematics software to identify repeated velocity component products have not led to success.
 
@@ -68,6 +95,6 @@ Alternatively, it may be possible to use the results of Smith (1971) to obtain a
 
 In fact, as we will see, this $\tau_{ij}$ representation in terms of tensor bases formed directly from the $\mathbf{u}_m$  will be very similar to the original \textit{ad hoc}  series we began with.  However, while the original  series representation was not frame invariant, this new representation will be. Moreover, our original \textit{ad hoc} series was arbitrarily truncated after second-order products in the velocity components, but in this new representation we will see that in any valid representation of $\tau_{ij}$  in terms of $\mathbf{u}_m$ there cannot be any velocity component products of order higher than two. Thus in this new representation no truncation is needed, even while preserving the completeness of the tensor representation.
 
-We may anticipate that the resulting new polynomial in the basis tensors formed from the   will have more terms than does our recent 1570-term polynomial in the basis tensors formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Yet this new polynomial may nevertheless be more computationally efficient, since each component of its basis tensors involve only a simple second-order velocity component product, and we are guaranteed that there are no repeated products in this representation. 
+ We may anticipate that the resulting new polynomial in the basis tensors formed from the   will have more terms than does our recent 1570-term polynomial in the basis tensors formed from $\mathbf{S}$, $\mathbf{R}$, $\mathbf{\nabla S}$ and $\mathbf{\nabla R}$. Yet this new polynomial may nevertheless be more computationally efficient, since each component of its basis tensors involve only a simple second-order velocity component product, and we are guaranteed that there are no repeated products in this representation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -213,7 +213,7 @@ computational timings in frame-invariant implementations scale with \Cref{E:12}.
 
 % 
 % Performance of Smith-UC [N=28]
-\Cref{F:Smith_UC,F:Smith_UC_P} 
+\Cref{F:Smith_UCa,F:Smith_UC_P} 
 indicate that Smith-UC, 
 	with 28 degrees of freedom, 
 computes the subgrid stress $\tau_{ij}(\mathbf{x},t)$ 
@@ -232,7 +232,7 @@ making it a viable choice in forward runs.
 % Performance of Smith-UN [N=379]
 %
 % Second-order terms provide marginal improvement
-\Cref{F:Smith_UC,F:Smith_UC_P} also show that having an additional set of 351 non-linear, second-order velocity product terms in Smith-UN do not appear to significantly improve accuracy, despite having greater number of degrees of freedom.
+\Cref{F:Smith_UCa,F:Smith_UC_P} also show that having an additional set of 351 non-linear, second-order velocity product terms in Smith-UN do not appear to significantly improve accuracy, despite having greater number of degrees of freedom.
 %
 % Redundancy
 While these rank-1 tensor representations are complete and minimal, the effective number of degrees of freedom can be significantly lower than the total number of terms. 
@@ -286,7 +286,7 @@ Smith-UC is as accurate as Smith-UN, but a computationally efficient implementat
 \begin{figure}
 	\centering \hspace{1.5cm}
 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_11-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{11}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UC}
+	\subcaption{Comparison of (a) true stress fields $\tau_{11}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCa}
 \end{figure}
 %
 \begin{figure}
@@ -346,11 +346,10 @@ Smith-UC is as accurate as Smith-UN, but a computationally efficient implementat
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-	\begin{center} 
-	\includegraphics[width=\maxwidth{5in}]{PDF_tauP.pdf}
+	\centering \hspace{-1.75cm}
+	\includegraphics[width=\maxwidth{6.5in}]{PDF_tauP.pdf}
 	\caption{Comparison of PDFs for (a) stress field $\tau_{12}$, and (b) production field $P$}
 	\label{F:Smith_PDF}
-	\end{center}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
@@ -413,8 +412,9 @@ It is for this reason that the limiting case of the Dynamic Smagorinsky implemen
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
+\centering \hspace{-1.0cm}
 	\begin{center} \hspace{1.75cm}
-	\includegraphics[width=\maxwidth{5in}]{Smith20_tau_21.eps}
+	\includegraphics[width=\maxwidth{6.5in}]{Smith20_tau_21.eps}
 	\caption{Comparison of (a) true stress fields $\tau_{12}$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
 	\label{F:Smith20_tau}
 	\end{center}

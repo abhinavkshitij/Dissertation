@@ -40,6 +40,9 @@
                                         %   middle of the document
 \usepackage{calc}					              % Calculate text widths; used in page layout 
                                         %   changes
+%\usepackage{amsmath}
+\usepackage{pdfsync}
+\synctex=1                                        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title page, input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -723,7 +726,7 @@
               isbn=false, %             % Don't print ISBN numbers 
               url=true,                 % Print URLs          
               sorting=none,
-              maxbibnames=4, minbibnames=4, 
+              maxbibnames=5, minbibnames=4, 
               hyperref]%           
               {biblatex}                %~Other possibilities include: 'biblatex', 
                                         % 'biblatex-apa',and 'biblatex-mla'  
@@ -755,7 +758,10 @@
               justification=justified, 
               labelsep=period]%
               {caption}
-\usepackage{subcaption}
+\usepackage[  margin=15pt, 
+              justification=justified]%
+              {subcaption}              
+%\usepackage{subcaption}
 %\captiondelim{. }                       %~Use period (.) after caption number instead of 
                                         %   colon (:). Change according to style guide. 
 % \captionstyle[\centered]%              % Set justifcation for [one line captions] 
