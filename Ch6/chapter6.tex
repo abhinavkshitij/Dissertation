@@ -22,67 +22,69 @@
 
 From the preceding sections, the most accurate and efficient implementations of autonomic closure are those based on relatively local, second-order, velocity-only, colocated formulations. Among these, Case 3a was seen in \Crefrange{F:6}{F:12} and \Cref{tab:1} to give the best results for subgrid stress fields $\tau_{ij}(\mathbf{x},t)$  and subgrid production fields $P(\mathbf{x},t) \equiv -\tau_{ij}\widetilde{S}_{ij}$  across essentially all resolved scales. We now compare its performance with that of the dynamic Smagorinsky model \cite{\DSmagtwo} and the Bardina scale similarity model \cite{\Bardina}. The former is the most widely used subgrid model for $\tau_{ij}(\mathbf{x},t)$  in LES, and the latter is the basis for various mixed models \cite{\mixed} in which it is typically combined with the Smagorinsky model. 
 
+\newpage
+
 %
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau11.eps}}
-	\subcaption{Typical subgrid stress fields $\tau_{11}(\mathbf{x},t)$.} \label{F:13a}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau11.eps}}
+	\subcaption{Typical subgrid stress fields $\tau_{11}(\mathbf{x},t)$.} \label{F:13a1}
 \end{figure}
 %
 \begin{figure}
 	\ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau12.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau12.eps}}
 	\subcaption{Typical subgrid stress fields $\tau_{12}(\mathbf{x},t)$.} \label{F:13a2}
 \end{figure}
 %
 \begin{figure}
 \ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau13.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau13.eps}}
 	\subcaption{Typical subgrid stress fields $\tau_{13}(\mathbf{x},t)$.} \label{F:13a3}
 \end{figure}
 %
 \begin{figure}
 \ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau22.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau22.eps}}
 	\subcaption{Typical subgrid stress fields $\tau_{22}(\mathbf{x},t)$.} \label{F:13a4}
 \end{figure}
 %
 \begin{figure}
 \ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau23.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau23.eps}}
 	\subcaption{Typical subgrid stress fields $\tau_{23}(\mathbf{x},t)$.} \label{F:13a5}
 \end{figure}
 %
 \begin{figure}
 \ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_tau33.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_tau33.eps}}
 	\subcaption{Typical subgrid stress fields $\tau_{33}(\mathbf{x},t)$.} \label{F:13a6}
 \end{figure}
 %
 \begin{figure}
 	\ContinuedFloat
 	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=5in]{y43/Fig13_P.eps}}
+	\subfloat{\includegraphics[width=4.5in]{y212/Fig13_P.eps}}
 	\subcaption{Corresponding subgrid production fields $P(\mathbf{x},t)$.}\label{F:13b}
 \end{figure}
 %
 \begin{figure}
 	\ContinuedFloat
-	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:13a}{F:13a6}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:13b}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from dynamic Smagorinsky (DS) model, and (d) results from Bardina scale-similarity (BD) model; all are for same scale ratio $\alpha \equiv \Delta_{\Gamma} / \widetilde{\Delta} = 2$.}
+	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:13a1}{F:13a6}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:13b}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from dynamic Smagorinsky (DS) model, and (d) results from Bardina scale-similarity (BD) model; all are for same scale ratio $\alpha \equiv \Delta_{\Gamma} / \widetilde{\Delta} = 2$.}
 	\label{F:13}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
 %
 
-
+\clearpage
 
 \Cref{F:13} shows typical results comparing the true subgrid stress and production fields $\tau_{ij}(\mathbf{x},t)$  and  $P(\mathbf{x},t)$ with  $\tau_{ij}^{F}(\mathbf{x},t)$  and  $P^{F}(\mathbf{x},t)$   from this implementation of autonomic closure, and with  $\tau_{ij}^{DS}(\mathbf{x},t)$  and  $P^{DS}(\mathbf{x},t)$   from the dynamic Smagorinsky (DS) model and   $\tau_{ij}^{BD}(\mathbf{x},t)$  and  $P^{BD}(\mathbf{x},t)$  from the Bardina scale similarity (BD) model. All results are for the same spectrally sharp LES-scale and test-scale filters and the same test-to-LES filter scale ratio $\alpha \equiv \widehat{\Delta}/ \widetilde{\Delta} = 2$  as used throughout. It is apparent in \Cref{F:13} that the results from autonomic closure compare with the true subgrid stress and production fields far better than do the results from either implementation of these two traditional closure models. While the Bardina scale similarity model produces stress fields  $\tau_{ij}^{BD}(\mathbf{x},t)$  that show some of the detailed features in the true $\tau_{ij}(\mathbf{x},t)$ fields, when contracted with the resolved strain rate tensor in (\ref{E:4}) the resulting subgrid production field $P^{BD}(\mathbf{x},t)$ compares relatively poorly with the true production field $P(\mathbf{x},t)$. In comparing subgrid production fields in \Cref{F:13}, it is particularly noteworthy that the locations, sizes, and shapes of regions in which large magnitudes of subgrid production are clustered in $P^{F}(\mathbf{x},t)$  from autonomic closure agree far better with those in the true  $P(\mathbf{x},t)$ field than do corresponding results from either of the traditional models. 
 

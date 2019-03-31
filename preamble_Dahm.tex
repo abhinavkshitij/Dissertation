@@ -41,8 +41,10 @@
 \usepackage{calc}					              % Calculate text widths; used in page layout 
                                         %   changes
 %\usepackage{amsmath}
-\usepackage{pdfsync}
-\synctex=1                                        
+\usepackage{pdfsync}                    % Sync pdf with Skim 
+\synctex=1      
+
+\usepackage{url}                                  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title page, input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -324,7 +326,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Paragraph formatting
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\sloppybottom                          % Reduce the chances of widows
+\sloppybottom                          % Reduce the chances of widows
 \raggedbottom                           % Loosens vertical spacing requirements, so 
                                         %   \sloppybottom doesn't make pages look bad; 
                                         %   it also prevents large gaps in the middle of
@@ -343,7 +345,7 @@
   {List of Figures}
 
 %%% Depth %%%
-\settocdepth{subparagraph}              % Include 5 levels deep (all levels) in TOC
+\settocdepth{subsubsection}              % Include 5 levels deep (all levels) in TOC
 
 %%% Fonts %%%
 \makeatletter% 

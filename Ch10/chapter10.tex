@@ -172,17 +172,14 @@ computational timings in frame-invariant implementations scale with \Cref{E:12}.
 %%%%%%%%%%%%%%%%%
 %
 %         
-
-
- 
-
-
+%
 %
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
 	\begin{center} 
-	\includegraphics[width=\maxwidth{4in}]{Scaling2.png}
+	 \includegraphics[width=\maxwidth{6in}]{timings.pdf}
+%	\includegraphics[width=4in]{timings.pdf}
 	\caption{Scaled timings of frame-invariant implementations}
 	\label{F:comp_time}
 	\end{center}
@@ -190,12 +187,8 @@ computational timings in frame-invariant implementations scale with \Cref{E:12}.
 %%%%%%%%%%%%%%%%%
 %
 %
-
-
-
-
-
-
+%
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Performance of Frame-Invariant Series Implementations} 
 \label{sec:10B}
@@ -280,65 +273,65 @@ Smith-UC is as accurate as Smith-UN, but a computationally efficient implementat
 % %
 % %
 
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_11-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{11}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCa}
-\end{figure}
-%
-\begin{figure}
-	\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_12-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{12}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCb}
-\end{figure}
-%
-\begin{figure}
-\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_13-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{13}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCc}
-\end{figure}
-%
-\begin{figure}
-\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_22-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{22}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCd}
-\end{figure}
-%
-\begin{figure}
-\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_23-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{23}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCe}
-\end{figure}
-%
-\begin{figure}
-\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_33-03.eps}}
-	\subcaption{Comparison of (a) true stress fields $\tau_{33}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCf}
-\end{figure}
-%
-\begin{figure}
-	\ContinuedFloat
-	\centering \hspace{1.5cm}
-	\subfloat{\includegraphics[width=4in]{Smith_UC_P_y_43_12-03.eps}}
-	\subcaption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN.}\label{F:Smith_UC_P}
-\end{figure}
-%
-\begin{figure}
-	\ContinuedFloat
-	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:Smith_UC}{F:Smith_UCf}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:Smith_UC_P}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from Smith-UC, and (d) results from Smith-UN model.}
-	\label{F:Smith_UC}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_11-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{11}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCa}
+% \end{figure}
+% %
+% \begin{figure}
+% 	\ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_12-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{12}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCb}
+% \end{figure}
+% %
+% \begin{figure}
+% \ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_13-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{13}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCc}
+% \end{figure}
+% %
+% \begin{figure}
+% \ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_22-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{22}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCd}
+% \end{figure}
+% %
+% \begin{figure}
+% \ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_23-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{23}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCe}
+% \end{figure}
+% %
+% \begin{figure}
+% \ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_UN_y_43_33-03.eps}}
+% 	\subcaption{Comparison of (a) true stress fields $\tau_{33}(\mathbf{x},t)$ and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN} \label{F:Smith_UCf}
+% \end{figure}
+% %
+% \begin{figure}
+% 	\ContinuedFloat
+% 	\centering \hspace{1.5cm}
+% 	\subfloat{\includegraphics[width=4in]{Smith_UC_P_y_43_12-03.eps}}
+% 	\subcaption{Comparison of (a) true production fields and those computed by (b) autonomic closure, (c) Smith-UC and (d) Smith-UN.}\label{F:Smith_UC_P}
+% \end{figure}
+% %
+% \begin{figure}
+% 	\ContinuedFloat
+% 	\caption{Typical comparison of autonomic closure and traditional prescribed closure models, showing (\Crefrange{F:Smith_UC}{F:Smith_UCf}) typical subgrid stress $\tau_{ij}(\mathbf{x},t)$ and (\Cref{F:Smith_UC_P}) subgrid production $P(\mathbf{x},t)$; (a) true fields, (b) results from autonomic closure (Case 3a), (c) results from Smith-UC, and (d) results from Smith-UN model.}
+% 	\label{F:Smith_UC}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 
 
@@ -406,38 +399,73 @@ It is for this reason that the limiting case of the Dynamic Smagorinsky implemen
 % - Such tensor polynomial representations can be better represented with a large-sized bounding box, since strain rates and rotation rates that are determined by central differencing suffer from resolution and aliasing issues.
 
 
-
-
 %
 %    FIGURE     % 
 %%%%%%%%%%%%%%%%%
 \begin{figure}
-\centering \hspace{-1.0cm}
-	\begin{center} \hspace{1.75cm}
-	\includegraphics[width=\maxwidth{6.5in}]{Smith20_tau_21.eps}
-	\caption{Comparison of (a) true stress fields $\tau_{12}$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
-	\label{F:Smith20_tau}
-	\end{center}
+\centering %\hspace{-1.0cm}
+	\subfloat{\includegraphics[width=\maxwidth{4.8in}]{tau_all4x211.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{11}$ and those computed by (b) CL24, (c) Smith-UN, (d) Smith-UC, (e) Smith-20, (f) Pope-11, (g) ASU-8, and (h) Smith-5.}
+	\label{F:Smith20_all_11}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure} \ContinuedFloat
+\centering %\hspace{-1.0cm}
+	\subfloat{\includegraphics[width=\maxwidth{4.8in}]{tau_all4x212.eps}}
+	\subcaption{Comparison of (a) true stress fields $\tau_{12}$ and those computed by (b) CL24, (c) Smith-UN, (d) Smith-UC, (e) Smith-20, (f) Pope-11, (g) ASU-8, and (h) Smith-5.}
+	\label{F:Smith20_all_12}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure} \ContinuedFloat
+\centering %\hspace{-1.0cm}
+	\subfloat{\includegraphics[width=\maxwidth{4.8in}]{P_all4x2.eps}}
+	\subcaption{Comparison of (a) true production fields and those computed by (b) CL24, (c) Smith-UN, (d) Smith-UC, (e) Smith-20, (f) Pope-11, (g) ASU-8, and (h) Smith-5.}
+	\label{F:Smith20_all_p}
 \end{figure}
 %%%%%%%%%%%%%%%%%
 %
 %
 
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% \centering \hspace{-1.0cm}
+% 	\begin{center} \hspace{1.75cm}
+% 	\includegraphics[width=\maxwidth{6.5in}]{Smith20_tau_21.eps}
+% 	\caption{Comparison of (a) true stress fields $\tau_{12}$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
+% 	\label{F:Smith20_tau}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\begin{center} \hspace{1.75cm}
-	\includegraphics[width=\maxwidth{5in}]{Smith20_P_aliased.eps}
-	\caption{Comparison of (a) true production fields $P$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
-	\label{F:Smith20_P}
-	\end{center}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
+
+% %
+% %    FIGURE     % 
+% %%%%%%%%%%%%%%%%%
+% \begin{figure}
+% 	\begin{center} \hspace{1.75cm}
+% 	\includegraphics[width=\maxwidth{5in}]{Smith20_P_aliased.eps}
+% 	\caption{Comparison of (a) true production fields $P$ and those computed by (b) Smith-UC, (c) Smith-5, (d) ASU-8, (e) Pope-11 and (f) Smith-20.}
+% 	\label{F:Smith20_P}
+% 	\end{center}
+% \end{figure}
+% %%%%%%%%%%%%%%%%%
+% %
+% %
 
 
 

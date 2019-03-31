@@ -69,6 +69,27 @@ As noted in \Cref{sec:IIB}, large bounding boxes allow for larger numbers $M$ of
 
 To understand the performance of local (small $n^3$) and nonlocal (large $n^3$) implementations of autonomic closure, \Cref{F:6} shows probability densities of a typical subgrid stress component  $\tau_{ij}$ and the subgrid production $P$, and the scale-dependent support-density metrics $M_1$ and $M_2$  comparing the accuracy in the support-densities of the subgrid production fields. The red curves show the performance of local implementations (Cases 3a vs 4a) and the blue curves are from nonlocal implementations (Cases 6a vs 6b). Cases 3a and 6a have the same number $M/N$  of training points per degree of freedom, as do Cases 4a and 6b, and all these cases are second-order velocity-only implementations, so these comparisons are indicative of the effects of local versus nonlocal implementations. 
 
+In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementations give more accurate results for the support on which large magnitudes of subgrid production are concentrated than do the nonlocal implementations. Support-density correlations $M_1$ for the local implementations are as high as $98\%$ and rms errors $M_2$  decrease to less than $2.3\%$  at the largest scale-ratio, while for the nonlocal implementations the correlations $M_1$  only reach $94\%$ and rms errors $M_2$  decrease only to $4\%$. The pdfs in  \Cref{F:6} show that, for the same $M/N$  value, the local implementations give better representation of  $\tau_{ij}$ and $P$, especially in the tails that correspond to large magnitudes, than do the corresponding nonlocal implementations. Moreover, note in \Cref{tab:1} that the computational cost is the same for Cases 3a and 6a, and for Cases 4a and 6b, since  $M/N$ is the same for each pair, as discussed in \Cref{sec:IVA}. We conclude that, all other factors being the same, local implementations are more accurate than nonlocal ones. 
+
+%
+%    FIGURE     % 
+%%%%%%%%%%%%%%%%%
+\begin{figure}
+	\centering \hspace{-1.0cm}
+	\includegraphics[width=\maxwidth{6.5in}]{Fig6.pdf}
+	\caption{ Comparison of nonlocal (blue) and local (red) implementations of autonomic closure; (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variations with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$ for subgrid production field. }
+	\label{F:6}
+\end{figure}
+%%%%%%%%%%%%%%%%%
+%
+%
+
+\clearpage
+\Cref{F:6} shows relatively little difference in accuracy between the two local implementations (Cases 3a and 4a) or between the two nonlocal implementations (Cases 6a and 6b). Since each pair differs primarily in its  $M/N$ value, there apparently is little benefit in autonomic closure from increasing the number of training points per degree of freedom from  $M/N = 4$ to  $M/N = 8$. Additionally, the greater separation  $(V_B/M)^{1/3}$ between training points in the nonlocal implementations (Cases 6a and 6b) compared to that in the local implementations also appears to provide little benefit. These effects will be examined in greater detail in \Cref{sec:IVE}.
+
+
+
+
 
 %
 %    FIGURE     % 
@@ -104,8 +125,7 @@ To understand the performance of local (small $n^3$) and nonlocal (large $n^3$) 
 %%%%%%%%%%%%%%%%%
 %
 %
-
-In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementations give more accurate results for the support on which large magnitudes of subgrid production are concentrated than do the nonlocal implementations. Support-density correlations $M_1$ for the local implementations are as high as $98\%$ and rms errors $M_2$  decrease to less than $2.3\%$  at the largest scale-ratio, while for the nonlocal implementations the correlations $M_1$  only reach $94\%$ and rms errors $M_2$  decrease only to $4\%$. The pdfs in  \Cref{F:6} show that, for the same $M/N$  value, the local implementations give better representation of  $\tau_{ij}$ and $P$, especially in the tails that correspond to large magnitudes, than do the corresponding nonlocal implementations. Moreover, note in \Cref{tab:1} that the computational cost is the same for Cases 3a and 6a, and for Cases 4a and 6b, since  $M/N$ is the same for each pair, as discussed in \Cref{sec:IVA}. We conclude that, all other factors being the same, local implementations are more accurate than nonlocal ones. 
+%\clearpage
 
 %
 %    FIGURE     % 
@@ -142,20 +162,6 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 %
 %
 
-\Cref{F:6} shows relatively little difference in accuracy between the two local implementations (Cases 3a and 4a) or between the two nonlocal implementations (Cases 6a and 6b). Since each pair differs primarily in its  $M/N$ value, there apparently is little benefit in autonomic closure from increasing the number of training points per degree of freedom from  $M/N = 4$ to  $M/N = 8$. Additionally, the greater separation  $(V_B/M)^{1/3}$ between training points in the nonlocal implementations (Cases 6a and 6b) compared to that in the local implementations also appears to provide little benefit. These effects will be examined in greater detail in \Cref{sec:IVE}.
-
-%
-%    FIGURE     % 
-%%%%%%%%%%%%%%%%%
-\begin{figure}
-	\centering \hspace{-1.0cm}
-	\includegraphics[width=\maxwidth{6.5in}]{Fig6.pdf}
-	\caption{ Comparison of nonlocal (blue) and local (red) implementations of autonomic closure; (top) pdfs of (left) typical subgrid stress component $\tau_{12}$ and (right) subgrid production $P$ versus (black) exact results, and (bottom) $M_1$ and $M_2$ variations with scale ratio $\Delta_{\Gamma}/\widetilde{\Delta}$ for subgrid production field. }
-	\label{F:6}
-\end{figure}
-%%%%%%%%%%%%%%%%%
-%
-%
 
 
 %
@@ -193,7 +199,7 @@ In \Cref{F:6} it is apparent in both $M_1$  and $M_2$  that the local implementa
 %
 %
 
-
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Velocity-pressure vs Velocity-only Implementations}
 \label{sec:IVC}
@@ -383,6 +389,8 @@ Since the number $M$ of training points does not have a primary effect on the re
 
 The pdfs of subgrid production in Figs.\ref{F:6}b, \ref{F:7}b, \ref{F:8}b, and \ref{F:9}b show that the $P^F(\mathbf{x},t)$  fields contain large positive and negative values, which combine to produce the average subgrid production rate $\langle P^F \rangle$. For each implementation of autonomic closure in \Cref{tab:1}, the resulting  subgrid production fields $P^F(\mathbf{x},t)$  were averaged to obtain $\langle P^F \rangle$, and the corresponding true subgrid production fields $P(\mathbf{x},t)$   were averaged to obtain $\langle P \rangle \equiv \varepsilon$. The resulting ratio of autonomic-to-true average subgrid production $\langle P^F \rangle\ \varepsilon$  for each implementation is shown in \Cref{tab:1}. Since $\varepsilon > 0$ , when  $\langle P^F\rangle/ \varepsilon > 0$  then $\langle P^F \rangle > 0$, which corresponds to a net average rate of energy transfer from the resolved scales into the subgrid scales.  This can be seen in \Cref{tab:1} to be the case for all these implementations of autonomic closure. 
 
+For cases in \Cref{tab:1} that produce $\langle P^F \rangle/\varepsilon \geq 1$, the closure implementation on average transfers energy out of the resolved scales at a rate equal to or higher than the true subgrid dissipation rate $\varepsilon$. As noted in \Cref{sec:IB} this is necessary (but not sufficient) for any closure to maintain computational stability.  Most implementations of autonomic closure can be seen in \Cref{tab:1} to meet this requirement, with the most obvious exceptions being Cases 7a,b and 8a,b, which all have very small bounding boxes that cause $M/N \leq 1$. Those cases still produce net transfer of energy out of the resolved scales, but at a rate that is far lower than the true subgrid dissipation rate $\varepsilon$. Implementations that produce  $\langle P^F \rangle/\varepsilon$  slightly larger than one are desired since they produce net average transfer of energy out of the resolved scales at a rate just slightly higher than the true subgrid dissipation rate $\varepsilon$. As a result such implementations meet the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could lead to reduced fidelity in a simulation. 
+
 
 
 %
@@ -419,11 +427,6 @@ The pdfs of subgrid production in Figs.\ref{F:6}b, \ref{F:7}b, \ref{F:8}b, and \
 %%%%%%%%%%%%%%%%%
 %
 %
-
-
-For cases in \Cref{tab:1} that produce $\langle P^F \rangle/\varepsilon \geq 1$, the closure implementation on average transfers energy out of the resolved scales at a rate equal to or higher than the true subgrid dissipation rate $\varepsilon$. As noted in \Cref{sec:IB} this is necessary (but not sufficient) for any closure to maintain computational stability.  Most implementations of autonomic closure can be seen in \Cref{tab:1} to meet this requirement, with the most obvious exceptions being Cases 7a,b and 8a,b, which all have very small bounding boxes that cause $M/N \leq 1$. Those cases still produce net transfer of energy out of the resolved scales, but at a rate that is far lower than the true subgrid dissipation rate $\varepsilon$. Implementations that produce  $\langle P^F \rangle/\varepsilon$  slightly larger than one are desired since they produce net average transfer of energy out of the resolved scales at a rate just slightly higher than the true subgrid dissipation rate $\varepsilon$. As a result such implementations meet the minimum requirement for computational stability while avoiding an excessively large average subgrid production rate that could lead to reduced fidelity in a simulation. 
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Homogeneous Shear Turbulence (HST) \textit{A priori} Test Results}
